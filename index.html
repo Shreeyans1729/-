@@ -223,31 +223,27 @@
             display: none;
             max-width: 550px;
         }
-        .nicknames-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 16px;
-            padding: 0;
-            margin: 0 0 24px 0;
-            list-style: none;
-            justify-content: center;
+        .nicknames-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
         }
-        .nickname-pill {
-            background: linear-gradient(90deg, #8a2fff 0%, #2fffc0 100%);
+        .nicknames-table th, .nicknames-table td {
+            border: 1px solid #2fffc0;
+            padding: 8px 12px;
+            text-align: left;
             color: #fff;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 1.1em;
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 2px 8px #2fffc044;
-            margin-bottom: 4px;
-            margin-top: 4px;
-            letter-spacing: 1px;
-            font-weight: 600;
-            transition: background 0.25s;
         }
-        .nickname-pill:hover {
-            background: linear-gradient(90deg, #2fffc0 0%, #8a2fff 100%);
+        .nicknames-table th {
+            background: #2d084d;
+            color: #2fffc0;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .nicknames-table tr:nth-child(even) {
+            background: #212142;
+        }
+        .nicknames-table tr:nth-child(odd) {
+            background: #181828;
         }
         .nickname-note {
             color: #fff799;
@@ -267,8 +263,9 @@
                 padding: 20px 2vw 18px 2vw;
                 min-width: 0;
             }
-            .nicknames-list {
-                gap: 8px 8px;
+            .nicknames-table th, .nicknames-table td {
+                font-size: 0.97em;
+                padding: 6px 4px;
             }
         }
     </style>
@@ -331,39 +328,49 @@
     <!-- Nicknames Page (hidden by default) -->
     <div class="nicknames-page page-box" id="nicknamesPage" style="display:none;">
         <div class="nicknames-title">Bokchodiyaan 💀</div>
-        <ul class="nicknames-list">
-            <li class="nickname-pill">ajay</li>
-            <li class="nickname-pill">alian</li>
-            <li class="nickname-pill">anisur musna</li>
-            <li class="nickname-pill">arhan kallu</li>
-            <li class="nickname-pill">arjun kariyaa</li>
-            <li class="nickname-pill">ashif kallua</li>
-            <li class="nickname-pill">bakkar</li>
-            <li class="nickname-pill">gannu</li>
-            <li class="nickname-pill">hasan munna</li>
-            <li class="nickname-pill">ishan milk factory</li>
-            <li class="nickname-pill">kalwa</li>
-            <li class="nickname-pill">kallu</li>
-            <li class="nickname-pill">maugi</li>
-            <li class="nickname-pill">milk factory</li>
-            <li class="nickname-pill">musna</li>
-            <li class="nickname-pill">naitik rassian</li>
-            <li class="nickname-pill">om gannu</li>
-            <li class="nickname-pill">piyush chussar</li>
-            <li class="nickname-pill">prantik bargar</li>
-            <li class="nickname-pill">pranav pichha</li>
-            <li class="nickname-pill">raj deru</li>
-            <li class="nickname-pill">sahim</li>
-            <li class="nickname-pill">salman</li>
-            <li class="nickname-pill">satyam bauna</li>
-            <li class="nickname-pill">satyam tamatar</li>
-            <li class="nickname-pill">shaurya maugi</li>
-            <li class="nickname-pill">sonu kalwa</li>
-            <li class="nickname-pill">sudhanshu anda</li>
-            <li class="nickname-pill">sumit gulli</li>
-            <li class="nickname-pill">tamatar</li>
-            <li class="nickname-pill">yashwardhan gola</li>
-        </ul>
+        <table class="nicknames-table">
+            <thead>
+                <tr>
+                    <th>Nicknames</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>ajay</td></tr>
+                <tr><td>alian</td></tr>
+                <tr><td>anisur musna</td></tr>
+                <tr><td>arhan kallu</td></tr>
+                <tr><td>arjun kariyaa</td></tr>
+                <tr><td>ashif kallua</td></tr>
+                <tr><td>bakkar</td></tr>
+                <tr><td>gannu</td></tr>
+                <tr><td>hasan munna</td></tr>
+                <tr><td>ishan milk factory</td></tr>
+                <tr><td>kalwa</td></tr>
+                <tr><td>kallu</td></tr>
+                <tr><td>maugi</td></tr>
+                <tr><td>milk factory</td></tr>
+                <tr><td>musna</td></tr>
+                <tr><td>naitik rassian</td></tr>
+                <tr><td>naitik rassian</td></tr>
+                <tr><td>om gannu</td></tr>
+                <tr><td>piyush chussar</td></tr>
+                <tr><td>prantik bargar</td></tr>
+                <tr><td>pranav pichha</td></tr>
+                <tr><td>raj deru</td></tr>
+                <tr><td>rassian</td></tr>
+                <tr><td>sahim</td></tr>
+                <tr><td>salman</td></tr>
+                <tr><td>satyam bauna</td></tr>
+                <tr><td>satyam tamatar</td></tr>
+                <tr><td>satyam tamatar</td></tr>
+                <tr><td>shaurya maugi</td></tr>
+                <tr><td>sonu kalwa</td></tr>
+                <tr><td>sudhanshu anda</td></tr>
+                <tr><td>sumit gulli</td></tr>
+                <tr><td>tamatar</td></tr>
+                <tr><td>yashwardhan gola</td></tr>
+            </tbody>
+        </table>
         <div class="nickname-note">
             (If someone wants to add their name, please contact me. <span class="sorry-text">Also sorry for that 😅</span>)
         </div>
