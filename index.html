@@ -17,12 +17,12 @@
             font-family: 'Montserrat', sans-serif;
             overflow: hidden;
         }
-        .login-container, .success-box {
+        .page-box {
             background: rgba(30, 30, 50, 0.95);
             border-radius: 24px;
             box-shadow: 0 0 60px 10px #2fffc088, 0 0 0 2px #2fffc0;
             padding: 48px 32px 36px 32px;
-            max-width: 500px;
+            max-width: 550px;
             min-width: 340px;
             position: relative;
             z-index: 5;
@@ -32,13 +32,18 @@
             0% { box-shadow: 0 0 0 0 #2fffc000; transform: scale(0.95);}
             100% { box-shadow: 0 0 60px 10px #2fffc088, 0 0 0 2px #2fffc0; transform: scale(1);}
         }
-        .login-form h2 {
+        .login-form h2, .success-box h1, .nicknames-title {
             color: #fff;
             text-align: center;
             font-family: 'Orbitron', sans-serif;
             margin-bottom: 20px;
             letter-spacing: 2px;
             text-shadow: 0 0 15px #2fffc0, 0 0 2px #fff;
+        }
+        .nicknames-title {
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 16px;
         }
         .input-group {
             position: relative;
@@ -150,6 +155,7 @@
             font-size: 1.15rem;
             letter-spacing: 2px;
             background: #1c1c3d;
+            min-width: 120px;
         }
         .active-btn {
             color: #fff !important;
@@ -207,22 +213,69 @@
             font-weight: 600;
             text-shadow: 0 0 6px #181828, 0 0 2px #fff6;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.94);}
-            to { opacity: 1; transform: scale(1);}
+        .next-btn-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
         }
-        @media (max-width: 500px) {
-            .login-container, .success-box {
-                width: 90vw;
-                padding: 24px 8vw 18px 8vw;
+        /* Nicknames page */
+        .nicknames-page {
+            display: none;
+            max-width: 550px;
+        }
+        .nicknames-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            padding: 0;
+            margin: 0 0 24px 0;
+            list-style: none;
+            justify-content: center;
+        }
+        .nickname-pill {
+            background: linear-gradient(90deg, #8a2fff 0%, #2fffc0 100%);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 1.1em;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 2px 8px #2fffc044;
+            margin-bottom: 4px;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: background 0.25s;
+        }
+        .nickname-pill:hover {
+            background: linear-gradient(90deg, #2fffc0 0%, #8a2fff 100%);
+        }
+        .nickname-note {
+            color: #fff799;
+            font-size: 1.06em;
+            margin-top: 18px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .sorry-text {
+            color: #ed697e;
+            font-size: 1em;
+            font-style: italic;
+        }
+        @media (max-width: 600px) {
+            .page-box, .nicknames-page {
+                width: 96vw;
+                padding: 20px 2vw 18px 2vw;
                 min-width: 0;
+            }
+            .nicknames-list {
+                gap: 8px 8px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Login Form -->
-    <div class="login-container" id="loginContainer">
+    <div class="page-box" id="loginContainer">
         <form class="login-form" id="mainForm" autocomplete="off">
             <h2>NAAM</h2>
             <div class="input-group">
@@ -241,16 +294,18 @@
                 <textarea id="say" rows="3" required style="resize:vertical;width:100%;padding:12px;border-radius:8px;border:none;background:#181828;color:#fff;font-size:1rem;box-shadow:0 2px 12px #2fffc044;"></textarea>
             </div>
             <div class="say-error" id="sayError">Please say something!</div>
-            <button type="submit" class="neon-btn neon-submit" id="submitBtn" style="margin-top:22px;">
-                <span>THOKO!</span>
-            </button>
+            <div class="next-btn-box">
+                <button type="submit" class="neon-btn neon-submit" id="submitBtn" style="margin-top:8px;">
+                    <span>THOKO THOKO</span>
+                </button>
+            </div>
             <div class="no-db-warning">
                 <span>😆 No database here, so your data just vanishes like my motivation on Monday!</span>
             </div>
         </form>
     </div>
     <!-- Success Message (hidden by default) -->
-    <div class="success-box" id="successBox">
+    <div class="success-box page-box" id="successBox" style="display:none;">
         <span class="big-emoji">🎉</span>
         <h1>DOSTI YAARI EMOTIONS</h1>
         <ul>
@@ -265,7 +320,57 @@
             <li>9. Chal, koi ek plan banate hain — time, jagah fix karo!</li>
             <li>10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! ❤️</li>
         </ul>
-    
+        <div class="footer-msg">
+            😆 No database here, so your data just vanishes like my motivation on Monday!<br>
+            <span style="font-size:0.95em;">You can close this tab now. Have a great day!</span>
+        </div>
+        <div class="next-btn-box">
+            <button class="neon-btn neon-submit" id="toNicknamesBtn"><span>THOKO THOKO</span></button>
+        </div>
+    </div>
+    <!-- Nicknames Page (hidden by default) -->
+    <div class="nicknames-page page-box" id="nicknamesPage" style="display:none;">
+        <div class="nicknames-title">Bokchodiyaan 💀</div>
+        <ul class="nicknames-list">
+            <li class="nickname-pill">ajay</li>
+            <li class="nickname-pill">alian</li>
+            <li class="nickname-pill">anisur musna</li>
+            <li class="nickname-pill">arhan kallu</li>
+            <li class="nickname-pill">arjun kariyaa</li>
+            <li class="nickname-pill">ashif kallua</li>
+            <li class="nickname-pill">bakkar</li>
+            <li class="nickname-pill">gannu</li>
+            <li class="nickname-pill">hasan munna</li>
+            <li class="nickname-pill">ishan milk factory</li>
+            <li class="nickname-pill">kalwa</li>
+            <li class="nickname-pill">kallu</li>
+            <li class="nickname-pill">maugi</li>
+            <li class="nickname-pill">milk factory</li>
+            <li class="nickname-pill">musna</li>
+            <li class="nickname-pill">naitik rassian</li>
+            <li class="nickname-pill">om gannu</li>
+            <li class="nickname-pill">piyush chussar</li>
+            <li class="nickname-pill">prantik bargar</li>
+            <li class="nickname-pill">pranav pichha</li>
+            <li class="nickname-pill">raj deru</li>
+            <li class="nickname-pill">sahim</li>
+            <li class="nickname-pill">salman</li>
+            <li class="nickname-pill">satyam bauna</li>
+            <li class="nickname-pill">satyam tamatar</li>
+            <li class="nickname-pill">shaurya maugi</li>
+            <li class="nickname-pill">sonu kalwa</li>
+            <li class="nickname-pill">sudhanshu anda</li>
+            <li class="nickname-pill">sumit gulli</li>
+            <li class="nickname-pill">tamatar</li>
+            <li class="nickname-pill">yashwardhan gola</li>
+        </ul>
+        <div class="nickname-note">
+            (If someone wants to add their name, please contact me. <span class="sorry-text">Also sorry for that 😅</span>)
+        </div>
+        <div class="next-btn-box">
+            <button class="neon-btn neon-submit" id="finalBtn"><span>NEXT</span></button>
+        </div>
+    </div>
     <script>
         // Button selection logic for HAA/NAA
         const haaBtn = document.getElementById('haa');
@@ -286,19 +391,16 @@
             jindaInput.value = 'NAA';
             jindaError.style.display = 'none';
         });
-        // Prevent form submit unless all fields are filled (including JINDA selection)
+        // Form submit logic
         document.getElementById('mainForm').addEventListener('submit', function(e) {
             let valid = true;
-            // NAAM validation (native by required)
             const naam = document.getElementById('naam').value.trim();
-            // JINDA validation
             if (!jindaInput.value) {
                 jindaError.style.display = 'block';
                 valid = false;
             } else {
                 jindaError.style.display = 'none';
             }
-            // Say something validation
             if (!sayInput.value.trim()) {
                 sayError.style.display = 'block';
                 valid = false;
@@ -309,11 +411,20 @@
                 e.preventDefault();
                 return;
             }
-            // Hide form, show "success" message
+            // Hide login, show success
             document.getElementById('loginContainer').style.display = 'none';
-            const successBox = document.getElementById('successBox');
-            successBox.style.display = 'block';
-            successBox.style.animation = "fadeIn 0.9s cubic-bezier(.48,.04,.52,1.21)";
+            document.getElementById('successBox').style.display = 'block';
+            e.preventDefault();
+        });
+        // "THOKO THOKO" (to nicknames) page logic
+        document.getElementById('toNicknamesBtn').addEventListener('click', function(e) {
+            document.getElementById('successBox').style.display = 'none';
+            document.getElementById('nicknamesPage').style.display = 'block';
+            e.preventDefault();
+        });
+        // Final NEXT button (add any logic here, eg. alert or redirect or hide everything)
+        document.getElementById('finalBtn').addEventListener('click', function(e) {
+            alert('Aur kuch dikhana ho toh batao! 😄');
             e.preventDefault();
         });
     </script>
