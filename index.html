@@ -261,7 +261,7 @@
             font-style: italic;
         }
         /* Story page */
-        .story-page, .warden-page {
+        .story-page, .warden-page, .final-page {
             display: none;
             max-width: 700px;
             text-align: left;
@@ -291,7 +291,7 @@
             margin-top: 18px;
         }
         @media (max-width: 700px) {
-            .page-box, .nicknames-page, .story-page, .warden-page {
+            .page-box, .nicknames-page, .story-page, .warden-page, .final-page {
                 width: 98vw;
                 padding: 18px 2vw 16px 2vw;
                 min-width: 0;
@@ -322,7 +322,7 @@
             <div class="say-error" id="sayError">Please say something!</div>
             <div class="next-btn-box">
                 <button type="submit" class="neon-btn neon-submit" id="submitBtn" style="margin-top:8px;">
-                    <span>THOKO THOKO</span>
+                    <span>THOKO</span>
                 </button>
             </div>
             <div class="no-db-warning">
@@ -350,7 +350,7 @@
             <span style="font-size:0.95em;">You can close this tab now. Have a great day!</span>
         </div>
         <div class="next-btn-box">
-            <button class="neon-btn neon-submit" id="toNicknamesBtn"><span>THOKO THOKO</span></button>
+            <button class="neon-btn neon-submit" id="toNicknamesBtn"><span>THOKO ALSO</span></button>
         </div>
     </div>
     <!-- Nicknames Page (hidden by default) -->
@@ -411,7 +411,7 @@
             (If someone wants to add their name, please contact me. <span class="sorry-text">Also sorry for that 😅</span>)
         </div>
         <div class="next-btn-box">
-            <button class="neon-btn neon-submit" id="toStoryBtn"><span>NEXT</span></button>
+            <button class="neon-btn neon-submit" id="toStoryBtn"><span>PHIR SE THOKO</span></button>
         </div>
     </div>
     <!-- Story Page (hidden by default) -->
@@ -505,7 +505,7 @@
         </div>
         <!-- NEXT BUTTON SECTION (before warden story) -->
         <div class="next-btn-box">
-            <button class="neon-btn neon-submit" id="toWardenBtn"><span>NEXT</span></button>
+            <button class="neon-btn neon-submit" id="toWardenBtn"><span>THOKO NA RE</span></button>
         </div>
     </div>
     <!-- Warden Page (hidden by default) -->
@@ -518,6 +518,13 @@
             </div>
             <hr>
         </div>
+        <!-- NEW NEXT BUTTON BEFORE "Toh doston..." -->
+        <div class="next-btn-box">
+            <button class="neon-btn neon-submit" id="toFinalBtn"><span>THOKO</span></button>
+        </div>
+    </div>
+    <!-- Final Page (hidden by default) -->
+    <div class="final-page page-box" id="finalPage" style="display:none;">
         <div class="story-section">
             <b>Toh doston...</b><br>
             Ye thi hamari school life ki original web series –<br>
@@ -574,22 +581,28 @@
             document.getElementById('successBox').style.display = 'block';
             e.preventDefault();
         });
-        // "THOKO THOKO" (to nicknames) page logic
+        // "THOKO ALSO" (to nicknames) page logic
         document.getElementById('toNicknamesBtn').addEventListener('click', function(e) {
             document.getElementById('successBox').style.display = 'none';
             document.getElementById('nicknamesPage').style.display = 'block';
             e.preventDefault();
         });
-        // Nicknames NEXT to Story
+        // Nicknames PHIR SE THOKO to Story
         document.getElementById('toStoryBtn').addEventListener('click', function(e) {
             document.getElementById('nicknamesPage').style.display = 'none';
             document.getElementById('storyPage').style.display = 'block';
             e.preventDefault();
         });
-        // Story NEXT to Warden
+        // Story THOKO NA RE to Warden
         document.getElementById('toWardenBtn').addEventListener('click', function(e) {
             document.getElementById('storyPage').style.display = 'none';
             document.getElementById('wardenPage').style.display = 'block';
+            e.preventDefault();
+        });
+        // Warden THOKO to Final (Toh doston...)
+        document.getElementById('toFinalBtn').addEventListener('click', function(e) {
+            document.getElementById('wardenPage').style.display = 'none';
+            document.getElementById('finalPage').style.display = 'block';
             e.preventDefault();
         });
     </script>
