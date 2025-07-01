@@ -1,4 +1,4 @@
-The botton is not working please check it and rewrite the code <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
             overflow: auto;
         }
         .page-box {
-            background: rgba(30, 30, 50, 0.95);
+            background: rgba(30, 30, 50, 0.98);
             border-radius: 24px;
             box-shadow: 0 0 60px 10px #2fffc088, 0 0 0 2px #2fffc0;
             padding: 48px 32px 36px 32px;
@@ -184,6 +184,7 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
             text-align: left;
             color: #fff;
             max-width: 500px;
+            background: rgba(34, 34, 56, 0.99);
         }
         .success-box h1 {
             font-family: 'Orbitron', sans-serif;
@@ -223,6 +224,7 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
         .nicknames-page {
             display: none;
             max-width: 550px;
+            background: rgba(34, 34, 56, 0.99);
         }
         .nicknames-table {
             width: 100%;
@@ -259,11 +261,12 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
             font-style: italic;
         }
         /* Story page */
-        .story-page {
+        .story-page, .warden-page {
             display: none;
             max-width: 700px;
             text-align: left;
             color: #fff;
+            background: rgba(34, 34, 56, 0.99);
         }
         .story-section {
             margin-bottom: 24px;
@@ -284,8 +287,11 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
             border-bottom: 1px solid #2fffc0;
             margin: 20px 0 18px 0;
         }
+        .next-btn-box {
+            margin-top: 18px;
+        }
         @media (max-width: 700px) {
-            .page-box, .nicknames-page, .story-page {
+            .page-box, .nicknames-page, .story-page, .warden-page {
                 width: 98vw;
                 padding: 18px 2vw 16px 2vw;
                 min-width: 0;
@@ -341,7 +347,6 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
             <li>10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! ❤️</li>
         </ul>
         <div class="footer-msg">
-            
             <span style="font-size:0.95em;">You can close this tab now. Have a great day!</span>
         </div>
         <div class="next-btn-box">
@@ -498,11 +503,19 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
             (Thoda privacy maintain karna padta hai boss 😅)
             <hr>
         </div>
+        <!-- NEXT BUTTON SECTION (before warden story) -->
+        <div class="next-btn-box">
+            <button class="neon-btn neon-submit" id="toWardenBtn"><span>NEXT</span></button>
+        </div>
+    </div>
+    <!-- Warden Page (hidden by default) -->
+    <div class="warden-page page-box" id="wardenPage" style="display:none;">
         <div class="story-section">
-            <div class=" kuch hamare warden ke bare main">
+            <div class="kuch hamare warden ke bare main">
                 <b> Suru karte hai 3rd floor se</b><br>
                 ye floor aise bole toh<b>deepak sir</b> ke under aata hn.<br>jinka ek famous dailogue  <span class="teacher-dialogue"> "ek mukka denge na aur aaj tak ke sare batch ke bacche ka nam yad ho ya na par unka admission number pura acche se yad rkhna."</span>
                 <b> Phir aata hai 2nd floor</b><br>
+            </div>
             <hr>
         </div>
         <div class="story-section">
@@ -571,6 +584,12 @@ The botton is not working please check it and rewrite the code <!DOCTYPE html>
         document.getElementById('toStoryBtn').addEventListener('click', function(e) {
             document.getElementById('nicknamesPage').style.display = 'none';
             document.getElementById('storyPage').style.display = 'block';
+            e.preventDefault();
+        });
+        // Story NEXT to Warden
+        document.getElementById('toWardenBtn').addEventListener('click', function(e) {
+            document.getElementById('storyPage').style.display = 'none';
+            document.getElementById('wardenPage').style.display = 'block';
             e.preventDefault();
         });
     </script>
