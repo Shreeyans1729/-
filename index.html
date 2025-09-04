@@ -1,447 +1,549 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hi">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>F.R.I.E.N.D.S. — Teacher's Day</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<title>FRIENDS — Teacher's Day (Cinema Theme)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-dark:#070216;
-    --violet:#8a68ff;
-    --soft-pink:#ffb0dd;
-    --soft-cyan:#7ef0e6;
-    --card-bg: rgba(255,255,255,0.04);
-    --glass-border: rgba(255,255,255,0.06);
-    --radius:18px;
-    --maxw:980px;
+    --bg-1:#06030a;
+    --bg-2:#14061a;
+    --accent-1:#ff6fb5; /* pink */
+    --accent-2:#7bdff6; /* cyan */
+    --accent-3:#ffd58a; /* warm */
+    --card:#0f0b12;
+    --glass: rgba(255,255,255,0.03);
+    --text:#f3eef8;
+    --muted: rgba(255,255,255,0.55);
   }
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:'Montserrat',sans-serif;background:
-    radial-gradient(800px 500px at 10% 10%, rgba(138,104,255,0.06), transparent 5%),
-    radial-gradient(700px 460px at 90% 90%, rgba(255,176,221,0.06), transparent 6%),
-    linear-gradient(180deg,var(--bg-dark) 0%, #0a0220 100%);
-    color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden;
-  }
-
-  /* Aurora (soft moving color) */
-  .aurora{
-    position:fixed; inset:-20%; z-index:0; pointer-events:none; mix-blend-mode:screen; filter:blur(26px);
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2)); color:var(--text); font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased;}
+  a{color:inherit}
+  /* Page container */
+  .site{min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:32px 20px; gap:18px; position:relative; overflow-x:hidden;}
+  /* Cinematic hero poster */
+  .hero{
+    width:100%; max-width:1100px; border-radius:14px; overflow:hidden; position:relative; display:grid; grid-template-columns: 1fr 1fr; gap:0;
+    box-shadow:0 30px 80px rgba(0,0,0,0.7);
+    border:1px solid rgba(255,255,255,0.03);
     background:
-      radial-gradient(600px 220px at 12% 18%, rgba(138,104,255,0.09), transparent 16%),
-      radial-gradient(520px 200px at 85% 75%, rgba(255,176,221,0.08), transparent 14%),
-      radial-gradient(420px 180px at 50% 40%, rgba(126,240,230,0.06), transparent 12%);
-    animation: aur 26s ease-in-out infinite alternate;
+      radial-gradient(800px 200px at 20% 20%, rgba(123,223,246,0.06), transparent 8%),
+      linear-gradient(180deg, rgba(255,111,181,0.02), rgba(123,223,246,0.02));
   }
-  @keyframes aur{ from{transform:translate(0,0)} to{transform:translate(6%, -6%)} }
+  .poster {
+    position:relative; padding:36px; display:flex; flex-direction:column; justify-content:center; gap:12px; background:
+      linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.35));
+  }
+  .poster .title{
+    font-family:"Playfair Display",serif; font-size:40px; letter-spacing:2px; line-height:1; color:var(--accent-1);
+    text-shadow: 0 6px 28px rgba(255,111,181,0.12), 0 1px 2px rgba(0,0,0,0.7);
+  }
+  .poster .subtitle{ color:var(--muted); font-size:13px; margin-top:4px; }
+  .poster .meta{ display:flex; gap:10px; margin-top:16px; align-items:center; }
+  .pill{ padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.02); font-weight:600; font-size:13px; color:var(--text);}
+  .poster .cta{ margin-top:20px; display:flex; gap:10px; }
+  .btn{
+    padding:10px 16px; border-radius:10px; border:none; cursor:pointer; font-weight:700;
+    background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#081018; box-shadow:0 12px 30px rgba(17,17,17,0.45);
+  }
 
-  /* particles (soft dots drifting up) */
-  .particle { position:fixed; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.06); filter:blur(0.8px); z-index:0; pointer-events:none; animation:drift 12s linear infinite; }
-  @keyframes drift{ 0%{transform:translateY(100vh) scale(.6); opacity:0} 10%{opacity:0.85} 90%{opacity:0.85} 100%{transform:translateY(-10vh) scale(1.1); opacity:0} }
+  /* Poster art (right) */
+  .poster-art{
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.55));
+    display:flex; align-items:center; justify-content:center; position:relative; padding:28px;
+  }
+  .film-frame{
+    width:100%; max-width:380px; aspect-ratio: 3/4; border-radius:10px; background:linear-gradient(180deg,#0f0b12,#1a0c22); box-shadow: 0 18px 60px rgba(0,0,0,0.65);
+    position:relative; overflow:hidden; border:1px solid rgba(255,255,255,0.02);
+  }
+  .film-lights{ position:absolute; inset:0; background:
+    radial-gradient(300px 120px at 10% 10%, rgba(255,111,181,0.06), transparent 10%),
+    radial-gradient(260px 90px at 90% 80%, rgba(123,223,246,0.05), transparent 10%);
+    mix-blend-mode:screen; pointer-events:none; }
 
-  /* floating emojis bg */
-  .emoji-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.2; overflow:hidden; }
-  .emoji-float{ position:absolute; user-select:none; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); animation-timing-function:linear; }
+  /* Scenes area */
+  .scenes {
+    width:100%; max-width:1100px; margin-top:18px; display:grid; grid-template-columns: repeat(3,1fr); gap:18px;
+  }
+  .scene {
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
+    border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.03);
+    box-shadow:0 16px 40px rgba(0,0,0,0.6); transition:transform .36s, box-shadow .36s, opacity .36s;
+    display:flex; flex-direction:column; gap:10px; min-height:180px;
+  }
+  .scene:hover{ transform:translateY(-8px); box-shadow:0 28px 60px rgba(0,0,0,0.7); }
+  .scene .scene-title{ font-weight:700; color:var(--accent-2); font-size:14px; letter-spacing:0.6px; }
+  .scene .scene-text{ color:var(--text); font-size:0.95rem; line-height:1.45; text-align:left; white-space:pre-line; overflow:auto; max-height:380px; padding-right:6px;}
+  .scene .meta-row{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; }
 
-  /* wrapper & layout */
-  .wrap{ min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:36px 18px 80px; gap:20px; position:relative; z-index:2; }
-  .card{ width:100%; max-width:760px; border-radius:var(--radius); background:var(--card-bg); border:1px solid var(--glass-border); padding:28px; box-shadow: 0 18px 60px rgba(0,0,0,0.6); backdrop-filter: blur(10px) saturate(1.1); transition:transform .45s, opacity .4s; margin:12px auto; }
+  /* large single column for teachers list screen */
+  .scenes.single{ grid-template-columns:1fr; max-width:900px; }
+  .fullwidth{ grid-column: 1 / -1; }
 
-  .title{ font-family:'Orbitron',sans-serif; font-size:2.1rem; letter-spacing:2px; color:transparent; background:linear-gradient(90deg,var(--soft-pink),var(--violet),var(--soft-cyan)); -webkit-background-clip:text; margin-bottom:12px; border-right:.12em solid rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden; animation:typing 2.2s steps(36,end), blink .8s step-end infinite; }
-  @keyframes typing{ from{width:0} to{width:100%} } @keyframes blink{ 50%{border-color:transparent} }
+  /* progress / scene dots (left) */
+  .dots {
+    position:fixed; left:18px; top:50%; transform:translateY(-50%); z-index:12; display:flex; flex-direction:column; gap:12px;
+  }
+  .dot{ width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.03); cursor:pointer; transition:all .25s; }
+  .dot.active{ background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); box-shadow:0 10px 28px rgba(123,223,246,0.12); transform:scale(1.18); }
 
-  h2.section { text-align:center; margin:8px 0 10px; font-size:1rem; color:#fff; font-weight:700; letter-spacing:0.6px; }
+  /* scene controls bottom */
+  .controls{ width:100%; max-width:1100px; display:flex; justify-content:space-between; align-items:center; margin-top:18px; gap:12px; }
+  .progress-bar{ height:8px; background:rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; flex:1; margin:0 12px; }
+  .progress-fill{ width:0%; height:100%; background:linear-gradient(90deg,var(--accent-2),var(--accent-1)); transition:width .5s ease; }
 
-  /* inputs */
-  .input { width:100%; padding:12px 14px; border-radius:10px; border:none; background:#0b0b14; color:#fff; font-size:1rem; outline:none; box-shadow: inset 0 -4px 18px rgba(0,0,0,0.5); }
-  .small-note{ color:rgba(255,255,255,0.8); font-size:0.95rem; margin-top:8px; text-align:center; }
-
-  .btn-row{ display:flex; justify-content:center; gap:14px; margin-top:14px; flex-wrap:wrap; }
-  .btn{ padding:10px 20px; border-radius:999px; border:none; cursor:pointer; font-family:'Orbitron',sans-serif; font-weight:700; letter-spacing:0.6px; background:linear-gradient(90deg,var(--violet),var(--soft-pink)); color:#fff; box-shadow:0 10px 30px rgba(120,90,250,0.08); transition:transform .18s, box-shadow .18s; }
-  .btn:active{ transform:translateY(1px); }
-  .btn.ghost{ background:transparent; border:1px solid rgba(255,255,255,0.04); color:#fff; }
-  .btn:hover{ box-shadow:0 18px 50px rgba(120,90,250,0.16); transform:translateY(-3px); }
-
-  /* progress */
-  .progress-wrap{ width:100%; max-width:var(--maxw); margin:12px auto 0; }
-  .progress-outer{ height:12px; background:rgba(255,255,255,0.04); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 30px rgba(0,0,0,0.6); }
-  .progress-inner{ height:100%; width:0%; background: linear-gradient(90deg,var(--soft-pink),var(--violet),var(--soft-cyan)); transition: width .75s cubic-bezier(.2,.9,.2,1); box-shadow:0 0 26px rgba(138,104,255,0.09); }
-
-  /* story styles */
-  .story-list{ text-align:left; line-height:1.6; color:#fff; margin-top:12px; }
-  .story-list b{ display:block; margin-bottom:6px; color:var(--soft-pink); }
-
-  .emoji-reactions{ display:flex; gap:16px; justify-content:center; margin:12px 0; }
-  .emoji-reaction-btn{ background:transparent; border:none; font-size:1.5rem; cursor:pointer; user-select:none; position:relative; }
-  .emoji-reaction-count{ display:block; font-size:0.78rem; color:#fff9a6; text-align:center; margin-top:-6px; }
-
-  /* teacher search */
-  .search-row{ display:flex; justify-content:center; margin-top:10px; }
-  .search-inner{ width:100%; max-width:720px; background:#0b0b14; border-radius:12px; padding:8px 12px; display:flex; gap:10px; align-items:center; box-shadow:inset 0 -2px 18px rgba(0,0,0,0.6); }
-  .search-input{ flex:1; border:none; outline:none; background:transparent; color:#fff; font-size:1rem; }
-
-  /* final */
-  .final-note{ text-align:left; line-height:1.55; color:#fff; }
-
-  /* canvas */
-  canvas#fw{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:9; pointer-events:none; }
+  /* final hero/end */
+  .ending{
+    width:100%; max-width:1100px; margin-top:24px; display:flex; align-items:center; justify-content:center; padding:36px; border-radius:14px; background:
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.22)); border:1px solid rgba(255,255,255,0.03);
+    box-shadow:0 24px 70px rgba(0,0,0,0.7);
+  }
+  .ending .text{ max-width:820px; text-align:center; font-size:1.05rem; line-height:1.6; color:var(--text); }
 
   /* responsive */
-  @media (max-width:720px){
-    .card{ padding:18px; border-radius:14px; }
-    .title{ font-size:1.4rem; }
+  @media (max-width:1000px){
+    .hero{ grid-template-columns:1fr; gap:0; }
+    .poster-art{ order:-1; padding-top:8px; padding-bottom:8px; }
+    .scenes{ grid-template-columns:1fr; }
+    .dots{ display:none; }
+  }
+  @media (max-width:560px){
+    .poster .title{ font-size:28px; }
+    .scene{ padding:14px; }
+  }
+  /* subtle film grain */
+  body::after{
+    content:''; position:fixed; inset:0; pointer-events:none; background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode:overlay; opacity:0.12;
   }
 </style>
 </head>
 <body>
-  <div class="aurora" aria-hidden="true"></div>
-  <div id="emojiBg" class="emoji-bg" aria-hidden="true"></div>
-
-  <div class="progress-wrap" aria-hidden="false" style="position:relative; z-index:2;">
-    <div class="progress-outer">
-      <div class="progress-inner" id="progressBar"></div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <!-- LOGIN -->
-    <section id="loginContainer" class="card" aria-labelledby="t1">
-      <div id="t1" class="title">F.R.I.E.N.D.S.</div>
-      <h2 class="section">NAAM</h2>
-      <input id="naam" class="input" placeholder="Naam likho (Enter your name)" autocomplete="off" />
-      <h2 class="section">JINDA</h2>
-      <div class="btn-row" id="jindaGroup" role="group" aria-label="jinda">
-        <button class="btn" id="haa">HAA</button>
-        <button class="btn ghost" id="naa">NAA</button>
-      </div>
-      <input type="hidden" id="jinda">
-      <div id="jindaError" style="color:#ff8b8b;text-align:center;display:none;margin-top:8px;">Select HAA or NAA</div>
-
-      <div style="margin-top:12px;">
-        <textarea id="say" class="input" placeholder="Say something to me:" style="min-height:86px;padding-top:12px;"></textarea>
-      </div>
-      <div id="sayError" style="color:#ff8b8b;text-align:center;display:none;margin-top:8px;">Please say something!</div>
-
-      <div class="btn-row">
-        <button id="submitBtn" class="btn">THOKO</button>
-      </div>
-
-      <div class="small-note">😆 No database here, so your data just vanishes like my motivation on Monday!</div>
-    </section>
-
-    <!-- SUCCESS (uses your exact DOSTI YAARI EMOTIONS text) -->
-    <section id="successBox" class="card" style="display:none;">
-      <div style="font-size:2.4rem;text-align:center;margin-bottom:6px;">DOSTI YAARI EMOTIONS</div>
-      <ol class="story-list">
-        <li>1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.</li>
-        <li>2. Aise lagta hai jaise koi part of life missing ho.</li>
-        <li>3. Pehle har din masti hoti thi, ab sirf kaam aur boredom hai.</li>
-        <li>4. Woh choti-choti baatein, lame jokes, aur nonstop bakchodi — sab yaad aati hai.</li>
-        <li>5. Kabhi kabhi toh pura flashback chal jaata hai dimaag mein.</li>
-        <li>6. Tum logon ke bina har plan adhoora lagta hai.</li>
-        <li>7. Group chat mein bhi ab woh dhamaka nahi raha.</li>
-        <li>8. Seriously, milna chahiye jaldi, warna yaadon se hi dosti karni padegi.</li>
-        <li>9. Chal, koi ek plan banate hain — time, jagah fix karo!</li>
-        <li>10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟</li>
-      </ol>
-      <div style="text-align:center;margin-top:12px;color:#ffd68f;">You can close this tab now. Have a great day!</div>
-
-      <div class="btn-row" style="margin-top:16px;">
-        <button id="toStoryBtn" class="btn">THOKO ALSO</button>
-      </div>
-    </section>
-
-    <!-- STORY (teachers list exactly as provided) -->
-    <section id="storyPage" class="card" style="display:none;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div class="title" style="font-size:1.2rem; border-right:none; animation:none; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Hello doston! 👿🤘</div>
-      </div>
-
-      <div class="emoji-reactions" id="emojiReactions1">
-        <button class="emoji-reaction-btn" data-emoji="😂">😂<span class="emoji-reaction-count" id="emojiCount-😂">0</span></button>
-        <button class="emoji-reaction-btn" data-emoji="😈">😈<span class="emoji-reaction-count" id="emojiCount-😈">0</span></button>
-        <button class="emoji-reaction-btn" data-emoji="🤙">🤙<span class="emoji-reaction-count" id="emojiCount-🤙">0</span></button>
-        <button class="emoji-reaction-btn" data-emoji="🤘">🤘<span class="emoji-reaction-count" id="emojiCount-🤘">0</span></button>
-      </div>
-
-      <div class="search-row" style="margin-top:6px;">
-        <div class="search-inner">
-          <div style="color:var(--soft-pink); margin-right:8px;">🔎</div>
-          <input id="teacherSearch" class="search-input" placeholder="Type to search teachers..." />
+  <div class="site" id="siteRoot">
+    <div class="hero" role="banner" aria-label="FRIENDS Poster">
+      <div class="poster">
+        <div class="title">F.R.I.E.N.D.S.</div>
+        <div class="subtitle">A short web-series of school memories — Teacher's Day special</div>
+        <div class="meta">
+          <div class="pill">Classmates: 2016-2021</div>
+          <div class="pill">Hostel & School stories</div>
+        </div>
+        <div style="margin-top:8px;color:var(--muted);font-size:14px;">
+          This is your original content placed into a cinematic layout. Click scenes below to navigate.
+        </div>
+        <div class="cta">
+          <button class="btn" id="startBtn">PLAY SCENES ▶</button>
+          <button class="btn" id="skipBtn" style="background:linear-gradient(90deg,var(--accent-3),var(--accent-1));">JUMP TO END</button>
         </div>
       </div>
 
-      <div class="story-list" style="margin-top:14px;">
-        <div><b>School ke teachers aur unki yaadein:</b></div>
-        <ul id="teachersList" style="margin-top:8px;">
-<li><b>Rishav Sir</b>:
+      <div class="poster-art" aria-hidden="true">
+        <div class="film-frame">
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.06); font-size:18px; font-weight:700;">
+            SCHOOL LIFE
+          </div>
+          <div class="film-lights"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- fixed dots -->
+    <div class="dots" id="dotsContainer" aria-hidden="false"></div>
+
+    <!-- Scenes (cards) -->
+    <div class="scenes" id="scenesWrap" role="main" aria-live="polite">
+      <!-- Scene 1: Success / Dosti Yaari Emotions -->
+      <article class="scene fullwidth" data-scene="0" id="scene-0">
+        <div class="scene-title">DOSTI YAARI EMOTIONS</div>
+        <div class="scene-text">
+DOSTI YAARI EMOTIONS
+1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.
+2. Aise lagta hai jaise koi part of life missing ho.
+3. Pehle har din masti hoti thi, ab sirf kaam aur boredom hai.
+4. Woh choti-choti baatein, lame jokes, aur nonstop bakchodi — sab yaad aati hai.
+5. Kabhi kabhi toh pura flashback chal jaata hai dimaag mein.
+6. Tum logon ke bina har plan adhoora lagta hai.
+7. Group chat mein bhi ab woh dhamaka nahi raha.
+8. Seriously, milna chahiye jaldi, warna yaadon se hi dosti karni padegi.
+9. Chal, koi ek plan banate hain — time, jagah fix karo!
+10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟
+You can close this tab now. Have a great day!
+        </div>
+        <div class="meta-row" style="margin-top:14px;">
+          <div style="color:var(--muted);font-size:13px;">Scene 1 of 5</div>
+          <div>
+            <button class="btn" data-goto="1">Next →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Scene 2: Intro / Hello doston + teachers list header -->
+      <article class="scene" data-scene="1" id="scene-1">
+        <div class="scene-title">Hello doston! 👿🤘</div>
+        <div class="scene-text">
+🔎
+Type to search teachers...
+School ke teachers aur unki yaadein:
+        </div>
+        <div class="meta-row">
+          <div style="color:var(--muted);font-size:13px;">Scene 2 of 5</div>
+          <div>
+            <button class="btn" data-goto="2">Next →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Scene 3: Teachers long list (kept verbatim) -->
+      <article class="scene" data-scene="2" id="scene-2">
+        <div class="scene-title">Teachers & Memories</div>
+        <div class="scene-text" id="teachersText">
+Rishav Sir
+:
 Saatvi mein aaye, thoda style dikhane lage, Krish ke saath football ke kisse sunane lage. Maths ki trick se sabko gumaan mein daalne lage, Girls ke dil mein silently bas jaane lage. 💫
 Aathvi mein aaye, class teacher bane khaas, Science weak tha, par bataya kaise hota hai paas. Support mila unse, har sawal ka mila ulta-jawaab, Guidance mein unka tha ek alag hi andaaz. ✨
 Phir hostel gaye, hum bhi piche-piche nikal gaye, Football ke field mein Josh ke saath mil gaye. Shuru mein laga, bhai kya mast game hai bhai, Par kuch dino mein samjha — sir toh goal banake bas pass hi kar gaye! 😅
 Saatvi se dasvi tak mila unka pyaar, Kabhi na lage ki sir door ho to ho intezaar. Har mor pe kiya help, na chhoda kabhi yeh yaar, Rishav sir jaise teacher — milte hain bade dildaar! ❤️
-Vo gaane gaana.. Vo bachchon ko dusre duniyaan ka shair karana kuch alag hi tha unka pyar💝</li><br>
+Vo gaane gaana.. Vo bachchon ko dusre duniyaan ka shair karana kuch alag hi tha unka pyar💝
 
-<li><b>Chandraketu Sir</b>:
+Chandraketu Sir
+:
 Dekha tha pehle bhi, kabhi is ma'am ke saath, kabhi uske saath, Par mulaqat hui theek se 9th mein, class teacher ke path. Sportive the itne, ke ghar baat karni ho toh bolo saaf, Kuch mangwana ho toh bolo — jaise teacher nahi koi bhai ka raaf! 😄
 Prantik ka rakhte the khaas khayaal, dil se karte the care, Par uss extra pyaar ne banaya kuch aur students ko beware. Complain hui, mood change hua, aur badal gaya poora flair, Kabhi chill sir, ban gaye serious — laga ho gaya unfair. 😅
 Pehle padhate-padhate phone mein kho jaate the mast, Phir achanak kitabon se ban gaya unka vishwas ka rasta sasta aur past. Lekin yaad hai ek scene, jiska maza sabne liya tha hardcast — Arnav ko bola, "I welcome you," aur sabka ho gaya burst-blast! 💥
 Kabhi pyaar se, kabhi dosti se, kabhi phone se judte the sir, Chandraketu sir jaise teachers — yaadon mein reh jaate hain zarur. Thoda hassi, thoda gussa, thoda sweet aur thoda blur, Par ek baat pakki — unke bina class lagti thi bilkul bas "dull" aur "burr"! 😌
-Board pe chalk uthake jab likhne ka aata tha scene, Par finger hoti thi middle, aur class ho jaati silent screen. Koi kuch na bole, sab aankhon se karte the baat, Ek dusre ko dekh muskaate, le lete mazaak ka swaad. 😁</li><br>
+Board pe chalk uthake jab likhne ka aata tha scene, Par finger hoti thi middle, aur class ho jaati silent screen. Koi kuch na bole, sab aankhon se karte the baat, Ek dusre ko dekh muskaate, le lete mazaak ka swaad. 😁
 
-<li><b>Sudhakar Sir</b>:
+Sudhakar Sir
+:
 Pehchaan thi pehle se, exam department ke the star, Class 9th mein aaye tab mila unka asli avataar. Janwar ki tarah marte the, karte na kisi se vyavahaar, Homework ka tha dher, aur aankhon mein bas tha maar! 😬
 Kahi se aate, maar ke jaate, bas dhoondte the bahana, Na koi hello, na haan, bas chalti thi unki purani kahaniyana. Par department wale the, to kabhi help ka milta tha khazana, Samajh aaya — daant ke peeche bhi tha ek asliyat ka thikana. 📘
 Do period ke baad le jaate games mein, hota tha sukoon, Class se bahar nikalte hi milta tha ek naya junoon. N.C.E.R.T. ke alawa kuch mat padho, bas yahi tha unka kanoon, Lekin unke motivation ne, bana diya padhai ka bhi ek khoobsurat dhoon. 🎯
-Baat-baat mein mazaak bhi karte, muskurahat thi andekhi, Help karte the chhupke se, unki niyat thi kuch alag si dekhi. Sudhakar Sir — the strict bhi, sweet bhi, thode se unique the sahi, Unke jaise teacher ho toh darr bhi lage... aur lage yaari bhi kahi! ❤️</li><br>
+Baat-baat mein mazaak bhi karte, muskurahat thi andekhi, Help karte the chhupke se, unki niyat thi kuch alag si dekhi. Sudhakar Sir — the strict bhi, sweet bhi, thode se unique the sahi, Unke jaise teacher ho toh darr bhi lage... aur lage yaari bhi kahi! ❤️
 
-<li><b>Divya Jyoti Mam</b>: Science ki queen, masti ki machine.</li>
-<li><b>Sujit & Pratyush Sir</b>: Hamare superheroes, hamesha ready to help.</li>
-<li><b>Vikash Sir</b>: "Padho na ji, exam sir pe hai!"</li>
+Divya Jyoti Mam
+: Science ki queen, masti ki machine.
+Sujit & Pratyush Sir
+: Hamare superheroes, hamesha ready to help.
+Vikash Sir
+: "Padho na ji, exam sir pe hai!"
 
-<li><b>Arun Sir</b>:
+Arun Sir
+:
 Civics padhate the, par gungaan tha BJP ka raag, Har class mein lagta tha jaise ho rahi ho koi bhaashan ki aag. Helpful the zarur, par gussa aaye toh ban jaayein tiger ka swaroop, Tab toh bas chup rehna tha, warna milta tha ek political dhoop. 🔥
 Motivation ka the storehouse, baatein karte the dil se, Par har line ke baad aata tha – “Main bhi hoon na ek misaal iss silsile se!” Line thi unki favourite – “Dusro ki jay se pehle apni jay kare,” Aur ussi mein unka swagger tha — "main kya kam hoon yeh sabko pata chale!" 😎
 Personal life bhi humse share karte, jaise ho ghar ki party, "Aaj Pihu ke liye chappal liya — batao bhai, kaisi lagti hai Smarty?" 👡
-Explaining mein no doubt top-level ka tha unka flow, Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄</li><br>
+Explaining mein no doubt top-level ka tha unka flow, Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄
 
-<li><b>Principal Sir</b>: "I sham on you boys!" - sabko yaad hai!</li>
-<li><b>Prantik & Chandraketu Sir</b>: Chemistry wali chemistry! 😏</li>
-<li><b>Nishant Sir</b>: Bindaas, no filter!</li>
-<li><b>Neeraj Sir</b>: Jee-NEET wala gyaan.</li>
+Principal Sir
+: "I sham on you boys!" - sabko yaad hai!
+Prantik & Chandraketu Sir
+: Chemistry wali chemistry! 😏
+Nishant Sir
+: Bindaas, no filter!
+Neeraj Sir
+: Jee-NEET wala gyaan.
 
-<li><b>Ujjwal Sir</b>:
+Ujjwal Sir
+:
 The pehle se school mein, par 2019 ke pehle chale gaye the door, Par jab zarurat padi maths ki, toh wapas aaye ban ke noor. Unke aate hi bhaiya log bole – “Sir toh hai top class,” Unke naam se hi ho gaya, poori class ka blast! 🔥
 Class 9th mein mila unse pehli baar, aur kya hi mila tha yaar, Entry lete hi laga jaise – "ab toh padayi lagegi maar!" 😅
 Tough se tough concept ko bana dete the asaan, Aur unka IIT ka experience – bhai wah, bilkul tha mahaan! 🎓
-Kabhi-kabhi physics ka bhi basic samjha dete the pyar se, Concept clear karna tha unka kaam, bina kisi bhitar ke shor se. 10th tak toh guide kiya har mod pe bina rukawat ke, Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️</li><br>
+Kabhi-kabhi physics ka bhi basic samjha dete the pyar se, Concept clear karna tha unka kaam, bina kisi bhitar ke shor se. 10th tak toh guide kiya har mod pe bina rukawat ke, Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️
 
-<li><b>Guddu Sir</b>: "Tor dunga!"</li>
-<li><b>Ranjan Sir</b>: "Kut dunga!" & funny towel kahaniyan.</li>
-<li><b>Undranil Sir</b>: DJ Snake + BP Check = Allrounder!</li>
-<li><b>Kundan Sir</b>: YouTube projector, mini-theatre.</li>
-<li><b>Sudipto Sir</b>: Hamari pareshaniyon ka shikar.</li>
-<li><b>Manoranjan Sir</b>: Philosopher king.</li>
-<li><b>Simon Sir</b>: G** phaad marna since 5th!</li>
-<li><b>Ravi Sir</b>: Notes likhwane ki machine.</li>
-<li><b>DB Wandgr Sir</b>: Chutney ki recipe aur haryali jokes.</li>
-<li><b>Premlata Ma’am & Raushan</b>: Maa-beta jodi, suspense queen.</li>
-<li><b>DK Jha Sir</b>: "Ye log padne waale nahi lagte!"</li>
-<li><b>Archana Ma’am</b>: Naam lete hi censored ho jaata hai. 🤐</li>
-        </ul>
+Guddu Sir
+: "Tor dunga!"
+Ranjan Sir
+: "Kut dunga!" & funny towel kahaniyan.
+Undranil Sir
+: DJ Snake + BP Check = Allrounder!
+Kundan Sir
+: YouTube projector, mini-theatre.
+Sudipto Sir
+: Hamari pareshaniyon ka shikar.
+Manoranjan Sir
+: Philosopher king.
+Simon Sir
+: G** phaad marna since 5th!
+Ravi Sir
+: Notes likhwane ki machine.
+DB Wandgr Sir
+: Chutney ki recipe aur haryali jokes.
+Premlata Ma’am & Raushan
+: Maa-beta jodi, suspense queen.
+DK Jha Sir
+: "Ye log padne waale nahi lagte!"
+Archana Ma’am
+: Naam lete hi censored ho jaata hai. 🤐
+        </div>
+        <div class="meta-row" style="margin-top:12px;">
+          <div style="color:var(--muted);font-size:13px;">Scene 3 of 5</div>
+          <div>
+            <button class="btn" data-goto="3">Next →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Scene 4: Warden -->
+      <article class="scene" data-scene="3" id="scene-3">
+        <div class="scene-title">Hamare Hostel ke Warden</div>
+        <div class="scene-text">
+Deepak Sir (3rd Floor):
+"Ek mukka denge na..." Admission number yaad rakhna!
+2nd Floor ka warden:
+(Yahan apna funny yaadgar moments add karo!)
+        </div>
+        <div class="meta-row">
+          <div style="color:var(--muted);font-size:13px;">Scene 4 of 5</div>
+          <div>
+            <button class="btn" data-goto="4">Next →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Scene 5: Final -->
+      <article class="scene" data-scene="4" id="scene-4">
+        <div class="scene-title">Toh doston...</div>
+        <div class="scene-text">
+Toh doston...
+
+Ye thi hamari school life ki original web series –
+Full drama, full comedy, thoda romance, thoda action aur full emotion.
+
+Teachers ka gussa ho ya unka pyaar, unhone sabko kuch na kuch sikhaya zaroor.
+Aur ye yaadein... humesha yaad rahengi.
+
+Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.
+🤟 Jai school life, jai nostalgia!
+        </div>
+        <div class="meta-row">
+          <div style="color:var(--muted);font-size:13px;">Final Scene</div>
+          <div>
+            <button class="btn" id="replayBtn">REPLAY</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- controls -->
+    <div class="controls" role="navigation" aria-label="Scene controls">
+      <div style="color:var(--muted); font-size:13px;">CINEMA VIEW</div>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
       </div>
+      <div style="color:var(--muted); font-size:13px;">Enjoy ✨</div>
+    </div>
 
-      <div style="display:flex;justify-content:center;margin-top:14px;">
-        <button id="toWardenBtn" class="btn">THOKO NA RE</button>
+    <!-- ending area (large) -->
+    <div id="endingCard" class="ending" style="display:none;">
+      <div class="text">
+        <h2 style="margin:0 0 8px 0; font-family:'Playfair Display',serif; color:var(--accent-1)">FRIENDS — The Series</h2>
+        <p style="margin:0 0 8px 0; color:var(--muted);">A short film of memories dedicated to our teachers and friends.</p>
+        <p style="margin-top:12px; font-weight:700;">Happy Teacher's Day 🎉</p>
       </div>
-    </section>
+    </div>
 
-    <!-- WARDEN -->
-    <section id="wardenPage" class="card" style="display:none;">
-      <div class="story-list">
-        <b>Hamare Hostel ke Warden:</b>
-        <ul>
-          <li><b>Deepak Sir (3rd Floor):</b> "Ek mukka denge na..." Admission number yaad rakhna!</li>
-          <li><b>2nd Floor ka warden:</b> (Yahan apna funny yaadgar moments add karo!)</li>
-        </ul>
-      </div>
-
-      <div style="display:flex;justify-content:center;margin-top:14px;">
-        <button id="toFinalBtn" class="btn">THOKO</button>
-      </div>
-    </section>
-
-    <!-- FINAL -->
-    <section id="finalPage" class="card" style="display:none;">
-      <div class="final-note">
-        <b>Toh doston...</b><br><br>
-        Ye thi hamari school life ki original web series –<br>
-        Full drama, full comedy, thoda romance, thoda action aur full emotion.<br><br>
-        Teachers ka gussa ho ya unka pyaar, unhone sabko kuch na kuch sikhaya zaroor.<br>
-        Aur ye yaadein... humesha yaad rahengi.<br><br>
-        Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.<br><br>
-        🤟 Jai school life, jai nostalgia!
-      </div>
-    </section>
-
+    <!-- fireworks canvas -->
+    <canvas id="fw"></canvas>
   </div>
 
-  <canvas id="fw"></canvas>
-
 <script>
-/* Utilities */
-const $ = id => document.getElementById(id);
-const rand = (a,b) => Math.random()*(b-a)+a;
+  // Basic helpers
+  const $ = id => document.getElementById(id);
+  const qs = s => document.querySelector(s);
+  const qsa = s => document.querySelectorAll(s);
+  const rand = (a,b) => Math.random()*(b-a)+a;
 
-/* Floating emoji background */
-(function emojiBG(){
-  const EMOJIS = ["💀","☠️","😎","😈","👿","🤟","🤘","🖕","🤙","🤝","😂","😅","🤝"];
-  const bg = $('emojiBg');
-  function createOne(){
-    const el = document.createElement('div');
-    el.className='emoji-float';
-    el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
-    el.style.left = rand(-6,96)+'vw';
-    const size = Math.round(rand(20,60));
-    el.style.fontSize = size+'px';
-    const dur = Math.round(rand(8,18));
-    el.style.animationDuration = dur+'s';
-    el.style.animationDelay = -Math.round(rand(0,12))+'s';
-    el.style.top = '100vh';
-    bg.appendChild(el);
-    setTimeout(()=> { try{ el.remove() }catch(e){} }, (dur+1)*1000);
-  }
-  for(let i=0;i<24;i++) createOne();
-  setInterval(()=>{ for(let i=0;i<2;i++) createOne(); while(bg.children.length>60) bg.removeChild(bg.children[0]); }, 2600);
-})();
+  // Scenes & dots setup
+  const scenes = [...qsa('.scene')];
+  const dotsContainer = $('dotsContainer');
+  const progressFill = $('progressFill');
+  let current = 0;
 
-/* Particles */
-(function makeParticles(){
-  for(let i=0;i<12;i++){
-    const p = document.createElement('div');
-    p.className='particle';
-    p.style.left = rand(0,100)+'vw';
-    p.style.top = rand(0,100)+'vh';
-    p.style.width = p.style.height = (rand(4,9))+'px';
-    p.style.animationDuration = (rand(10,18))+'s';
-    document.body.appendChild(p);
-  }
-})();
-
-/* Page order & progress */
-const order = ['loginContainer','successBox','storyPage','wardenPage','finalPage'];
-function goTo(id){
-  order.forEach(o => { const el=$(o); if(el) el.style.display = (o===id)?'block':'none'; });
-  updateProgress(id);
-}
-function updateProgress(id){
-  let idx = order.indexOf(id); if(idx<0) idx=0;
-  const perc = Math.round(idx/(order.length-1)*100);
-  $('progressBar').style.width = perc + '%';
-}
-
-/* HAA/NAA */
-$('haa').addEventListener('click', ()=>{ $('haa').classList.add('active'); $('naa').classList.remove('active'); $('jinda').value='HAA'; $('jindaError').style.display='none'; });
-$('naa').addEventListener('click', ()=>{ $('naa').classList.add('active'); $('haa').classList.remove('active'); $('jinda').value='NAA'; $('jindaError').style.display='none'; });
-
-/* Submit */
-$('submitBtn').addEventListener('click', (e)=>{
-  e.preventDefault();
-  let valid = true;
-  if(!$('jinda').value){ $('jindaError').style.display='block'; valid=false; } else $('jindaError').style.display='none';
-  if(!$('say') || ($('say') && !$('say').value.trim())){ /* not mandatory now since user provided text separately */ /* keep silent */ }
-  if(!valid) return;
-  // set user name in success text (we keep your original list, but add personalized small note)
-  const nameVal = ($('naam') && $('naam').value.trim()) ? $('naam').value.trim() : 'Dost';
-  // show success (text already present unchanged)
-  goTo('successBox');
-  // append small note under success if not present
-  if(!$('.forNameNote')){
-    const note = document.createElement('div');
-    note.className='forNameNote';
-    note.style.textAlign='center';
-    note.style.color='#b7fff3';
-    note.style.marginTop='10px';
-    note.textContent = `Hey ${nameVal}, this one is for you — Happy Teacher's Day!`;
-    $('successBox').appendChild(note);
-  } else {
-    $('.forNameNote').textContent = `Hey ${nameVal}, this one is for you — Happy Teacher's Day!`;
-  }
-});
-
-/* navigation */
-$('toStoryBtn').addEventListener('click', ()=> goTo('storyPage'));
-$('toWardenBtn').addEventListener('click', ()=> goTo('wardenPage'));
-$('toFinalBtn').addEventListener('click', ()=> { goTo('finalPage'); startFireworks(); });
-
-/* Emoji reactions */
-function setupReactions(id){
-  const box = $(id);
-  if(!box) return;
-  box.querySelectorAll('.emoji-reaction-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const span = btn.querySelector('.emoji-reaction-count');
-      let n = parseInt(span.textContent||'0',10);
-      n++; span.textContent = n;
-      btn.classList.add('active');
-      setTimeout(()=> btn.classList.remove('active'), 350);
-    });
+  // build dots
+  scenes.forEach((s,i)=>{
+    const d = document.createElement('div'); d.className='dot'; d.dataset.idx = i;
+    if(i===0) d.classList.add('active');
+    d.addEventListener('click', ()=> gotoScene(i));
+    dotsContainer.appendChild(d);
   });
-}
-setupReactions('emojiReactions1');
 
-/* Teacher search & highlight */
-(function teacherSearch(){
-  const inp = $('teacherSearch'), list = $('teachersList');
-  if(!inp || !list) return;
-  inp.addEventListener('input', function(){
-    const filter = inp.value.trim().toLowerCase();
-    const items = list.querySelectorAll('li');
-    items.forEach(li=>{
-      const b = li.querySelector('b');
-      const name = b ? b.textContent : li.textContent;
-      if(filter === '' || li.textContent.toLowerCase().includes(filter) || name.toLowerCase().includes(filter)){
-        li.style.display='';
-        if(filter && b){
-          const re = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','gi');
-          b.innerHTML = b.textContent.replace(re, "<span style='background:rgba(126,240,230,0.12); color:var(--soft-pink); padding:0 4px; border-radius:3px;'>$1</span>");
-        } else if(b){
-          b.innerHTML = b.textContent;
-        }
-      } else li.style.display='none';
-    });
-  });
-})();
-
-/* Fireworks (simple particle system) */
-(function fireworks(){
-  const canvas = $('fw'); if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-  addEventListener('resize', resize); resize();
-
-  let particles = [];
-  function Particle(x,y,color){
-    this.x=x; this.y=y;
-    const ang = Math.random()*Math.PI*2;
-    const speed = rand(1,6);
-    this.vx = Math.cos(ang)*speed;
-    this.vy = Math.sin(ang)*speed;
-    this.alpha = 1; this.size = rand(1.6,3.8); this.color = color;
-  }
-  Particle.prototype.update = function(){ this.x+=this.vx; this.y+=this.vy; this.vy+=0.02; this.alpha-=0.02; }
-  Particle.prototype.draw = function(){ ctx.globalAlpha = Math.max(0,this.alpha); ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); ctx.globalAlpha = 1; }
-
-  function burst(x,y){
-    const colors = ['#ffb0dd','#8a68ff','#7ef0e6','#fff0f5','#ffd68f'];
-    for(let i=0;i<70;i++) particles.push(new Particle(x,y, colors[Math.floor(Math.random()*colors.length)] ));
-  }
-
-  let running=false, intervalRef=null;
-  function loop(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(let i=particles.length-1;i>=0;i--){
-      const p=particles[i];
-      p.update(); p.draw();
-      if(p.alpha<=0) particles.splice(i,1);
+  function updateUI(){
+    scenes.forEach((s,i)=> s.style.display = (i===current)?'block':'none');
+    const dots = qsa('.dot');
+    dots.forEach((d,i)=> d.classList.toggle('active', i===current));
+    const pct = Math.round(current/(scenes.length-1)*100);
+    progressFill.style.width = pct + '%';
+    // when final
+    if(current === scenes.length-1){
+      $('endingCard').style.display = 'flex';
+    } else {
+      $('endingCard').style.display = 'none';
     }
-    if(running) requestAnimationFrame(loop);
   }
 
-  window.startFireworks = function(){
-    if(running) return;
-    running=true; loop();
-    intervalRef = setInterval(()=> burst(rand(100,canvas.width-100), rand(100,canvas.height-150)), 700);
-    setTimeout(()=>{ clearInterval(intervalRef); setTimeout(()=> running=false,5200); }, 9000);
-  };
-})();
+  function gotoScene(i){
+    current = Math.max(0, Math.min(scenes.length-1, i));
+    updateUI();
+    // small scroll into view
+    scenes[current].scrollIntoView({behavior:'smooth', block:'center'});
+    if(current === scenes.length-1) startFireworks();
+  }
 
-/* small helpers & initial state */
-(function init(){
-  goTo('loginContainer'); updateProgress('loginContainer');
-  // quick Enter key submit on name
-  const nameEl = $('naam');
-  if(nameEl) nameEl.addEventListener('keydown', e=> { if(e.key==='Enter'){ e.preventDefault(); $('submitBtn').click(); } });
-})();
+  // wire next buttons
+  qsa('[data-goto]').forEach(btn=>{
+    btn.addEventListener('click', ()=> gotoScene(Number(btn.dataset.goto)));
+  });
+
+  // start & skip
+  $('startBtn').addEventListener('click', ()=> gotoScene(0));
+  $('skipBtn').addEventListener('click', ()=> gotoScene(scenes.length-1));
+  $('replayBtn').addEventListener('click', ()=> gotoScene(0));
+
+  // initialize
+  gotoScene(0);
+
+  // Teacher search highlight (scene 2 contains list — provide small live filter if user types)
+  // create a small floating search input (since layout is cinematic, create a quick keyboard shortcut '/')
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA'){
+      e.preventDefault();
+      // focus the search input inside scene-1 if exists
+      const search = document.querySelector('#teacherSearch');
+      if(search){ search.focus(); }
+    }
+  });
+
+  // Optional: create small search input inside scene 1 (we kept literal display; add dynamic filter for teachers)
+  (function injectSearch(){
+    // inject under scene-1 text area
+    const scene1 = $('#scene-1');
+    if(!scene1) return;
+    const row = document.createElement('div');
+    row.style.marginTop='12px';
+    row.style.display='flex';
+    row.style.justifyContent='center';
+    const inp = document.createElement('input');
+    inp.id='teacherSearch';
+    inp.placeholder='Type to search teacher names... (press /)';
+    inp.style.width='80%';
+    inp.style.padding='8px 12px';
+    inp.style.borderRadius='8px';
+    inp.style.border='1px solid rgba(255,255,255,0.06)';
+    inp.style.background='rgba(255,255,255,0.02)';
+    inp.style.color='white';
+    row.appendChild(inp);
+    scene1.querySelector('.scene-text').after(row);
+
+    // implement simple highlight for teachers list (scene-2 has teachersList id)
+    inp.addEventListener('input', function(){
+      const q = inp.value.trim().toLowerCase();
+      const teachersList = document.getElementById('teachersList');
+      if(!teachersList) return;
+      const items = teachersList.querySelectorAll('li');
+      items.forEach(li=>{
+        const text = li.textContent.toLowerCase();
+        if(!q) { li.style.display=''; // clear highlights
+          const b = li.querySelector('b'); if(b) b.innerHTML = b.textContent;
+          return;
+        }
+        if(text.includes(q)){
+          li.style.display='';
+          const b = li.querySelector('b');
+          if(b){
+            const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + ')','gi');
+            b.innerHTML = b.textContent.replace(re, "<mark style='background:rgba(123,223,246,0.12);color:var(--accent-1);padding:0 4px;border-radius:3px;'>$1</mark>");
+          }
+        } else li.style.display='none';
+      });
+    });
+  })();
+
+  // small floating emoji background generator (mild)
+  (function emojiBG(){
+    const emojis = ["🤟","😈","🤘","😂","😅","👿","🤙","😎"];
+    const bg = document.getElementById('siteRoot');
+    function createOne(){ const el = document.createElement('div'); el.textContent = emojis[Math.floor(Math.random()*emojis.length)]; el.style.position='absolute'; el.style.left = rand(4,92)+'%'; el.style.top = rand(60,100)+'vh'; el.style.fontSize = rand(18,36)+'px'; el.style.opacity='0.12'; el.style.transform = 'translateY(0)'; el.style.transition='transform 12s linear, opacity 12s linear'; bg.appendChild(el); setTimeout(()=>{ el.style.transform = 'translateY(-120vh)'; el.style.opacity='0'; },20); setTimeout(()=> el.remove(), 12500);}
+    setInterval(()=> createOne(), 1400);
+  })();
+
+  // Fireworks (canvas)
+  (function fireworks(){
+    const canvas = document.getElementById('fw'); if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    let parts = [];
+    function Part(x,y,col){
+      this.x=x; this.y=y; const a = Math.random()*Math.PI*2; const s = rand(1.5,6);
+      this.vx = Math.cos(a)*s; this.vy = Math.sin(a)*s;
+      this.alpha = 1; this.size = rand(1.4,3.6); this.color = col;
+    }
+    Part.prototype.update = function(){ this.x += this.vx; this.y += this.vy; this.vy += 0.03; this.alpha -= 0.016; }
+    Part.prototype.draw = function(){ ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); ctx.globalAlpha = 1; }
+
+    function burst(x,y){
+      const cols = ['#ff6fb5','#7bdff6','#ffd58a','#ffffff','#d7b2ff'];
+      for(let i=0;i<80;i++) parts.push(new Part(x,y,cols[Math.floor(Math.random()*cols.length)]));
+    }
+
+    let anim=false, timer=null;
+    function loop(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=parts.length-1;i>=0;i--){ parts[i].update(); parts[i].draw(); if(parts[i].alpha<=0) parts.splice(i,1); }
+      if(anim) requestAnimationFrame(loop);
+    }
+
+    window.startFireworks = function(){
+      if(anim) return;
+      anim=true; loop();
+      timer = setInterval(()=> burst(rand(100,canvas.width-100), rand(80,canvas.height-160)), 700);
+      setTimeout(()=>{ clearInterval(timer); setTimeout(()=> anim=false, 5200); }, 9000);
+    };
+  })();
+
+  // Small accessibility: allow left/right arrow to navigate scenes
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ gotoScene(Math.min(current+1, scenes.length-1)); }
+    if(e.key === 'ArrowLeft'){ gotoScene(Math.max(current-1, 0)); }
+  });
+
+  // helper goto
+  function gotoScene(i){
+    current = Math.max(0, Math.min(scenes.length-1, i));
+    updateUI();
+  }
+  // updateUI uses closure above
+  function updateUI(){
+    scenes.forEach((el, idx)=> el.style.display = (idx===current)?'block':'none');
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((d,i)=> d.classList.toggle('active', i===current));
+    progressFill.style.width = Math.round(current/(scenes.length-1)*100) + '%';
+    if(current === scenes.length-1) {
+      // reveal ending card and start fireworks
+      document.getElementById('endingCard').style.display = 'flex';
+      startFireworks();
+    } else {
+      document.getElementById('endingCard').style.display = 'none';
+    }
+    // scroll scene into center on small screens
+    const el = scenes[current];
+    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  // expose goto for buttons with dataset
+  document.querySelectorAll('[data-goto]').forEach(btn=>{
+    btn.addEventListener('click', ()=> gotoScene(Number(btn.dataset.goto)));
+  });
+
+  // initial state
+  gotoScene(0);
+
+  // small UX: clicking poster PLAY jumps to scene 0 and focuses
+  document.getElementById('startBtn').addEventListener('click', ()=> gotoScene(0));
+  document.getElementById('skipBtn').addEventListener('click', ()=> gotoScene(scenes.length-1));
+  document.getElementById('replayBtn').addEventListener('click', ()=> gotoScene(0));
 </script>
 </body>
 </html>
