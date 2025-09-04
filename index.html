@@ -1,874 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>F.R.I.E.N.D.S.</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Orbitron:700|Montserrat:400,700&display=swap" rel="stylesheet">
-    <style>
-        html, body { height: 100%; }
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            font-family: 'Montserrat', sans-serif;
-            overflow: auto;
-            position: relative;
-            background: linear-gradient(135deg, #090D23 0%, #2a0b31 55%, #00fff0 100%);
-        }
-        .emoji-bg {
-            pointer-events: none;
-            z-index: 0;
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            top: 0; left: 0;
-            opacity: 0.23;
-        }
-        .emoji-float {
-            position: absolute;
-            font-size: calc(32px + 3vw);
-            opacity: 0.83;
-            animation: floatUp 12s linear infinite;
-            user-select: none;
-            filter: drop-shadow(0 0 10px #2fffc0CC) drop-shadow(0 0 12px #ff3c70CC);
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(1) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(-20vh) scale(1.3) rotate(360deg); opacity: 0; }
-        }
-        .page-box {to 
-            background: rgba(14, 22, 35, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 0 80px 10px #00fff0cc, 0 0 0 2px #00fff0;
-            padding: 48px 32px 36px 32px;
-            max-width: 700px;
-            min-width: 340px;
-            position: relative;
-            z-index: 2;
-            margin: 24px auto;
-            animation: glowIn 1s cubic-bezier(.48,.04,.52,1.21);
-            backdrop-filter: blur(3px) saturate(1.35);
-        }
-        @keyframes glowIn {
-            0% { box-shadow: 0 0 0 0 #00fff000; transform: scale(0.97);}
-            100% { box-shadow: 0 0 80px 10px #00fff088, 0 0 0 2px #00fff0; transform: scale(1);}
-        }
-        .progress-bar-outer {
-            width: 100%;
-            height: 10px;
-            background: #161d2d;
-            border-radius: 10px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 0 10px 2px #00fff044;
-            z-index: 3;
-            position: relative;
-        }
-        .progress-bar-inner {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #00fff0 0%, #7200ff 70%, #ff3c70 100%);
-            border-radius: 10px;
-            transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-            box-shadow: 0 0 10px #00fff088;
-        }
-        .login-form h2, .success-box h1, .nicknames-title, .story-title {
-            color: #fff;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 18px #00fff0, 0 0 2px #ff3c70;
-        }
-        .story-title {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            margin-top: 0;
-        }
-        .friends-pastel {
-            color: #89cff0; /* pastel blue */
-            text-shadow: 0 0 18px #c1eaff, 0 0 2px #fff;
-            font-weight: bold;
-        }
-        .input-group { position: relative; margin-bottom: 32px; }
-        .input-group input,
-        .input-group textarea {
-            width: 100%;
-            padding: 16px 12px 12px 12px;
-            border: none;
-            outline: none;
-            background: #181828;
-            color: #fff;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            box-shadow: 0 2px 12px #00fff044;
-            transition: box-shadow 0.2s;
-        }
-        .input-group input:focus,
-        .input-group textarea:focus {
-            box-shadow: 0 0 12px 2px #00fff0, 0 2px 12px #00fff044;
-        }
-        .input-group label {
-            position: absolute;
-            left: 14px;
-            top: 16px;
-            pointer-events: none;
-            color: #00fff0cc;
-            font-size: 1rem;
-            transition: all 0.2s;
-            letter-spacing: 1px;
-            background: transparent;
-        }
-        .input-group input:focus + label,
-        .input-group input:not(:placeholder-shown):not(:focus) + label {
-            top: -10px;
-            left: 8px;
-            font-size: 0.85rem;
-            color: #00fff0;
-            background: #181828;
-            padding: 0 6px;
-            border-radius: 6px;
-            box-shadow: 0 0 5px #00fff044;
-        }
-        .btn-group {
-            display: flex;
-            flex-direction: row;
-            gap: 24px;
-            margin-bottom: 18px;
-            justify-content: center;
-        }
-        .neon-btn {
-            flex: 1;
-            padding: 14px 0;
-            background: #181828;
-            color: #fff;
-            font-size: 1.1rem;
-            font-family: 'Orbitron', sans-serif;
-            border: none;
-            border-radius: 100px;
-            position: relative;
-            cursor: pointer;
-            box-shadow: 0 0 10px 2px #00fff0, 0 1px 5px #0006;
-            overflow: hidden;
-            z-index: 1;
-            transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
-            outline: none;
-        }
-        .neon-btn span {
-            position: relative;
-            z-index: 2;
-            letter-spacing: 1px;
-            transition: color 0.2s;
-            font-weight: 700;
-        }
-        .neon-btn::before, .neon-btn::after {
-            content: '';
-            position: absolute;
-            border-radius: 100px;
-            z-index: 0;
-            transition: opacity 0.2s;
-        }
-        .neon-btn::before {
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, #00fff0 0%, #7200ff 70%, #ff3c70 100%);
-            filter: blur(8px);
-            opacity: 0.8;
-            animation: neonPulse 2.5s infinite alternate;
-        }
-        .neon-btn::after {
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, #00fff0 0%, #7200ff 70%, #ff3c70 100%);
-            opacity: 0.3;
-        }
-        @keyframes neonPulse {
-            0% { filter: blur(8px) brightness(1); opacity: 0.8;}
-            100% { filter: blur(16px) brightness(1.2); opacity: 1;}
-        }
-        .neon-btn:hover, .neon-btn:focus {
-            color: #00fff0;
-            box-shadow: 0 0 24px 6px #ff3c7099, 0 2px 16px #00fff088;
-            transform: scale(1.07);
-        }
-        .neon-btn:hover::before {
-            opacity: 1;
-            filter: blur(12px) brightness(1.3);
-        }
-        .neon-submit {
-            margin-top: 22px;
-            font-size: 1.15rem;
-            letter-spacing: 2px;
-            background: #181828;
-            min-width: 120px;
-        }
-        .active-btn {
-            color: #fff !important;
-            box-shadow: 0 0 40px 8px #ff3c70cc, 0 2px 16px #00fff088 !important;
-            background: linear-gradient(90deg, #ff3c70bb 0%, #00fff0cc 100%) !important;
-        }
-        .no-db-warning {
-            color: #ffb300;
-            padding-top: 26px;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 600;
-            text-shadow: 0 0 6px #181828, 0 0 2px #fff6;
-        }
-        .jinda-error, .say-error {
-            display:none;
-            color:#ff6f6f;
-            font-size:0.95rem;
-            text-align:center;
-            margin-bottom:10px;
-        }
-        .success-box {
-            display: none;
-            text-align: left;
-            color: #fff;
-            max-width: 500px;
-            background: rgba(34, 34, 56, 0.99);
-        }
-        .success-box h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00fff0;
-            margin-bottom: 18px;
-            font-size: 2.3rem;
-            text-shadow: 0 0 15px #00fff0, 0 0 2px #fff;
-            text-align: center;
-        }
-        .success-box ul {
-            padding-left: 20px;
-        }
-        .success-box li {
-            font-size: 1.08rem;
-            margin-bottom: 12px;
-        }
-        .success-box .big-emoji {
-            font-size: 3.2rem;
-            margin-bottom: 22px;
-            display: block;
-            text-align: center;
-        }
-        .footer-msg {
-            margin-top: 30px;
-            color: #ffb300;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 600;
-            text-shadow: 0 0 6px #181828, 0 0 2px #fff6;
-        }
-        .nicknames-page {
-            display: none;
-            max-width: 550px;
-            background: rgba(34, 34, 56, 0.99);
-        }
-        .nicknames-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 24px;
-        }
-        .nicknames-table th, .nicknames-table td {
-            border: 1px solid #00fff0;
-            padding: 8px 12px;
-            text-align: left;
-            color: #fff;
-        }
-        .nicknames-table th {
-            background: #2a0b31;
-            color: #00fff0;
-            font-family: 'Orbitron', sans-serif;
-        }
-        .nicknames-table tr:nth-child(even) {
-            background: #181828;
-        }
-        .nicknames-table tr:nth-child(odd) {
-            background: #221b2d;
-        }
-        .nickname-note {
-            color: #fff799;
-            font-size: 1.06em;
-            margin-top: 18px;
-            text-align: center;
-            font-weight: 500;
-        }
-        .sorry-text {
-            color: #ed697e;
-            font-size: 1em;
-            font-style: italic;
-        }
-        .story-page, .warden-page, .final-page {
-            display: none;
-            max-width: 700px;
-            text-align: left;
-            color: #fff;
-            background: rgba(34, 34, 56, 0.99);
-        }
-        .story-section {
-            margin-bottom: 24px;
-            line-height: 1.7;
-        }
-        .story-section .emoji {
-            font-size: 1.3em;
-            vertical-align: middle;
-        }
-        .story-section .teacher-dialogue {
-            font-style: italic;
-            display: block;
-            margin-left: 1.5em;
-            margin-bottom: 4px;
-        }
-        .story-section hr {
-            border: 0;
-            border-bottom: 1px solid #00fff0;
-            margin: 20px 0 18px 0;
-        }
-        .emoji-reactions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 14px;
-        }
-        .emoji-reaction-btn {
-            background: transparent;
-            border: none;
-            font-size: 1.7rem;
-            cursor: pointer;
-            filter: drop-shadow(0 1px 2px #222);
-            transition: transform 0.1s;
-            user-select: none;
-        }
-        .emoji-reaction-btn:hover {
-            transform: scale(1.25) rotate(-8deg);
-        }
-        .emoji-reaction-count {
-            display: block;
-            font-size: 0.8rem;
-            color: #fff799;
-            text-align: center;
-            margin-top: -4px;
-        }
-        .typewriter {
-            display: inline-block;
-            overflow: hidden;
-            border-right: .15em solid #00fff0;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .12em;
-            animation: typing 2.2s steps(30, end), blink-caret .75s step-end infinite;
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-        }
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #00fff0; }
-        }
-        .page-flip {
-            animation: pageflip 0.7s cubic-bezier(.68,-0.55,.27,1.55);
-        }
-        @keyframes pageflip {
-            0% { transform: rotateY(-90deg) scale(0.95);}
-            70% { transform: rotateY(15deg) scale(1.03);}
-            100% { transform: rotateY(0deg) scale(1);}
-        }
-        .next-btn-box {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        /* Teacher search section design */
-        .teacher-search-section {
-            margin-bottom: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .teacher-search-inner {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            max-width: 340px;
-            background: #1b1530;
-            border-radius: 16px;
-            box-shadow: 0 0 14px 2px #00fff066, 0 2px 8px #0fffc044;
-            transition: box-shadow 0.22s;
-        }
-        .teacher-search-inner:focus-within {
-            box-shadow: 0 0 28px 6px #00fff099, 0 2px 20px #ff3c7044;
-        }
-        .search-emoji {
-            font-size: 1.45em;
-            margin-left: 14px;
-            margin-right: 4px;
-            color: #00fff0cc;
-            pointer-events: none;
-            filter: drop-shadow(0 0 4px #00fff0aa);
-        }
-        #teacherSearch {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 1.13em;
-            padding: 12px 12px 12px 2px;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 0 16px 16px 0;
-            transition: box-shadow 0.18s, background 0.18s;
-            z-index: 2;
-            position: relative;
-            letter-spacing: 1px;
-        }
-        #teacherSearch::placeholder {
-            color: #00fff088;
-            font-style: italic;
-            font-size: 0.97em;
-        }
-        .search-bar-glow {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            bottom: 4px;
-            pointer-events: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #00fff088 0%, #7200ff55 70%, #ff3c7055 100%);
-            filter: blur(8px);
-            opacity: 0.35;
-            z-index: 1;
-            transition: opacity 0.18s;
-        }
-        .teacher-search-inner:focus-within .search-bar-glow {
-            opacity: 0.7;
-        }
-        .search-tip {
-            color: #00fff0bb;
-            font-size: 0.98em;
-            margin-top: 8px;
-            margin-left: 8px;
-            font-family: 'Orbitron', monospace;
-            letter-spacing: 0.7px;
-            text-shadow: 0 0 8px #00fff044;
-            text-align: center;
-        }
-        @media (max-width: 700px) {
-            .page-box, .nicknames-page, .story-page, .warden-page, .final-page {
-                width: 98vw;
-                padding: 18px 2vw 16px 2vw;
-                min-width: 0;
-            }
-            .emoji-float { font-size: 2.1em; }
-            .teacher-search-inner { max-width: 95vw; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRIENDS Forever 💖</title>
+  <style>
+    /* ============ GLOBAL STYLES ============ */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #1a0025, #000);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Aurora background animation */
+    .aurora {
+      position: fixed;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,0,255,0.2), transparent 70%),
+                  radial-gradient(circle, rgba(0,255,255,0.2), transparent 70%),
+                  radial-gradient(circle, rgba(255,255,0,0.2), transparent 70%);
+      top: -50%;
+      left: -50%;
+      animation: auroraMove 20s infinite linear alternate;
+      z-index: 0;
+    }
+
+    @keyframes auroraMove {
+      0% { transform: translate(0,0); }
+      50% { transform: translate(25%,25%); }
+      100% { transform: translate(-25%, -25%); }
+    }
+
+    /* Emoji background */
+    .emoji-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .emoji-float {
+      position: absolute;
+      opacity: 0.8;
+      animation: floatUp 12s linear forwards;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh) scale(0.5); opacity: 0.8; }
+      to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    /* Glassmorphism card */
+    .page-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0,255,255,0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .glow-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+      margin-bottom: 20px;
+      animation: glowPulse 2s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 10px #0ff; }
+      to { text-shadow: 0 0 25px #0ff, 0 0 50px #0ff; }
+    }
+
+    /* Typewriter effect */
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid #ff0;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(30) 1s forwards, blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Inputs & Buttons */
+    .neon-input {
+      padding: 10px;
+      border: 2px solid #0ff;
+      border-radius: 5px;
+      background: transparent;
+      color: #0ff;
+      outline: none;
+      font-size: 1rem;
+      margin: 10px 0;
+      width: 80%;
+    }
+
+    .neon-btn {
+      padding: 10px 20px;
+      margin-top: 15px;
+      border: 2px solid #ff0;
+      border-radius: 5px;
+      background: transparent;
+      color: #ff0;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .neon-btn:hover {
+      background: #ff0;
+      color: #000;
+      box-shadow: 0 0 15px #ff0;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      width: 80%;
+      height: 12px;
+      background: #222;
+      margin: 25px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff0, #f0f, #0ff);
+      box-shadow: 0 0 20px #0ff;
+      transition: width 0.8s ease-in-out;
+    }
+
+    /* Final fireworks */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-    <!-- Background Emoji Layer -->
-    <div class="emoji-bg" id="emojiBg"></div>
-    <!-- Progress bar -->
-    <div class="progress-bar-outer">
-        <div class="progress-bar-inner" id="progressBar"></div>
+  <!-- Aurora & Emoji BG -->
+  <div class="aurora"></div>
+  <div class="emoji-bg" id="emojiBg"></div>
+
+  <div class="container">
+    <!-- Login Page -->
+    <div id="loginContainer" class="page-box">
+      <div class="glow-title">Welcome FRIENDS 💖</div>
+      <p class="typewriter">Let’s celebrate Teacher’s Day with memories ✨</p>
+      <input type="text" placeholder="Enter your Name" class="neon-input" id="nameInput">
+      <button class="neon-btn" id="submitBtn">Login</button>
     </div>
-    <!-- Login Form -->
-    <div class="page-box" id="loginContainer">
-        <form class="login-form" id="mainForm" autocomplete="off">
-            <div class="typewriter" id="mainTitle">
-                <span class="friends-pastel">F.R.I.E.N.D.S.</span>
-            </div>
-            <h2>NAAM</h2>
-            <div class="input-group">
-                <input type="text" id="naam" required autocomplete="off" placeholder=" "/>
-                <label for="naam">Naam likho (Enter your name)</label>
-            </div>
-            <h2>JINDA</h2>
-            <div class="btn-group" id="jindaGroup">
-                <button type="button" class="neon-btn" id="haa" tabindex="0">HAA</button>
-                <button type="button" class="neon-btn" id="naa" tabindex="0">NAA</button>
-            </div>
-            <input type="hidden" id="jinda" required>
-            <div class="jinda-error" id="jindaError">Select HAA or NAA</div>
-            <div class="input-group" style="margin-top: 32px;">
-                <label for="say" style="top: -10px; left: 8px; font-size: 0.85rem; color: #00fff0; background: #181828; padding: 0 6px; border-radius: 6px; box-shadow: 0 0 5px #00fff044;">Say something to me:</label>
-                <textarea id="say" rows="3" required style="resize:vertical;width:100%;padding:12px;border-radius:8px;border:none;background:#181828;color:#fff;font-size:1rem;box-shadow:0 2px 12px #00fff044;"></textarea>
-            </div>
-            <div class="say-error" id="sayError">Please say something!</div>
-            <div class="next-btn-box">
-                <button type="submit" class="neon-btn neon-submit" id="submitBtn"><span>THOKO</span></button>
-            </div>
-            <div class="no-db-warning">
-                <span>😆 No database here, so your data just vanishes like my motivation on Monday!</span>
-            </div>
-        </form>
+
+    <!-- Success -->
+    <div id="successBox" class="page-box hidden">
+      <h2 class="glow-title">Login Successful ✅</h2>
+      <p>Hey <span id="userName"></span>, ready for the crazy FRIENDS world?</p>
+      <button class="neon-btn" id="toNicknamesBtn">THOKO RE 😂</button>
     </div>
-    <!-- Success Message -->
-    <div class="success-box page-box" id="successBox" style="display:none;">
-        <span class="big-emoji">😈</span>
-        <h1>DOSTI YAARI EMOTIONS</h1>
-        <ul>
-            <li>1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.</li>
-            <li>2. Aise lagta hai jaise koi part of life missing ho.</li>
-            <li>3. Pehle har din masti hoti thi, ab sirf kaam aur boredom hai.</li>
-            <li>4. Woh choti-choti baatein, lame jokes, aur nonstop bakchodi — sab yaad aati hai.</li>
-            <li>5. Kabhi kabhi toh pura flashback chal jaata hai dimaag mein.</li>
-            <li>6. Tum logon ke bina har plan adhoora lagta hai.</li>
-            <li>7. Group chat mein bhi ab woh dhamaka nahi raha.</li>
-            <li>8. Seriously, milna chahiye jaldi, warna yaadon se hi dosti karni padegi.</li>
-            <li>9. Chal, koi ek plan banate hain — time, jagah fix karo!</li>
-            <li>10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟</li>
-        </ul>
-        <div class="footer-msg">
-            <span style="font-size:0.95em;">You can close this tab now. Have a great day!</span>
-        </div>
-        <div class="next-btn-box">
-            <button class="neon-btn neon-submit" id="toNicknamesBtn"><span>THOKO ALSO</span></button>
-        </div>
+
+    <!-- Story -->
+    <div id="storyPage" class="page-box hidden">
+      <h2 class="glow-title">Classroom Chaos 📚</h2>
+      <p>Remember when the teacher asked a question, and we all pretended to write? 😂</p>
+      <button class="neon-btn" id="toWardenBtn">Next ➡️</button>
     </div>
-    <!-- Story Page -->
-    <div class="story-page page-box" id="storyPage" style="display:none;">
-        <div class="story-title">Hello doston! 👿🤘</div>
-        <div class="emoji-reactions" id="emojiReactions1">
-            <button class="emoji-reaction-btn" data-emoji="😂">😂<span class="emoji-reaction-count" id="emojiCount-😂">0</span></button>
-            <button class="emoji-reaction-btn" data-emoji="😈">😈<span class="emoji-reaction-count" id="emojiCount-😈">0</span></button>
-            <button class="emoji-reaction-btn" data-emoji="🤙">🤙<span class="emoji-reaction-count" id="emojiCount-🤙">0</span></button>
-            <button class="emoji-reaction-btn" data-emoji="🤘">🤘<span class="emoji-reaction-count" id="emojiCount-🤘">0</span></button>
-        </div>
-        <!-- Enhanced Search box for teachers -->
-        <div class="teacher-search-section">
-            <div class="teacher-search-inner">
-                <span class="search-emoji" aria-label="Search">🔎</span>
-                <input type="text" id="teacherSearch" placeholder="Type to search teachers..." autocomplete="off">
-                <span class="search-bar-glow"></span>
-            </div>
-            <div class="search-tip">Type a name or subject to filter teachers below</div>
-        </div>
-        <div class="story-section">
-            <b>School ke teachers aur unki yaadein:</b><br>
-            <ul id="teachersList">
-                <!-- ... teacher <li> items as before ... -->
-                <li><b>Rishav Sir</b>:<br>Saatvi mein aaye, thoda style dikhane lage,
-Krish ke saath football ke kisse sunane lage.
-Maths ki trick se sabko gumaan mein daalne lage,
-Girls ke dil mein silently bas jaane lage. 💫<br>
 
-Aathvi mein aaye, class teacher bane khaas,
-Science weak tha, par bataya kaise hota hai paas.
-Support mila unse, har sawal ka mila ulta-jawaab,
-Guidance mein unka tha ek alag hi andaaz. ✨<br>
-
-Phir hostel gaye, hum bhi piche-piche nikal gaye,
-Football ke field mein Josh ke saath mil gaye.
-Shuru mein laga, bhai kya mast game hai bhai,
-Par kuch dino mein samjha — sir toh goal banake bas pass hi kar gaye! 😅<br>
-
-Saatvi se dasvi tak mila unka pyaar,
-Kabhi na lage ki sir door ho to ho intezaar.
-Har mor pe kiya help, na chhoda kabhi yeh yaar,
-Rishav sir jaise teacher — milte hain bade dildaar! ❤️
-                <br> Vo gaane gaana.. Vo bachchon ko dusre duniyaan ka shair karana kuch alag hi tha unka pyar💝</li><br>
-                <li><b>Chandraketu Sir</b>:<br>Dekha tha pehle bhi, kabhi is ma'am ke saath, kabhi uske saath,
-Par mulaqat hui theek se 9th mein, class teacher ke path.
-Sportive the itne, ke ghar baat karni ho toh bolo saaf,
-Kuch mangwana ho toh bolo — jaise teacher nahi koi bhai ka raaf! 😄<br>
-
-Prantik ka rakhte the khaas khayaal, dil se karte the care,
-Par uss extra pyaar ne banaya kuch aur students ko beware.
-Complain hui, mood change hua, aur badal gaya poora flair,
-Kabhi chill sir, ban gaye serious — laga ho gaya unfair. 😅<br>
-
-Pehle padhate-padhate phone mein kho jaate the mast,
-Phir achanak kitabon se ban gaya unka vishwas ka rasta sasta aur past.
-Lekin yaad hai ek scene, jiska maza sabne liya tha hardcast —
-Arnav ko bola, "I welcome you," aur sabka ho gaya burst-blast! 💥<br>
-
-Kabhi pyaar se, kabhi dosti se, kabhi phone se judte the sir,
-Chandraketu sir jaise teachers — yaadon mein reh jaate hain zarur.
-Thoda hassi, thoda gussa, thoda sweet aur thoda blur,
-Par ek baat pakki — unke bina class lagti thi bilkul bas "dull" aur "burr"! 😌<br>
-              Board pe chalk uthake jab likhne ka aata tha scene,
-Par finger hoti thi middle, aur class ho jaati silent screen.
-Koi kuch na bole, sab aankhon se karte the baat,
-Ek dusre ko dekh muskaate, le lete mazaak ka swaad. 😁  </li>
-                <li><b>Sudhakar Sir</b>:<br>Pehchaan thi pehle se, exam department ke the star,
-Class 9th mein aaye tab mila unka asli avataar.
-Janwar ki tarah marte the, karte na kisi se vyavahaar,
-Homework ka tha dher, aur aankhon mein bas tha maar! 😬<br>
-
-Kahi se aate, maar ke jaate, bas dhoondte the bahana,
-Na koi hello, na haan, bas chalti thi unki purani kahaniyana.
-Par department wale the, to kabhi help ka milta tha khazana,
-Samajh aaya — daant ke peeche bhi tha ek asliyat ka thikana. 📘<br>
-
-Do period ke baad le jaate games mein, hota tha sukoon,
-Class se bahar nikalte hi milta tha ek naya junoon.
-N.C.E.R.T. ke alawa kuch mat padho, bas yahi tha unka kanoon,
-Lekin unke motivation ne, bana diya padhai ka bhi ek khoobsurat dhoon. 🎯<br>
-
-Baat-baat mein mazaak bhi karte, muskurahat thi andekhi,
-Help karte the chhupke se, unki niyat thi kuch alag si dekhi.
-Sudhakar Sir — the strict bhi, sweet bhi, thode se unique the sahi,
-Unke jaise teacher ho toh darr bhi lage... aur lage yaari bhi kahi! ❤️<br> </li>
-                <li><b>Divya Jyoti Mam</b>: Science ki queen, masti ki machine.</li>
-                <li><b>Sujit & Pratyush Sir</b>: Hamare superheroes, hamesha ready to help.</li>
-                <li><b>Vikash Sir</b>: "Padho na ji, exam sir pe hai!"</li>
-                <li><b>Arun Sir</b>:<br> Civics padhate the, par gungaan tha BJP ka raag,
-Har class mein lagta tha jaise ho rahi ho koi bhaashan ki aag.
-Helpful the zarur, par gussa aaye toh ban jaayein tiger ka swaroop,
-Tab toh bas chup rehna tha, warna milta tha ek political dhoop. 🔥<br>
-
-Motivation ka the storehouse, baatein karte the dil se,
-Par har line ke baad aata tha – “Main bhi hoon na ek misaal iss silsile se!”
-Line thi unki favourite – “Dusro ki jay se pehle apni jay kare,”
-Aur ussi mein unka swagger tha — "main kya kam hoon yeh sabko pata chale!" 😎<br>
-
-Personal life bhi humse share karte, jaise ho ghar ki party,
-"Aaj Pihu ke liye chappal liya — batao bhai, kaisi lagti hai Smarty?" 👡<br>
-Explaining mein no doubt top-level ka tha unka flow,
-Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄<br>
-
-Attitude bhi full-on tha — principal ko bhi bol dein “Sir it’s my period,”
-Aur phir unka hi chatna, jaise ho poora class mein ek superior breed!
-Yes, gusse wale the, par help bhi karte dil se yaar,
-Unka style hi alag tha — angry bhi, par full of positive prachaar. 💬<br></li>
-                <li><b>Principal Sir</b>: "I sham on you boys!" - sabko yaad hai!</li>
-                <li><b>Prantik & Chandraketu Sir</b>: Chemistry wali chemistry! 😏</li>
-                <li><b>Nishant Sir</b>: Bindaas, no filter!</li>
-                <li><b>Neeraj Sir</b>: Jee-NEET wala gyaan.</li>
-                <li><b>Ujjwal Sir</b>:<br>The pehle se school mein, par 2019 ke pehle chale gaye the door,
-Par jab zarurat padi maths ki, toh wapas aaye ban ke noor.
-Unke aate hi bhaiya log bole – “Sir toh hai top class,”
-Unke naam se hi ho gaya, poori class ka blast! 🔥<br>
-
-Class 9th mein mila unse pehli baar, aur kya hi mila tha yaar,
-Entry lete hi laga jaise – "ab toh padayi lagegi maar!" 😅<br>
-Tough se tough concept ko bana dete the asaan,
-Aur unka IIT ka experience – bhai wah, bilkul tha mahaan! 🎓<br>
-
-Bataaye the IIT ke scenes, professor wali baat bhi ki thi,
-Knowledge ka tha bhandaar, har lecture mein roshni si thi.
-9th mein 10th ka, 10th mein 11th ka padha diye kaam,
-Unka gyaan sun ke lagta – maths bhi ban gaya mera salaam! 🙌<br>
-
-Kabhi-kabhi physics ka bhi basic samjha dete the pyar se,
-Concept clear karna tha unka kaam, bina kisi bhitar ke shor se.
-10th tak toh guide kiya har mod pe bina rukawat ke,
-Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br>
-
-Hello bolte hi lagta tha sir aagaye hain aaj kuch khaas batane,
-Unke jaise teacher ho toh, maths lage bina pressure ke easy banane.
-Ujjwal Sir — ek naam nahi, ek yaad hain classroom ke rangon mein,
-Unka gyaan, unka guidance — hamesha hoga humare sangon mein. ❤️<br></li>
-                <li><b>Guddu Sir</b>: "Tor dunga!"</li>
-                <li><b>Ranjan Sir</b>: "Kut dunga!" & funny towel kahaniyan.</li>
-                <li><b>Undranil Sir</b>: DJ Snake + BP Check = Allrounder!</li>
-                <li><b>Kundan Sir</b>: YouTube projector, mini-theatre.</li>
-                <li><b>Sudipto Sir</b>: Hamari pareshaniyon ka shikar.</li>
-                <li><b>Manoranjan Sir</b>: Philosopher king.</li>
-                <li><b>Simon Sir</b>: G** phaad marna since 5th!</li>
-                <li><b>Ravi Sir</b>: Notes likhwane ki machine.</li>
-                <li><b>DB Wandgr Sir</b>: Chutney ki recipe aur haryali jokes.</li>
-                <li><b>Premlata Ma’am & Raushan</b>: Maa-beta jodi, suspense queen.</li>
-                <li><b>DK Jha Sir</b>: "Ye log padne waale nahi lagte!"</li>
-                <li><b>Archana Ma’am</b>: Naam lete hi censored ho jaata hai. 🤐</li>
-            </ul>
-        </div>
-        <div class="next-btn-box">
-            <button class="neon-btn neon-submit" id="toWardenBtn"><span>THOKO NA RE</span></button>
-        </div>
+    <!-- Warden -->
+    <div id="wardenPage" class="page-box hidden">
+      <h2 class="glow-title">Hostel Nights 🌙</h2>
+      <p>The warden said “Sleep!”, and we started a pillow fight instead 🤣.</p>
+      <button class="neon-btn" id="toFinalBtn">Final Surprise 🎉</button>
     </div>
-    <!-- Warden Page -->
-    <div class="warden-page page-box" id="wardenPage" style="display:none;">
-        <div class="emoji-reactions" id="emojiReactions2">
-            <button class="emoji-reaction-btn" data-emoji="😎">😎<span class="emoji-reaction-count" id="emojiCount2-😎">0</span></button>
-            <button class="emoji-reaction-btn" data-emoji="🖕">🖕<span class="emoji-reaction-count" id="emojiCount2-🖕">0</span></button>
-            <button class="emoji-reaction-btn" data-emoji="🤝">🤝<span class="emoji-reaction-count" id="emojiCount2-🤝">0</span></button>
-        </div>
-        <div class="story-section">
-            <b>Hamare Hostel ke Warden:</b>
-            <ul>
-                <li><b>Deepak Sir (3rd Floor):</b> "Ek mukka denge na..." Admission number yaad rakhna!</li>
-                <li><b>2nd Floor ka warden:</b> (Yahan apna funny yaadgar moments add karo!)</li>
-            </ul>
-        </div>
-        <div class="next-btn-box">
-            <button class="neon-btn neon-submit" id="toFinalBtn"><span>THOKO</span></button>
-        </div>
+
+    <!-- Final -->
+    <div id="finalPage" class="page-box hidden">
+      <h2 class="glow-title">FRIENDS Forever 💖</h2>
+      <p class="final-message">No matter where life takes us, our FRIENDSHIP will glow brighter than neon lights ✨</p>
     </div>
-    <!-- Final Page -->
-    <div class="final-page page-box" id="finalPage" style="display:none;">
-        <div class="story-section">
-            <b>Toh doston...</b><br>
-            Ye thi hamari school life ki original web series –<br>
-            Full drama, full comedy, thoda romance, thoda action aur full emotion.<br><br>
-            Teachers ka gussa ho ya unka pyaar, unhone sabko kuch na kuch sikhaya zaroor.<br>
-            Aur ye yaadein... humesha yaad rahengi.<br><br>
-            Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.<br>
-            <hr>
-            <span class="emoji">🤟</span> Jai school life, jai nostalgia!
-        </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-bar-inner" id="progressBar"></div>
     </div>
-    <script>
-        // Rocking emoji background generator
-        (function(){
-            const EMOJIS = ["💀","☠️","😎","😈","👿","🤟","🤘","🖕","🤙","🤝"];
-            const emojiBg = document.getElementById('emojiBg');
-            function getRand(min, max) { return Math.random() * (max - min) + min; }
-            function createEmojiFloating(i) {
-                const el = document.createElement('span');
-                el.className = "emoji-float";
-                el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
-                el.style.left = getRand(-8, 98) + "vw";
-                el.style.fontSize = getRand(1.6, 3.7) + "em";
-                el.style.animationDuration = getRand(8, 18) + "s";
-                el.style.animationDelay = -getRand(0, 15) + "s";
-                emojiBg.appendChild(el);
-            }
-            for (let i = 0; i < 28; ++i) createEmojiFloating(i);
-            setInterval(()=>{
-                for (let i=0; i<3; ++i) createEmojiFloating(i);
-                while(emojiBg.children.length > 38) emojiBg.removeChild(emojiBg.children[0]);
-            }, 3500);
-        })();
+  </div>
 
-        // Progress bar logic
-        const progressBar = document.getElementById('progressBar');
-        function setProgress(percent) { progressBar.style.width = percent + "%"; }
-        const pageOrder = [
-            'loginContainer', 'successBox', 'nicknamesPage', 'storyPage', 'wardenPage', 'finalPage'
-        ];
-        function updateProgressBar(currentPageId) {
-            let idx = pageOrder.indexOf(currentPageId);
-            if (idx < 0) idx = 0;
-            setProgress(Math.round((idx) / (pageOrder.length - 1) * 100));
-        }
-        // Button selection logic for HAA/NAA
-        const haaBtn = document.getElementById('haa');
-        const naaBtn = document.getElementById('naa');
-        const jindaInput = document.getElementById('jinda');
-        const jindaError = document.getElementById('jindaError');
-        const sayInput = document.getElementById('say');
-        const sayError = document.getElementById('sayError');
-        haaBtn.addEventListener('click', function() {
-            haaBtn.classList.add('active-btn');
-            naaBtn.classList.remove('active-btn');
-            jindaInput.value = 'HAA';
-            jindaError.style.display = 'none';
-        });
-        naaBtn.addEventListener('click', function() {
-            naaBtn.classList.add('active-btn');
-            haaBtn.classList.remove('active-btn');
-            jindaInput.value = 'NAA';
-            jindaError.style.display = 'none';
-        });
+  <canvas id="fireworks"></canvas>
 
-        // Form submit logic
-        document.getElementById('mainForm').addEventListener('submit', function(e) {
-            let valid = true;
-            if (!jindaInput.value) {
-                jindaError.style.display = 'block';
-                valid = false;
-            } else jindaError.style.display = 'none';
-            if (!sayInput.value.trim()) {
-                sayError.style.display = 'block';
-                valid = false;
-            } else sayError.style.display = 'none';
-            if (!valid) { e.preventDefault(); return; }
-            showPage('successBox');
-            e.preventDefault();
-        });
+  <script>
+    /* ========== EMOJI BACKGROUND ========== */
+    const emojis = ["😂","😈","🤙","🤘","🔥","❤️","✨"];
+    const bg = document.getElementById("emojiBg");
 
-        // Page flip animation helper
-        let lastPageId = "loginContainer";
-        function showPage(pageId) {
-            for (let pid of pageOrder) {
-                const el = document.getElementById(pid);
-                if (el) el.style.display = "none";
-            }
-            const el = document.getElementById(pageId);
-            if (el) {
-                el.style.display = "block";
-                el.classList.remove("page-flip");
-                void el.offsetWidth;
-                el.classList.add("page-flip");
-            }
-            updateProgressBar(pageId);
-            lastPageId = pageId;
-        }
-        // Navigation
-        document.getElementById('toNicknamesBtn').addEventListener('click', function(e) {
-            showPage('nicknamesPage');
-            e.preventDefault();
-        });
-        document.getElementById('toStoryBtn').addEventListener('click', function(e) {
-            showPage('storyPage');
-            e.preventDefault();
-        });
-        document.getElementById('toWardenBtn').addEventListener('click', function(e) {
-            showPage('wardenPage');
-            e.preventDefault();
-        });
-        document.getElementById('toFinalBtn').addEventListener('click', function(e) {
-            showPage('finalPage');
-            if(window.confetti) confetti({particleCount: 200, spread: 120, origin: { y: 0.65 }});
-            e.preventDefault();
-        });
+    function createEmoji() {
+      const emoji = document.createElement("div");
+      emoji.classList.add("emoji-float");
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.fontSize = Math.random() * 20 + 20 + "px";
+      bg.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 12000);
+    }
+    setInterval(createEmoji, 800);
 
-        // Emoji reactions for storyPage and wardenPage
-        function setupEmojiReactions(containerId, prefix="") {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            container.querySelectorAll('.emoji-reaction-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const emoji = btn.getAttribute('data-emoji');
-                    const countSpan = document.getElementById((prefix ? prefix : '') + 'emojiCount' + (prefix ? '' : '-') + emoji);
-                    let count = parseInt(countSpan.textContent, 10);
-                    count++;
-                    countSpan.textContent = count;
-                    btn.classList.add('active-btn');
-                    setTimeout(() => btn.classList.remove('active-btn'), 300);
-                });
-            });
-        }
-        setupEmojiReactions('emojiReactions1');
-        setupEmojiReactions('emojiReactions2','2-');
-        showPage('loginContainer');
+    /* ========== NAVIGATION + PROGRESS ========== */
+    const loginContainer = document.getElementById("loginContainer");
+    const successBox = document.getElementById("successBox");
+    const storyPage = document.getElementById("storyPage");
+    const wardenPage = document.getElementById("wardenPage");
+    const finalPage = document.getElementById("finalPage");
+    const progressBar = document.getElementById("progressBar");
 
-        // Teacher search/filter logic for story page (with highlight)
-        (function() {
-            const searchInput = document.getElementById('teacherSearch');
-            const teachersList = document.getElementById('teachersList');
-            if (!searchInput || !teachersList) return;
+    function updateProgress(percent) {
+      progressBar.style.width = percent + "%";
+    }
 
-            searchInput.addEventListener('input', function() {
-                const filter = searchInput.value.trim().toLowerCase();
-                const items = teachersList.querySelectorAll('li');
-                items.forEach(li => {
-                    // Extract name from possible bold
-                    let name = li.querySelector('b') ? li.querySelector('b').textContent : li.textContent;
-                    if (name.toLowerCase().indexOf(filter) !== -1 || filter === "") {
-                        li.style.display = '';
-                        // Highlight match
-                        if (filter && li.querySelector('b')) {
-                            let regex = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-                            li.querySelector('b').innerHTML = li.querySelector('b').textContent.replace(regex, "<span style='background:#00fff044;color:#ff3c70;box-shadow:0 0 8px #00fff0aa;border-radius:3px;padding:0 3px;'>$1</span>");
-                        } else if(li.querySelector('b')) {
-                            li.querySelector('b').innerHTML = li.querySelector('b').textContent;
-                        }
-                    } else {
-                        li.style.display = 'none';
-                    }
-                });
-            });
-        })();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    document.getElementById("submitBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("nameInput").value || "Buddy";
+      document.getElementById("userName").innerText = name;
+      loginContainer.classList.add("hidden");
+      successBox.classList.remove("hidden");
+      updateProgress(25);
+    });
+
+    document.getElementById("toNicknamesBtn").addEventListener("click", () => {
+      successBox.classList.add("hidden");
+      storyPage.classList.remove("hidden");
+      updateProgress(50);
+    });
+
+    document.getElementById("toWardenBtn").addEventListener("click", () => {
+      storyPage.classList.add("hidden");
+      wardenPage.classList.remove("hidden");
+      updateProgress(75);
+    });
+
+    document.getElementById("toFinalBtn").addEventListener("click", () => {
+      wardenPage.classList.add("hidden");
+      finalPage.classList.remove("hidden");
+      updateProgress(100);
+      startFireworks();
+    });
+
+    /* ========== FIREWORKS CANVAS ========== */
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    let particles = [];
+    function random(min, max) { return Math.random() * (max - min) + min; }
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x; this.y = y;
+        this.size = 2;
+        this.speedX = random(-3,3);
+        this.speedY = random(-3,3);
+        this.color = color;
+        this.alpha = 1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+      }
+      draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function createFirework(x, y) {
+      const colors = ["#ff0","#f0f","#0ff","#f80","#0f0"];
+      for(let i=0;i<50;i++){
+        particles.push(new Particle(x,y,colors[Math.floor(Math.random()*colors.length)]));
+      }
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach((p,i) => {
+        p.update(); p.draw();
+        if(p.alpha<=0) particles.splice(i,1);
+      });
+      requestAnimationFrame(animateFireworks);
+    }
+
+    function startFireworks() {
+      animateFireworks();
+      setInterval(() => {
+        createFirework(random(100,canvas.width-100), random(100,canvas.height-100));
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
