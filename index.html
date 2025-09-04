@@ -7,170 +7,132 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-deep:#080615;
-    --bg-mid:#1b0620;
-    --glass: rgba(255,255,255,0.04);
-    --glass-2: rgba(255,255,255,0.06);
-    --accent-cyan: #00fff0;
-    --accent-pink: #ff3c70;
-    --accent-yellow:#ffbc33;
-    --card-radius:20px;
-    --max-width:900px;
+    --bg-dark:#070216;
+    --violet:#8a68ff;
+    --soft-pink:#ffb0dd;
+    --soft-cyan:#7ef0e6;
+    --card-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.06);
+    --radius:18px;
+    --maxw:980px;
   }
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(0,255,240,0.03), transparent 6%), radial-gradient(900px 500px at 90% 90%, rgba(255,60,112,0.03), transparent 6%), linear-gradient(135deg,var(--bg-deep) 0%, var(--bg-mid) 60%); color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; }
+  html,body{height:100%;margin:0;font-family:'Montserrat',sans-serif;background:
+    radial-gradient(800px 500px at 10% 10%, rgba(138,104,255,0.06), transparent 5%),
+    radial-gradient(700px 460px at 90% 90%, rgba(255,176,221,0.06), transparent 6%),
+    linear-gradient(180deg,var(--bg-dark) 0%, #0a0220 100%);
+    color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden;
+  }
 
-  /* ---------- Aurora & sparkles ---------- */
-  .aurora{ position:fixed; inset:-20%; z-index:0; pointer-events:none; mix-blend-mode:screen; filter:blur(30px);
+  /* Aurora (soft moving color) */
+  .aurora{
+    position:fixed; inset:-20%; z-index:0; pointer-events:none; mix-blend-mode:screen; filter:blur(26px);
     background:
-      radial-gradient(600px 220px at 10% 18%, rgba(0,255,240,0.06), transparent 20%),
-      radial-gradient(420px 180px at 90% 78%, rgba(255,60,112,0.05), transparent 18%);
-    animation: aur 22s ease-in-out infinite alternate;
+      radial-gradient(600px 220px at 12% 18%, rgba(138,104,255,0.09), transparent 16%),
+      radial-gradient(520px 200px at 85% 75%, rgba(255,176,221,0.08), transparent 14%),
+      radial-gradient(420px 180px at 50% 40%, rgba(126,240,230,0.06), transparent 12%);
+    animation: aur 26s ease-in-out infinite alternate;
   }
   @keyframes aur{ from{transform:translate(0,0)} to{transform:translate(6%, -6%)} }
 
-  .sparkles{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-  .spark{ position:absolute; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.06); filter:blur(1px); animation: drift linear infinite; }
-  @keyframes drift{ 0%{transform:translateY(100vh) scale(.6); opacity:0} 10%{opacity:0.95} 90%{opacity:0.95} 100%{transform:translateY(-20vh) scale(1.2); opacity:0} }
+  /* particles (soft dots drifting up) */
+  .particle { position:fixed; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.06); filter:blur(0.8px); z-index:0; pointer-events:none; animation:drift 12s linear infinite; }
+  @keyframes drift{ 0%{transform:translateY(100vh) scale(.6); opacity:0} 10%{opacity:0.85} 90%{opacity:0.85} 100%{transform:translateY(-10vh) scale(1.1); opacity:0} }
 
-  /* emoji background */
-  .emoji-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.24; overflow:hidden; }
-  .emoji-float{ position:absolute; user-select:none; filter: drop-shadow(0 6px 18px rgba(0,255,240,0.06)) drop-shadow(0 6px 24px rgba(255,60,112,0.04)); transform-origin:center; animation-timing-function:linear; }
+  /* floating emojis bg */
+  .emoji-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.2; overflow:hidden; }
+  .emoji-float{ position:absolute; user-select:none; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); animation-timing-function:linear; }
 
-  /* page wrapper */
-  .page-wrap{ min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:40px 20px 80px; gap:18px; position:relative; z-index:2; }
+  /* wrapper & layout */
+  .wrap{ min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:36px 18px 80px; gap:20px; position:relative; z-index:2; }
+  .card{ width:100%; max-width:760px; border-radius:var(--radius); background:var(--card-bg); border:1px solid var(--glass-border); padding:28px; box-shadow: 0 18px 60px rgba(0,0,0,0.6); backdrop-filter: blur(10px) saturate(1.1); transition:transform .45s, opacity .4s; margin:12px auto; }
 
-  /* progress */
-  .progress-wrap{ width:100%; max-width:var(--max-width); margin:12px auto 8px; }
-  .progress-outer{ height:12px; background:rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; box-shadow:0 6px 30px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03); }
-  .progress-inner{ height:100%; width:0%; background: linear-gradient(90deg,var(--accent-cyan), #7200ff, var(--accent-pink)); box-shadow:0 0 30px rgba(0,255,240,0.12); transition:width 700ms cubic-bezier(.2,.9,.2,1); }
-
-  /* card */
-  .card{ width:100%; max-width:760px; margin:14px auto; border-radius:var(--card-radius); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); border:1px solid var(--glass-2); padding:28px; box-shadow: 0 12px 50px rgba(0,0,0,0.65); backdrop-filter: blur(10px) saturate(1.25); transition:transform 450ms cubic-bezier(.2,.9,.2,1), opacity 420ms; }
-
-  /* top title */
-  .title-line{ font-family:'Orbitron',sans-serif; font-weight:700; font-size:2rem; letter-spacing:2px; display:inline-block; color:#fff; text-shadow: 0 0 24px rgba(0,255,240,0.06), 0 0 6px rgba(255,60,112,0.04); border-right:.12em solid rgba(0,255,240,0.8); white-space:nowrap; overflow:hidden; animation: typing 2.1s steps(36,end), blink .8s step-end infinite; margin-bottom:8px; }
+  .title{ font-family:'Orbitron',sans-serif; font-size:2.1rem; letter-spacing:2px; color:transparent; background:linear-gradient(90deg,var(--soft-pink),var(--violet),var(--soft-cyan)); -webkit-background-clip:text; margin-bottom:12px; border-right:.12em solid rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden; animation:typing 2.2s steps(36,end), blink .8s step-end infinite; }
   @keyframes typing{ from{width:0} to{width:100%} } @keyframes blink{ 50%{border-color:transparent} }
 
-  .friends-pastel{ color:#89cff0; text-shadow:0 0 18px #c1eaff, 0 0 2px #fff; font-weight:700; }
-
-  /* headings */
-  h2.section-title{ font-size:1rem; margin:12px 0 8px; text-align:center; letter-spacing:1px; color:#fff; }
+  h2.section { text-align:center; margin:8px 0 10px; font-size:1rem; color:#fff; font-weight:700; letter-spacing:0.6px; }
 
   /* inputs */
-  .input-group{ position:relative; margin-bottom:18px; }
-  .field{ width:100%; padding:14px 12px; border-radius:12px; border:none; outline:none; background:#0f1220; color:#fff; font-size:1rem; box-shadow: inset 0 -2px 18px rgba(0,0,0,0.6); }
-  .label{ position:absolute; left:14px; top:14px; color:rgba(0,255,240,0.5); pointer-events:none; transition:all 160ms; }
-  .field:focus + .label, .field:not(:placeholder-shown) + .label{ transform:translateY(-28px); font-size:0.86rem; background:linear-gradient(180deg, rgba(11,10,18,0.7), rgba(11,10,18,0.9)); padding:0 6px; color:var(--accent-cyan); border-radius:6px; }
+  .input { width:100%; padding:12px 14px; border-radius:10px; border:none; background:#0b0b14; color:#fff; font-size:1rem; outline:none; box-shadow: inset 0 -4px 18px rgba(0,0,0,0.5); }
+  .small-note{ color:rgba(255,255,255,0.8); font-size:0.95rem; margin-top:8px; text-align:center; }
 
-  textarea.field{ min-height:86px; resize:vertical; padding-top:18px; }
+  .btn-row{ display:flex; justify-content:center; gap:14px; margin-top:14px; flex-wrap:wrap; }
+  .btn{ padding:10px 20px; border-radius:999px; border:none; cursor:pointer; font-family:'Orbitron',sans-serif; font-weight:700; letter-spacing:0.6px; background:linear-gradient(90deg,var(--violet),var(--soft-pink)); color:#fff; box-shadow:0 10px 30px rgba(120,90,250,0.08); transition:transform .18s, box-shadow .18s; }
+  .btn:active{ transform:translateY(1px); }
+  .btn.ghost{ background:transparent; border:1px solid rgba(255,255,255,0.04); color:#fff; }
+  .btn:hover{ box-shadow:0 18px 50px rgba(120,90,250,0.16); transform:translateY(-3px); }
 
-  /* buttons */
-  .btn-row{ display:flex; gap:14px; justify-content:center; margin:18px 0; flex-wrap:wrap; }
-  .btn{ position:relative; overflow:visible; padding:12px 20px; border-radius:999px; border:none; cursor:pointer; font-family:'Orbitron',sans-serif; letter-spacing:1px; font-weight:700; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08)); color:#fff; box-shadow:0 6px 30px rgba(0,0,0,0.6); transition: transform 150ms, box-shadow 200ms; }
-  .btn:active{ transform:translateY(2px); }
-  .btn::after{ content:''; position:absolute; inset:0; border-radius:999px; z-index:-1; background:linear-gradient(90deg, rgba(0,255,240,0.12), rgba(114,0,255,0.06), rgba(255,60,112,0.08)); filter:blur(10px); opacity:0; transition:opacity 180ms; }
-  .btn:hover::after{ opacity:1; }
-  .btn.neon{ min-width:140px; padding:12px 18px; }
-  .btn.ripple{ overflow:hidden; }
-  /* ripple effect */
-  .ripple-effect{ position:absolute; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; background:rgba(255,255,255,0.18); animation:rippleAnim 600ms ease-out; }
-  @keyframes rippleAnim{ from{opacity:0.9; transform:translate(-50%,-50%) scale(0.2)} to{opacity:0; transform:translate(-50%,-50%) scale(3.2)} }
+  /* progress */
+  .progress-wrap{ width:100%; max-width:var(--maxw); margin:12px auto 0; }
+  .progress-outer{ height:12px; background:rgba(255,255,255,0.04); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 30px rgba(0,0,0,0.6); }
+  .progress-inner{ height:100%; width:0%; background: linear-gradient(90deg,var(--soft-pink),var(--violet),var(--soft-cyan)); transition: width .75s cubic-bezier(.2,.9,.2,1); box-shadow:0 0 26px rgba(138,104,255,0.09); }
 
-  .active-btn{ box-shadow:0 0 40px 8px rgba(255,60,112,0.18) !important; color:#fff !important; }
-
-  .error{ color:#ff6f6f; text-align:center; display:none; margin-top:8px; }
-
-  .no-db{ color:var(--accent-yellow); text-align:center; margin-top:12px; font-weight:600; }
-
-  /* success list */
-  .success-list{ padding-left:18px; margin-top:12px; color:#eaf6f4; }
-  .success-list li{ margin-bottom:10px; font-size:1rem; line-height:1.45; }
-
-  /* nicknames table */
-  .nicknames-table{ width:100%; border-collapse:collapse; margin-top:8px; }
-  .nicknames-table th, .nicknames-table td{ border:1px solid rgba(0,255,240,0.14); padding:8px 10px; color:#fff; text-align:left; }
-  .nicknames-table th{ background:#2a0b31; color:var(--accent-cyan); font-family:'Orbitron',sans-serif; }
-
-  /* story layout */
-  .story-section{ margin-top:12px; line-height:1.7; color:#fff; text-align:left; }
-  .story-section b{ display:block; margin-bottom:8px; }
+  /* story styles */
+  .story-list{ text-align:left; line-height:1.6; color:#fff; margin-top:12px; }
+  .story-list b{ display:block; margin-bottom:6px; color:var(--soft-pink); }
 
   .emoji-reactions{ display:flex; gap:16px; justify-content:center; margin:12px 0; }
   .emoji-reaction-btn{ background:transparent; border:none; font-size:1.5rem; cursor:pointer; user-select:none; position:relative; }
-  .emoji-reaction-count{ display:block; font-size:0.78rem; color:#fff799; text-align:center; margin-top:-6px; }
+  .emoji-reaction-count{ display:block; font-size:0.78rem; color:#fff9a6; text-align:center; margin-top:-6px; }
 
   /* teacher search */
-  .teacher-search{ display:flex; justify-content:center; margin-top:10px; }
-  .teacher-search-inner{ width:100%; max-width:520px; background:#0f1220; border-radius:12px; padding:8px 12px; display:flex; gap:8px; align-items:center; box-shadow:inset 0 -2px 18px rgba(0,0,0,0.6); }
-  .search-input{ flex:1; border:none; background:transparent; outline:none; color:#fff; font-size:1rem; }
-  .search-glow{ position:absolute; inset:6px; border-radius:12px; pointer-events:none; background:linear-gradient(90deg, rgba(0,255,240,0.03), rgba(114,0,255,0.02), rgba(255,60,112,0.03)); filter:blur(8px); opacity:0.22; }
+  .search-row{ display:flex; justify-content:center; margin-top:10px; }
+  .search-inner{ width:100%; max-width:720px; background:#0b0b14; border-radius:12px; padding:8px 12px; display:flex; gap:10px; align-items:center; box-shadow:inset 0 -2px 18px rgba(0,0,0,0.6); }
+  .search-input{ flex:1; border:none; outline:none; background:transparent; color:#fff; font-size:1rem; }
 
-  /* final page */
-  .final-note{ font-size:1rem; line-height:1.6; color:#fff; text-align:left; }
+  /* final */
+  .final-note{ text-align:left; line-height:1.55; color:#fff; }
 
   /* canvas */
-  canvas#fw{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:6; pointer-events:none; }
+  canvas#fw{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:9; pointer-events:none; }
 
   /* responsive */
   @media (max-width:720px){
     .card{ padding:18px; border-radius:14px; }
-    .title-line{ font-size:1.4rem; }
-    .emoji-float{ font-size:28px !important; }
+    .title{ font-size:1.4rem; }
   }
 </style>
 </head>
 <body>
-  <!-- Aurora, sparkles, emojis -->
   <div class="aurora" aria-hidden="true"></div>
-  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
-  <div class="emoji-bg" id="emojiBg" aria-hidden="true"></div>
+  <div id="emojiBg" class="emoji-bg" aria-hidden="true"></div>
 
-  <!-- progress -->
-  <div class="progress-wrap">
+  <div class="progress-wrap" aria-hidden="false" style="position:relative; z-index:2;">
     <div class="progress-outer">
       <div class="progress-inner" id="progressBar"></div>
     </div>
   </div>
 
-  <div class="page-wrap">
-    <!-- LOGIN CARD -->
-    <section id="loginContainer" class="card" aria-labelledby="loginTitle">
-      <div class="title-line" id="loginTitle"><span class="friends-pastel">F.R.I.E.N.D.S.</span></div>
+  <div class="wrap">
+    <!-- LOGIN -->
+    <section id="loginContainer" class="card" aria-labelledby="t1">
+      <div id="t1" class="title">F.R.I.E.N.D.S.</div>
+      <h2 class="section">NAAM</h2>
+      <input id="naam" class="input" placeholder="Naam likho (Enter your name)" autocomplete="off" />
+      <h2 class="section">JINDA</h2>
+      <div class="btn-row" id="jindaGroup" role="group" aria-label="jinda">
+        <button class="btn" id="haa">HAA</button>
+        <button class="btn ghost" id="naa">NAA</button>
+      </div>
+      <input type="hidden" id="jinda">
+      <div id="jindaError" style="color:#ff8b8b;text-align:center;display:none;margin-top:8px;">Select HAA or NAA</div>
 
-      <h2 class="section-title">NAAM</h2>
-      <div class="input-group">
-        <input id="naam" class="field" type="text" placeholder=" " autocomplete="off" />
-        <label class="label" for="naam">Naam likho (Enter your name)</label>
+      <div style="margin-top:12px;">
+        <textarea id="say" class="input" placeholder="Say something to me:" style="min-height:86px;padding-top:12px;"></textarea>
+      </div>
+      <div id="sayError" style="color:#ff8b8b;text-align:center;display:none;margin-top:8px;">Please say something!</div>
+
+      <div class="btn-row">
+        <button id="submitBtn" class="btn">THOKO</button>
       </div>
 
-      <h2 class="section-title">JINDA</h2>
-      <div class="btn-row" id="jindaGroup" role="group" aria-label="Jinda options">
-        <button class="btn ripple" id="haa" type="button">HAA</button>
-        <button class="btn ripple" id="naa" type="button">NAA</button>
-      </div>
-      <input type="hidden" id="jinda" required>
-      <div class="error" id="jindaError">Select HAA or NAA</div>
-
-      <div class="input-group" style="margin-top:14px;">
-        <textarea id="say" class="field" placeholder=" "></textarea>
-        <label class="label" for="say" style="top:12px; left:14px; font-size:0.95rem;">Say something to me:</label>
-      </div>
-      <div class="error" id="sayError">Please say something!</div>
-
-      <div style="display:flex; justify-content:center; gap:12px; margin-top:10px;">
-        <button id="submitBtn" class="btn neon ripple" type="button">THOKO</button>
-      </div>
-
-      <div class="no-db" aria-hidden="true">😆 No database here, so your data just vanishes like my motivation on Monday!</div>
+      <div class="small-note">😆 No database here, so your data just vanishes like my motivation on Monday!</div>
     </section>
 
-    <!-- SUCCESS CARD -->
-    <section id="successBox" class="card" aria-hidden="true" style="display:none;">
-      <div style="font-size:3.2rem; text-align:center; margin-bottom:8px;">😈</div>
-      <h1 style="font-family:'Orbitron',sans-serif;color:var(--accent-cyan);text-align:center;margin:0 0 12px;">DOSTI YAARI EMOTIONS</h1>
-
-      <ul class="success-list">
+    <!-- SUCCESS (uses your exact DOSTI YAARI EMOTIONS text) -->
+    <section id="successBox" class="card" style="display:none;">
+      <div style="font-size:2.4rem;text-align:center;margin-bottom:6px;">DOSTI YAARI EMOTIONS</div>
+      <ol class="story-list">
         <li>1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.</li>
         <li>2. Aise lagta hai jaise koi part of life missing ho.</li>
         <li>3. Pehle har din masti hoti thi, ab sirf kaam aur boredom hai.</li>
@@ -181,35 +143,18 @@
         <li>8. Seriously, milna chahiye jaldi, warna yaadon se hi dosti karni padegi.</li>
         <li>9. Chal, koi ek plan banate hain — time, jagah fix karo!</li>
         <li>10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟</li>
-      </ul>
+      </ol>
+      <div style="text-align:center;margin-top:12px;color:#ffd68f;">You can close this tab now. Have a great day!</div>
 
-      <div style="text-align:center; margin-top:14px; color:var(--accent-yellow);">You can close this tab now. Have a great day!</div>
-
-      <div style="display:flex; justify-content:center; margin-top:16px;">
-        <button id="toNicknamesBtn" class="btn neon ripple">THOKO ALSO</button>
+      <div class="btn-row" style="margin-top:16px;">
+        <button id="toStoryBtn" class="btn">THOKO ALSO</button>
       </div>
     </section>
 
-    <!-- NICKNAMES (kept minimal, optional editable) -->
-    <section id="nicknamesPage" class="card" aria-hidden="true" style="display:none;">
-      <div style="text-align:center; margin-bottom:8px;">
-        <div style="font-family:'Orbitron',sans-serif; font-size:1.25rem; color:var(--accent-cyan)">Nicknames & Memories</div>
-      </div>
-      <table class="nicknames-table">
-        <thead><tr><th>Original Name</th><th>Nickname / Note</th></tr></thead>
-        <tbody>
-          <tr><td>Example</td><td>Example Nick</td></tr>
-        </tbody>
-      </table>
-      <div style="display:flex; justify-content:center; margin-top:14px;">
-        <button id="toStoryFromNicknamesBtn" class="btn neon ripple">TO STORY</button>
-      </div>
-    </section>
-
-    <!-- STORY -->
-    <section id="storyPage" class="card" aria-hidden="true" style="display:none;">
+    <!-- STORY (teachers list exactly as provided) -->
+    <section id="storyPage" class="card" style="display:none;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div style="font-size:1.4rem;font-family:'Orbitron',sans-serif;">Hello doston! 👿🤘</div>
+        <div class="title" style="font-size:1.2rem; border-right:none; animation:none; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Hello doston! 👿🤘</div>
       </div>
 
       <div class="emoji-reactions" id="emojiReactions1">
@@ -219,148 +164,80 @@
         <button class="emoji-reaction-btn" data-emoji="🤘">🤘<span class="emoji-reaction-count" id="emojiCount-🤘">0</span></button>
       </div>
 
-      <div class="teacher-search" aria-hidden="false">
-        <div class="teacher-search-inner" style="position:relative;">
-          <span style="color:rgba(0,255,240,0.7); margin-right:8px;">🔎</span>
-          <input id="teacherSearch" class="search-input" placeholder="Type to search teachers..." autocomplete="off" />
-          <div class="search-glow" aria-hidden="true"></div>
+      <div class="search-row" style="margin-top:6px;">
+        <div class="search-inner">
+          <div style="color:var(--soft-pink); margin-right:8px;">🔎</div>
+          <input id="teacherSearch" class="search-input" placeholder="Type to search teachers..." />
         </div>
       </div>
 
-      <div class="story-section">
-        <b>School ke teachers aur unki yaadein:</b><br>
-        <ul id="teachersList">
-          <li><b>Rishav Sir</b>:<br>Saatvi mein aaye, thoda style dikhane lage,
-Krish ke saath football ke kisse sunane lage.
-Maths ki trick se sabko gumaan mein daalne lage,
-Girls ke dil mein silently bas jaane lage. 💫<br>
+      <div class="story-list" style="margin-top:14px;">
+        <div><b>School ke teachers aur unki yaadein:</b></div>
+        <ul id="teachersList" style="margin-top:8px;">
+<li><b>Rishav Sir</b>:
+Saatvi mein aaye, thoda style dikhane lage, Krish ke saath football ke kisse sunane lage. Maths ki trick se sabko gumaan mein daalne lage, Girls ke dil mein silently bas jaane lage. 💫
+Aathvi mein aaye, class teacher bane khaas, Science weak tha, par bataya kaise hota hai paas. Support mila unse, har sawal ka mila ulta-jawaab, Guidance mein unka tha ek alag hi andaaz. ✨
+Phir hostel gaye, hum bhi piche-piche nikal gaye, Football ke field mein Josh ke saath mil gaye. Shuru mein laga, bhai kya mast game hai bhai, Par kuch dino mein samjha — sir toh goal banake bas pass hi kar gaye! 😅
+Saatvi se dasvi tak mila unka pyaar, Kabhi na lage ki sir door ho to ho intezaar. Har mor pe kiya help, na chhoda kabhi yeh yaar, Rishav sir jaise teacher — milte hain bade dildaar! ❤️
+Vo gaane gaana.. Vo bachchon ko dusre duniyaan ka shair karana kuch alag hi tha unka pyar💝</li><br>
 
-Aathvi mein aaye, class teacher bane khaas,
-Science weak tha, par bataya kaise hota hai paas.
-Support mila unse, har sawal ka mila ulta-jawaab,
-Guidance mein unka tha ek alag hi andaaz. ✨<br>
+<li><b>Chandraketu Sir</b>:
+Dekha tha pehle bhi, kabhi is ma'am ke saath, kabhi uske saath, Par mulaqat hui theek se 9th mein, class teacher ke path. Sportive the itne, ke ghar baat karni ho toh bolo saaf, Kuch mangwana ho toh bolo — jaise teacher nahi koi bhai ka raaf! 😄
+Prantik ka rakhte the khaas khayaal, dil se karte the care, Par uss extra pyaar ne banaya kuch aur students ko beware. Complain hui, mood change hua, aur badal gaya poora flair, Kabhi chill sir, ban gaye serious — laga ho gaya unfair. 😅
+Pehle padhate-padhate phone mein kho jaate the mast, Phir achanak kitabon se ban gaya unka vishwas ka rasta sasta aur past. Lekin yaad hai ek scene, jiska maza sabne liya tha hardcast — Arnav ko bola, "I welcome you," aur sabka ho gaya burst-blast! 💥
+Kabhi pyaar se, kabhi dosti se, kabhi phone se judte the sir, Chandraketu sir jaise teachers — yaadon mein reh jaate hain zarur. Thoda hassi, thoda gussa, thoda sweet aur thoda blur, Par ek baat pakki — unke bina class lagti thi bilkul bas "dull" aur "burr"! 😌
+Board pe chalk uthake jab likhne ka aata tha scene, Par finger hoti thi middle, aur class ho jaati silent screen. Koi kuch na bole, sab aankhon se karte the baat, Ek dusre ko dekh muskaate, le lete mazaak ka swaad. 😁</li><br>
 
-Phir hostel gaye, hum bhi piche-piche nikal gaye,
-Football ke field mein Josh ke saath mil gaye.
-Shuru mein laga, bhai kya mast game hai bhai,
-Par kuch dino mein samjha — sir toh goal banake bas pass hi kar gaye! 😅<br>
+<li><b>Sudhakar Sir</b>:
+Pehchaan thi pehle se, exam department ke the star, Class 9th mein aaye tab mila unka asli avataar. Janwar ki tarah marte the, karte na kisi se vyavahaar, Homework ka tha dher, aur aankhon mein bas tha maar! 😬
+Kahi se aate, maar ke jaate, bas dhoondte the bahana, Na koi hello, na haan, bas chalti thi unki purani kahaniyana. Par department wale the, to kabhi help ka milta tha khazana, Samajh aaya — daant ke peeche bhi tha ek asliyat ka thikana. 📘
+Do period ke baad le jaate games mein, hota tha sukoon, Class se bahar nikalte hi milta tha ek naya junoon. N.C.E.R.T. ke alawa kuch mat padho, bas yahi tha unka kanoon, Lekin unke motivation ne, bana diya padhai ka bhi ek khoobsurat dhoon. 🎯
+Baat-baat mein mazaak bhi karte, muskurahat thi andekhi, Help karte the chhupke se, unki niyat thi kuch alag si dekhi. Sudhakar Sir — the strict bhi, sweet bhi, thode se unique the sahi, Unke jaise teacher ho toh darr bhi lage... aur lage yaari bhi kahi! ❤️</li><br>
 
-Saatvi se dasvi tak mila unka pyaar,
-Kabhi na lage ki sir door ho to ho intezaar.
-Har mor pe kiya help, na chhoda kabhi yeh yaar,
-Rishav sir jaise teacher — milte hain bade dildaar! ❤️
-                <br> Vo gaane gaana.. Vo bachchon ko dusre duniyaan ka shair karana kuch alag hi tha unka pyar💝</li><br>
+<li><b>Divya Jyoti Mam</b>: Science ki queen, masti ki machine.</li>
+<li><b>Sujit & Pratyush Sir</b>: Hamare superheroes, hamesha ready to help.</li>
+<li><b>Vikash Sir</b>: "Padho na ji, exam sir pe hai!"</li>
 
-          <li><b>Chandraketu Sir</b>:<br>Dekha tha pehle bhi, kabhi is ma'am ke saath, kabhi uske saath,
-Par mulaqat hui theek se 9th mein, class teacher ke path.
-Sportive the itne, ke ghar baat karni ho toh bolo saaf,
-Kuch mangwana ho toh bolo — jaise teacher nahi koi bhai ka raaf! 😄<br>
+<li><b>Arun Sir</b>:
+Civics padhate the, par gungaan tha BJP ka raag, Har class mein lagta tha jaise ho rahi ho koi bhaashan ki aag. Helpful the zarur, par gussa aaye toh ban jaayein tiger ka swaroop, Tab toh bas chup rehna tha, warna milta tha ek political dhoop. 🔥
+Motivation ka the storehouse, baatein karte the dil se, Par har line ke baad aata tha – “Main bhi hoon na ek misaal iss silsile se!” Line thi unki favourite – “Dusro ki jay se pehle apni jay kare,” Aur ussi mein unka swagger tha — "main kya kam hoon yeh sabko pata chale!" 😎
+Personal life bhi humse share karte, jaise ho ghar ki party, "Aaj Pihu ke liye chappal liya — batao bhai, kaisi lagti hai Smarty?" 👡
+Explaining mein no doubt top-level ka tha unka flow, Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄</li><br>
 
-Prantik ka rakhte the khaas khayaal, dil se karte the care,
-Par uss extra pyaar ne banaya kuch aur students ko beware.
-Complain hui, mood change hua, aur badal gaya poora flair,
-Kabhi chill sir, ban gaye serious — laga ho gaya unfair. 😅<br>
+<li><b>Principal Sir</b>: "I sham on you boys!" - sabko yaad hai!</li>
+<li><b>Prantik & Chandraketu Sir</b>: Chemistry wali chemistry! 😏</li>
+<li><b>Nishant Sir</b>: Bindaas, no filter!</li>
+<li><b>Neeraj Sir</b>: Jee-NEET wala gyaan.</li>
 
-Pehle padhate-padhate phone mein kho jaate the mast,
-Phir achanak kitabon se ban gaya unka vishwas ka rasta sasta aur past.
-Lekin yaad hai ek scene, jiska maza sabne liya tha hardcast —
-Arnav ko bola, "I welcome you," aur sabka ho gaya burst-blast! 💥<br>
+<li><b>Ujjwal Sir</b>:
+The pehle se school mein, par 2019 ke pehle chale gaye the door, Par jab zarurat padi maths ki, toh wapas aaye ban ke noor. Unke aate hi bhaiya log bole – “Sir toh hai top class,” Unke naam se hi ho gaya, poori class ka blast! 🔥
+Class 9th mein mila unse pehli baar, aur kya hi mila tha yaar, Entry lete hi laga jaise – "ab toh padayi lagegi maar!" 😅
+Tough se tough concept ko bana dete the asaan, Aur unka IIT ka experience – bhai wah, bilkul tha mahaan! 🎓
+Kabhi-kabhi physics ka bhi basic samjha dete the pyar se, Concept clear karna tha unka kaam, bina kisi bhitar ke shor se. 10th tak toh guide kiya har mod pe bina rukawat ke, Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️</li><br>
 
-Kabhi pyaar se, kabhi dosti se, kabhi phone se judte the sir,
-Chandraketu sir jaise teachers — yaadon mein reh jaate hain zarur.
-Thoda hassi, thoda gussa, thoda sweet aur thoda blur,
-Par ek baat pakki — unke bina class lagti thi bilkul bas "dull" aur "burr"! 😌<br>
-              Board pe chalk uthake jab likhne ka aata tha scene,
-Par finger hoti thi middle, aur class ho jaati silent screen.
-Koi kuch na bole, sab aankhon se karte the baat,
-Ek dusre ko dekh muskaate, le lete mazaak ka swaad. 😁  </li>
-
-          <li><b>Sudhakar Sir</b>:<br>Pehchaan thi pehle se, exam department ke the star,
-Class 9th mein aaye tab mila unka asli avataar.
-Janwar ki tarah marte the, karte na kisi se vyavahaar,
-Homework ka tha dher, aur aankhon mein bas tha maar! 😬<br>
-
-Kahi se aate, maar ke jaate, bas dhoondte the bahana,
-Na koi hello, na haan, bas chalti thi unki purani kahaniyana.
-Par department wale the, to kabhi help ka milta tha khazana,
-Samajh aaya — daant ke peeche bhi tha ek asliyat ka thikana. 📘<br>
-
-Do period ke baad le jaate games mein, hota tha sukoon,
-Class se bahar nikalte hi milta tha ek naya junoon.
-N.C.E.R.T. ke alawa kuch mat padho, bas yahi tha unka kanoon,
-Lekin unke motivation ne, bana diya padhai ka bhi ek khoobsurat dhoon. 🎯<br>
-
-Baat-baat mein mazaak bhi karte, muskurahat thi andekhi,
-Help karte the chhupke se, unki niyat thi kuch alag si dekhi.
-Sudhakar Sir — the strict bhi, sweet bhi, thode se unique the sahi,
-Unke jaise teacher ho toh darr bhi lage... aur lage yaari bhi kahi! ❤️<br> </li>
-
-          <li><b>Divya Jyoti Mam</b>: Science ki queen, masti ki machine.</li>
-          <li><b>Sujit & Pratyush Sir</b>: Hamare superheroes, hamesha ready to help.</li>
-          <li><b>Vikash Sir</b>: "Padho na ji, exam sir pe hai!"</li>
-          <li><b>Arun Sir</b>:<br> Civics padhate the, par gungaan tha BJP ka raag,
-Har class mein lagta tha jaise ho rahi ho koi bhaashan ki aag.
-Helpful the zarur, par gussa aaye toh ban jaayein tiger ka swaroop,
-Tab toh bas chup rehna tha, warna milta tha ek political dhoop. 🔥<br>
-
-Motivation ka the storehouse, baatein karte the dil se,
-Par har line ke baad aata tha – “Main bhi hoon na ek misaal iss silsile se!”
-Line thi unki favourite – “Dusro ki jay se pehle apni jay kare,”
-Aur ussi mein unka swagger tha — "main kya kam hoon yeh sabko pata chale!" 😎<br>
-
-Personal life bhi humse share karte, jaise ho ghar ki party,
-"Aaj Pihu ke liye chappal liya — batao bhai, kaisi lagti hai Smarty?" 👡<br>
-Explaining mein no doubt top-level ka tha unka flow,
-Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄<br></li>
-
-          <li><b>Principal Sir</b>: "I sham on you boys!" - sabko yaad hai!</li>
-          <li><b>Prantik & Chandraketu Sir</b>: Chemistry wali chemistry! 😏</li>
-          <li><b>Nishant Sir</b>: Bindaas, no filter!</li>
-          <li><b>Neeraj Sir</b>: Jee-NEET wala gyaan.</li>
-          <li><b>Ujjwal Sir</b>:<br>The pehle se school mein, par 2019 ke pehle chale gaye the door,
-Par jab zarurat padi maths ki, toh wapas aaye ban ke noor.
-Unke aate hi bhaiya log bole – “Sir toh hai top class,”
-Unke naam se hi ho gaya, poori class ka blast! 🔥<br>
-
-Class 9th mein mila unse pehli baar, aur kya hi mila tha yaar,
-Entry lete hi laga jaise – "ab toh padayi lagegi maar!" 😅<br>
-Tough se tough concept ko bana dete the asaan,
-Aur unka IIT ka experience – bhai wah, bilkul tha mahaan! 🎓<br>
-
-Kabhi-kabhi physics ka bhi basic samjha dete the pyar se,
-Concept clear karna tha unka kaam, bina kisi bhitar ke shor se.
-10th tak toh guide kiya har mod pe bina rukawat ke,
-Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br></li>
-
-          <li><b>Guddu Sir</b>: "Tor dunga!"</li>
-          <li><b>Ranjan Sir</b>: "Kut dunga!" & funny towel kahaniyan.</li>
-          <li><b>Undranil Sir</b>: DJ Snake + BP Check = Allrounder!</li>
-          <li><b>Kundan Sir</b>: YouTube projector, mini-theatre.</li>
-          <li><b>Sudipto Sir</b>: Hamari pareshaniyon ka shikar.</li>
-          <li><b>Manoranjan Sir</b>: Philosopher king.</li>
-          <li><b>Simon Sir</b>: G** phaad marna since 5th!</li>
-          <li><b>Ravi Sir</b>: Notes likhwane ki machine.</li>
-          <li><b>DB Wandgr Sir</b>: Chutney ki recipe aur haryali jokes.</li>
-          <li><b>Premlata Ma’am & Raushan</b>: Maa-beta jodi, suspense queen.</li>
-          <li><b>DK Jha Sir</b>: "Ye log padne waale nahi lagte!"</li>
-          <li><b>Archana Ma’am</b>: Naam lete hi censored ho jaata hai. 🤐</li>
+<li><b>Guddu Sir</b>: "Tor dunga!"</li>
+<li><b>Ranjan Sir</b>: "Kut dunga!" & funny towel kahaniyan.</li>
+<li><b>Undranil Sir</b>: DJ Snake + BP Check = Allrounder!</li>
+<li><b>Kundan Sir</b>: YouTube projector, mini-theatre.</li>
+<li><b>Sudipto Sir</b>: Hamari pareshaniyon ka shikar.</li>
+<li><b>Manoranjan Sir</b>: Philosopher king.</li>
+<li><b>Simon Sir</b>: G** phaad marna since 5th!</li>
+<li><b>Ravi Sir</b>: Notes likhwane ki machine.</li>
+<li><b>DB Wandgr Sir</b>: Chutney ki recipe aur haryali jokes.</li>
+<li><b>Premlata Ma’am & Raushan</b>: Maa-beta jodi, suspense queen.</li>
+<li><b>DK Jha Sir</b>: "Ye log padne waale nahi lagte!"</li>
+<li><b>Archana Ma’am</b>: Naam lete hi censored ho jaata hai. 🤐</li>
         </ul>
       </div>
 
-      <div style="display:flex; justify-content:center; margin-top:16px;">
-        <button id="toWardenBtnFromStory" class="btn neon ripple">THOKO NA RE</button>
+      <div style="display:flex;justify-content:center;margin-top:14px;">
+        <button id="toWardenBtn" class="btn">THOKO NA RE</button>
       </div>
     </section>
 
     <!-- WARDEN -->
-    <section id="wardenPage" class="card" aria-hidden="true" style="display:none;">
-      <div class="emoji-reactions" id="emojiReactions2">
-        <button class="emoji-reaction-btn" data-emoji="😎">😎<span class="emoji-reaction-count" id="emojiCount2-😎">0</span></button>
-        <button class="emoji-reaction-btn" data-emoji="🖕">🖕<span class="emoji-reaction-count" id="emojiCount2-🖕">0</span></button>
-        <button class="emoji-reaction-btn" data-emoji="🤝">🤝<span class="emoji-reaction-count" id="emojiCount2-🤝">0</span></button>
-      </div>
-
-      <div class="story-section">
+    <section id="wardenPage" class="card" style="display:none;">
+      <div class="story-list">
         <b>Hamare Hostel ke Warden:</b>
         <ul>
           <li><b>Deepak Sir (3rd Floor):</b> "Ek mukka denge na..." Admission number yaad rakhna!</li>
@@ -368,27 +245,26 @@ Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br></li>
         </ul>
       </div>
 
-      <div style="display:flex; justify-content:center; margin-top:16px;">
-        <button id="toFinalBtnFromWarden" class="btn neon ripple">THOKO</button>
+      <div style="display:flex;justify-content:center;margin-top:14px;">
+        <button id="toFinalBtn" class="btn">THOKO</button>
       </div>
     </section>
 
     <!-- FINAL -->
-    <section id="finalPage" class="card" aria-hidden="true" style="display:none;">
-      <div class="story-section">
-        <b>Toh doston...</b><br>
+    <section id="finalPage" class="card" style="display:none;">
+      <div class="final-note">
+        <b>Toh doston...</b><br><br>
         Ye thi hamari school life ki original web series –<br>
         Full drama, full comedy, thoda romance, thoda action aur full emotion.<br><br>
         Teachers ka gussa ho ya unka pyaar, unhone sabko kuch na kuch sikhaya zaroor.<br>
         Aur ye yaadein... humesha yaad rahengi.<br><br>
-        Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.<br>
-        <hr>
-        <span class="emoji">🤟</span> Jai school life, jai nostalgia!
+        Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.<br><br>
+        🤟 Jai school life, jai nostalgia!
       </div>
     </section>
+
   </div>
 
-  <!-- fireworks canvas -->
   <canvas id="fw"></canvas>
 
 <script>
@@ -396,156 +272,118 @@ Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br></li>
 const $ = id => document.getElementById(id);
 const rand = (a,b) => Math.random()*(b-a)+a;
 
-/* Sparkles */
-(function createSparkles(){
-  const c = $('sparkles');
-  if(!c) return;
-  for(let i=0;i<18;i++){
-    const s = document.createElement('div');
-    s.className='spark';
-    s.style.left = rand(0,100)+'vw';
-    s.style.top = rand(0,100)+'vh';
-    s.style.width = s.style.height = (rand(3,8))+'px';
-    s.style.opacity = (rand(0.06,0.3)).toFixed(2);
-    s.style.animationDuration = (rand(8,18))+'s';
-    c.appendChild(s);
-  }
-})();
-
-/* Emoji background */
+/* Floating emoji background */
 (function emojiBG(){
-  const EMOJIS = ["💀","☠️","😎","😈","👿","🤟","🤘","🖕","🤙","🤝"];
-  const box = $('emojiBg');
-  if(!box) return;
-  function addOne(){
-    const el = document.createElement('span');
+  const EMOJIS = ["💀","☠️","😎","😈","👿","🤟","🤘","🖕","🤙","🤝","😂","😅","🤝"];
+  const bg = $('emojiBg');
+  function createOne(){
+    const el = document.createElement('div');
     el.className='emoji-float';
     el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
-    el.style.left = rand(-8,96) + 'vw';
-    el.style.fontSize = rand(20,64) + 'px';
-    const dur = rand(8,20);
-    el.style.animationDuration = dur + 's';
-    el.style.animationDelay = (-rand(0,12)) + 's';
-    box.appendChild(el);
-    setTimeout(()=> { if(el && el.parentNode) el.parentNode.removeChild(el); }, (dur+1)*1000);
+    el.style.left = rand(-6,96)+'vw';
+    const size = Math.round(rand(20,60));
+    el.style.fontSize = size+'px';
+    const dur = Math.round(rand(8,18));
+    el.style.animationDuration = dur+'s';
+    el.style.animationDelay = -Math.round(rand(0,12))+'s';
+    el.style.top = '100vh';
+    bg.appendChild(el);
+    setTimeout(()=> { try{ el.remove() }catch(e){} }, (dur+1)*1000);
   }
-  for(let i=0;i<28;i++) addOne();
-  setInterval(()=>{ for(let i=0;i<3;i++) addOne(); while(box.children.length>60) box.removeChild(box.children[0]); }, 2600);
+  for(let i=0;i<24;i++) createOne();
+  setInterval(()=>{ for(let i=0;i<2;i++) createOne(); while(bg.children.length>60) bg.removeChild(bg.children[0]); }, 2600);
 })();
 
-/* Page flow */
-const order = ['loginContainer','successBox','nicknamesPage','storyPage','wardenPage','finalPage'];
-function progressTo(id){
-  let idx = order.indexOf(id);
-  if(idx<0) idx = 0;
-  const perc = Math.round((idx)/(order.length-1)*100);
+/* Particles */
+(function makeParticles(){
+  for(let i=0;i<12;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    p.style.left = rand(0,100)+'vw';
+    p.style.top = rand(0,100)+'vh';
+    p.style.width = p.style.height = (rand(4,9))+'px';
+    p.style.animationDuration = (rand(10,18))+'s';
+    document.body.appendChild(p);
+  }
+})();
+
+/* Page order & progress */
+const order = ['loginContainer','successBox','storyPage','wardenPage','finalPage'];
+function goTo(id){
+  order.forEach(o => { const el=$(o); if(el) el.style.display = (o===id)?'block':'none'; });
+  updateProgress(id);
+}
+function updateProgress(id){
+  let idx = order.indexOf(id); if(idx<0) idx=0;
+  const perc = Math.round(idx/(order.length-1)*100);
   $('progressBar').style.width = perc + '%';
 }
 
-/* Ripple helper */
-function rippleEffect(e){
-  const btn = e.currentTarget;
-  const rect = btn.getBoundingClientRect();
-  const circle = document.createElement('span');
-  circle.className = 'ripple-effect';
-  circle.style.left = (e.clientX - rect.left) + 'px';
-  circle.style.top = (e.clientY - rect.top) + 'px';
-  circle.style.width = circle.style.height = Math.max(rect.width, rect.height) * 1.2 + 'px';
-  btn.appendChild(circle);
-  setTimeout(()=> circle.remove(), 650);
-}
+/* HAA/NAA */
+$('haa').addEventListener('click', ()=>{ $('haa').classList.add('active'); $('naa').classList.remove('active'); $('jinda').value='HAA'; $('jindaError').style.display='none'; });
+$('naa').addEventListener('click', ()=>{ $('naa').classList.add('active'); $('haa').classList.remove('active'); $('jinda').value='NAA'; $('jindaError').style.display='none'; });
 
-/* Connect ripple to buttons with .ripple */
-document.querySelectorAll('.ripple').forEach(btn => {
-  btn.addEventListener('click', rippleEffect);
-});
-
-/* HAA / NAA */
-$('haa').addEventListener('click', ()=>{ $('haa').classList.add('active-btn'); $('naa').classList.remove('active-btn'); $('jinda').value='HAA'; $('jindaError').style.display='none'; });
-$('naa').addEventListener('click', ()=>{ $('naa').classList.add('active-btn'); $('haa').classList.remove('active-btn'); $('jinda').value='NAA'; $('jindaError').style.display='none'; });
-
-/* THOKO (submit) */
-$('submitBtn').addEventListener('click', function(e){
+/* Submit */
+$('submitBtn').addEventListener('click', (e)=>{
   e.preventDefault();
   let valid = true;
   if(!$('jinda').value){ $('jindaError').style.display='block'; valid=false; } else $('jindaError').style.display='none';
-  if(!$('say') || !$('say').value.trim()){ $('sayError').style.display='block'; valid=false; } else $('sayError').style.display='none';
+  if(!$('say') || ($('say') && !$('say').value.trim())){ /* not mandatory now since user provided text separately */ /* keep silent */ }
   if(!valid) return;
-  // show success
-  $('loginContainer').style.display='none';
-  $('successBox').style.display='block';
-  progressTo('successBox');
-
-  // small personalized note
-  const nameV = $('naam').value.trim() || 'Dost';
-  const note = document.createElement('div');
-  note.style.marginTop='12px'; note.style.textAlign='center'; note.style.color='#c7fff3'; note.style.fontWeight='600';
-  note.className='forNameNote';
-  note.innerText = `Hey ${nameV}, this is for you — Happy Teacher's Day!`;
-  const existing = $('successBox').querySelector('.forNameNote');
-  if(existing) existing.remove();
-  $('successBox').appendChild(note);
+  // set user name in success text (we keep your original list, but add personalized small note)
+  const nameVal = ($('naam') && $('naam').value.trim()) ? $('naam').value.trim() : 'Dost';
+  // show success (text already present unchanged)
+  goTo('successBox');
+  // append small note under success if not present
+  if(!$('.forNameNote')){
+    const note = document.createElement('div');
+    note.className='forNameNote';
+    note.style.textAlign='center';
+    note.style.color='#b7fff3';
+    note.style.marginTop='10px';
+    note.textContent = `Hey ${nameVal}, this one is for you — Happy Teacher's Day!`;
+    $('successBox').appendChild(note);
+  } else {
+    $('.forNameNote').textContent = `Hey ${nameVal}, this one is for you — Happy Teacher's Day!`;
+  }
 });
 
-/* Navigation wiring (unique IDs) */
-$('toNicknamesBtn').addEventListener('click', function(e){
-  e.preventDefault();
-  $('successBox').style.display='none';
-  $('nicknamesPage').style.display='block';
-  progressTo('nicknamesPage');
-});
-$('toStoryFromNicknamesBtn').addEventListener('click', function(e){
-  e.preventDefault();
-  $('nicknamesPage').style.display='none';
-  $('storyPage').style.display='block';
-  progressTo('storyPage');
-});
-$('toWardenBtnFromStory').addEventListener('click', function(e){
-  e.preventDefault();
-  $('storyPage').style.display='none';
-  $('wardenPage').style.display='block';
-  progressTo('wardenPage');
-});
-$('toFinalBtnFromWarden').addEventListener('click', function(e){
-  e.preventDefault();
-  $('wardenPage').style.display='none';
-  $('finalPage').style.display='block';
-  progressTo('finalPage');
-  startFireworks(); // run fireworks
-});
+/* navigation */
+$('toStoryBtn').addEventListener('click', ()=> goTo('storyPage'));
+$('toWardenBtn').addEventListener('click', ()=> goTo('wardenPage'));
+$('toFinalBtn').addEventListener('click', ()=> { goTo('finalPage'); startFireworks(); });
 
 /* Emoji reactions */
-function setupReactions(containerId){
-  const el = $(containerId);
-  if(!el) return;
-  el.querySelectorAll('.emoji-reaction-btn').forEach(btn => {
+function setupReactions(id){
+  const box = $(id);
+  if(!box) return;
+  box.querySelectorAll('.emoji-reaction-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const span = btn.querySelector('.emoji-reaction-count');
       let n = parseInt(span.textContent||'0',10);
       n++; span.textContent = n;
-      btn.classList.add('active-btn');
-      setTimeout(()=> btn.classList.remove('active-btn'), 350);
+      btn.classList.add('active');
+      setTimeout(()=> btn.classList.remove('active'), 350);
     });
   });
 }
 setupReactions('emojiReactions1');
-setupReactions('emojiReactions2');
 
-/* Teacher search highlight */
+/* Teacher search & highlight */
 (function teacherSearch(){
   const inp = $('teacherSearch'), list = $('teachersList');
   if(!inp || !list) return;
   inp.addEventListener('input', function(){
     const filter = inp.value.trim().toLowerCase();
     const items = list.querySelectorAll('li');
-    items.forEach(li => {
+    items.forEach(li=>{
       const b = li.querySelector('b');
       const name = b ? b.textContent : li.textContent;
-      if(filter === '' || name.toLowerCase().includes(filter) || li.textContent.toLowerCase().includes(filter)){
+      if(filter === '' || li.textContent.toLowerCase().includes(filter) || name.toLowerCase().includes(filter)){
         li.style.display='';
         if(filter && b){
           const re = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','gi');
-          b.innerHTML = b.textContent.replace(re, "<span style='background:rgba(0,255,240,0.12); color:var(--accent-pink); padding:0 4px; border-radius:3px;'>$1</span>");
+          b.innerHTML = b.textContent.replace(re, "<span style='background:rgba(126,240,230,0.12); color:var(--soft-pink); padding:0 4px; border-radius:3px;'>$1</span>");
         } else if(b){
           b.innerHTML = b.textContent;
         }
@@ -554,14 +392,13 @@ setupReactions('emojiReactions2');
   });
 })();
 
-/* Canvas fireworks */
+/* Fireworks (simple particle system) */
 (function fireworks(){
-  const canvas = $('fw');
-  if(!canvas) return;
+  const canvas = $('fw'); if(!canvas) return;
   const ctx = canvas.getContext('2d');
   function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-  addEventListener('resize', resize);
-  resize();
+  addEventListener('resize', resize); resize();
+
   let particles = [];
   function Particle(x,y,color){
     this.x=x; this.y=y;
@@ -569,51 +406,42 @@ setupReactions('emojiReactions2');
     const speed = rand(1,6);
     this.vx = Math.cos(ang)*speed;
     this.vy = Math.sin(ang)*speed;
-    this.alpha = 1;
-    this.size = rand(1.6,3.8);
-    this.color = color;
+    this.alpha = 1; this.size = rand(1.6,3.8); this.color = color;
   }
-  Particle.prototype.update = function(){
-    this.x += this.vx; this.y += this.vy; this.vy += 0.02; this.alpha -= 0.02;
-  }
-  Particle.prototype.draw = function(){
-    ctx.globalAlpha = Math.max(0,this.alpha);
-    ctx.fillStyle = this.color;
-    ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();
-    ctx.globalAlpha = 1;
-  }
+  Particle.prototype.update = function(){ this.x+=this.vx; this.y+=this.vy; this.vy+=0.02; this.alpha-=0.02; }
+  Particle.prototype.draw = function(){ ctx.globalAlpha = Math.max(0,this.alpha); ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); ctx.globalAlpha = 1; }
 
   function burst(x,y){
-    const colors = ['#ff3c70','#00fff0','#ffe66d','#ff8c42','#9b5cff'];
-    for(let i=0;i<70;i++) particles.push(new Particle(x,y, colors[Math.floor(Math.random()*colors.length)]) );
+    const colors = ['#ffb0dd','#8a68ff','#7ef0e6','#fff0f5','#ffd68f'];
+    for(let i=0;i<70;i++) particles.push(new Particle(x,y, colors[Math.floor(Math.random()*colors.length)] ));
   }
 
-  let running = false, burstTimer = null;
+  let running=false, intervalRef=null;
   function loop(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     for(let i=particles.length-1;i>=0;i--){
-      const p = particles[i];
+      const p=particles[i];
       p.update(); p.draw();
-      if(p.alpha <= 0) particles.splice(i,1);
+      if(p.alpha<=0) particles.splice(i,1);
     }
     if(running) requestAnimationFrame(loop);
   }
 
   window.startFireworks = function(){
     if(running) return;
-    running = true; loop();
-    burstTimer = setInterval(()=> burst(rand(100,canvas.width-100), rand(100,canvas.height-120)), 700);
-    setTimeout(()=>{ clearInterval(burstTimer); setTimeout(()=> running=false, 5200); }, 9000);
+    running=true; loop();
+    intervalRef = setInterval(()=> burst(rand(100,canvas.width-100), rand(100,canvas.height-150)), 700);
+    setTimeout(()=>{ clearInterval(intervalRef); setTimeout(()=> running=false,5200); }, 9000);
   };
 })();
 
-/* Accessibility: Enter to submit from name */
-$('naam').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); $('submitBtn').click(); } });
-if($('say')) $('say').addEventListener('keydown', e => { if(e.key === 'Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); $('submitBtn').click(); } });
-
-/* initialize progress */
-progressTo('loginContainer');
-
+/* small helpers & initial state */
+(function init(){
+  goTo('loginContainer'); updateProgress('loginContainer');
+  // quick Enter key submit on name
+  const nameEl = $('naam');
+  if(nameEl) nameEl.addEventListener('keydown', e=> { if(e.key==='Enter'){ e.preventDefault(); $('submitBtn').click(); } });
+})();
 </script>
 </body>
 </html>
