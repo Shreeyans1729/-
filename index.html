@@ -1,162 +1,185 @@
 <!doctype html>
 <html lang="hi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FRIENDS — Teacher's Day (Cinema Theme)</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-1:#06030a;
-    --bg-2:#14061a;
-    --accent-1:#ff6fb5; /* pink */
-    --accent-2:#7bdff6; /* cyan */
-    --accent-3:#ffd58a; /* warm */
-    --card:#0f0b12;
-    --glass: rgba(255,255,255,0.03);
-    --text:#f3eef8;
-    --muted: rgba(255,255,255,0.55);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2)); color:var(--text); font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased;}
-  a{color:inherit}
-  /* Page container */
-  .site{min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:32px 20px; gap:18px; position:relative; overflow-x:hidden;}
-  /* Cinematic hero poster */
-  .hero{
-    width:100%; max-width:1100px; border-radius:14px; overflow:hidden; position:relative; display:grid; grid-template-columns: 1fr 1fr; gap:0;
-    box-shadow:0 30px 80px rgba(0,0,0,0.7);
-    border:1px solid rgba(255,255,255,0.03);
-    background:
-      radial-gradient(800px 200px at 20% 20%, rgba(123,223,246,0.06), transparent 8%),
-      linear-gradient(180deg, rgba(255,111,181,0.02), rgba(123,223,246,0.02));
-  }
-  .poster {
-    position:relative; padding:36px; display:flex; flex-direction:column; justify-content:center; gap:12px; background:
-      linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.35));
-  }
-  .poster .title{
-    font-family:"Playfair Display",serif; font-size:40px; letter-spacing:2px; line-height:1; color:var(--accent-1);
-    text-shadow: 0 6px 28px rgba(255,111,181,0.12), 0 1px 2px rgba(0,0,0,0.7);
-  }
-  .poster .subtitle{ color:var(--muted); font-size:13px; margin-top:4px; }
-  .poster .meta{ display:flex; gap:10px; margin-top:16px; align-items:center; }
-  .pill{ padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.02); font-weight:600; font-size:13px; color:var(--text);}
-  .poster .cta{ margin-top:20px; display:flex; gap:10px; }
-  .btn{
-    padding:10px 16px; border-radius:10px; border:none; cursor:pointer; font-weight:700;
-    background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#081018; box-shadow:0 12px 30px rgba(17,17,17,0.45);
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FRIENDS — Dosti • Yaari • Emotions (2018–2025)</title>
 
-  /* Poster art (right) */
-  .poster-art{
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.55));
-    display:flex; align-items:center; justify-content:center; position:relative; padding:28px;
-  }
-  .film-frame{
-    width:100%; max-width:380px; aspect-ratio: 3/4; border-radius:10px; background:linear-gradient(180deg,#0f0b12,#1a0c22); box-shadow: 0 18px 60px rgba(0,0,0,0.65);
-    position:relative; overflow:hidden; border:1px solid rgba(255,255,255,0.02);
-  }
-  .film-lights{ position:absolute; inset:0; background:
-    radial-gradient(300px 120px at 10% 10%, rgba(255,111,181,0.06), transparent 10%),
-    radial-gradient(260px 90px at 90% 80%, rgba(123,223,246,0.05), transparent 10%);
-    mix-blend-mode:screen; pointer-events:none; }
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  /* Scenes area */
-  .scenes {
-    width:100%; max-width:1100px; margin-top:18px; display:grid; grid-template-columns: repeat(3,1fr); gap:18px;
-  }
-  .scene {
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
-    border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.03);
-    box-shadow:0 16px 40px rgba(0,0,0,0.6); transition:transform .36s, box-shadow .36s, opacity .36s;
-    display:flex; flex-direction:column; gap:10px; min-height:180px;
-  }
-  .scene:hover{ transform:translateY(-8px); box-shadow:0 28px 60px rgba(0,0,0,0.7); }
-  .scene .scene-title{ font-weight:700; color:var(--accent-2); font-size:14px; letter-spacing:0.6px; }
-  .scene .scene-text{ color:var(--text); font-size:0.95rem; line-height:1.45; text-align:left; white-space:pre-line; overflow:auto; max-height:380px; padding-right:6px;}
-  .scene .meta-row{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; }
+  <style>
+    :root{
+      --bg1:#05020a;
+      --bg2:#12061a;
+      --accent-pink:#ff6fb5;
+      --accent-cyan:#7bdff6;
+      --accent-warm:#ffd58a;
+      --card:#0f0b12;
+      --glass: rgba(255,255,255,0.04);
+      --text:#f3eef8;
+      --muted: rgba(255,255,255,0.58);
+      --radius:14px;
+      --maxw:1100px;
+    }
 
-  /* large single column for teachers list screen */
-  .scenes.single{ grid-template-columns:1fr; max-width:900px; }
-  .fullwidth{ grid-column: 1 / -1; }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2)); color:var(--text); font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+    a{color:inherit;text-decoration:none}
 
-  /* progress / scene dots (left) */
-  .dots {
-    position:fixed; left:18px; top:50%; transform:translateY(-50%); z-index:12; display:flex; flex-direction:column; gap:12px;
-  }
-  .dot{ width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.03); cursor:pointer; transition:all .25s; }
-  .dot.active{ background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); box-shadow:0 10px 28px rgba(123,223,246,0.12); transform:scale(1.18); }
+    /* Container */
+    .site{min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:28px 18px 80px; gap:18px; position:relative; overflow-x:hidden; }
 
-  /* scene controls bottom */
-  .controls{ width:100%; max-width:1100px; display:flex; justify-content:space-between; align-items:center; margin-top:18px; gap:12px; }
-  .progress-bar{ height:8px; background:rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; flex:1; margin:0 12px; }
-  .progress-fill{ width:0%; height:100%; background:linear-gradient(90deg,var(--accent-2),var(--accent-1)); transition:width .5s ease; }
+    /* Cinematic Hero (poster image on left or top) */
+    .hero {
+      width:100%; max-width:var(--maxw); display:grid; grid-template-columns: 420px 1fr; gap:18px; align-items:stretch;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
+      border-radius: var(--radius);
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      position:relative;
+    }
 
-  /* final hero/end */
-  .ending{
-    width:100%; max-width:1100px; margin-top:24px; display:flex; align-items:center; justify-content:center; padding:36px; border-radius:14px; background:
-      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.22)); border:1px solid rgba(255,255,255,0.03);
-    box-shadow:0 24px 70px rgba(0,0,0,0.7);
-  }
-  .ending .text{ max-width:820px; text-align:center; font-size:1.05rem; line-height:1.6; color:var(--text); }
+    /* Poster image frame */
+    .poster-frame{
+      border-radius:12px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#0b0710,#161018);
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .poster-frame img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .poster-overlay{
+      position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.5));
+      pointer-events:none;
+    }
+    .poster-badge{
+      position:absolute; left:14px; bottom:14px; z-index:4;
+      background:linear-gradient(90deg,var(--accent-pink),var(--accent-cyan));
+      color:#071018; font-weight:700; padding:8px 12px; border-radius:999px; box-shadow:0 12px 30px rgba(0,0,0,0.5);
+      font-family:"Playfair Display", serif;
+    }
 
-  /* responsive */
-  @media (max-width:1000px){
-    .hero{ grid-template-columns:1fr; gap:0; }
-    .poster-art{ order:-1; padding-top:8px; padding-bottom:8px; }
-    .scenes{ grid-template-columns:1fr; }
-    .dots{ display:none; }
-  }
-  @media (max-width:560px){
-    .poster .title{ font-size:28px; }
-    .scene{ padding:14px; }
-  }
-  /* subtle film grain */
-  body::after{
-    content:''; position:fixed; inset:0; pointer-events:none; background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode:overlay; opacity:0.12;
-  }
-</style>
+    /* Poster text area */
+    .hero-info{ padding: 8px 2px 8px 6px; display:flex; flex-direction:column; gap:10px; justify-content:center; }
+    .hero-title{ font-family:"Playfair Display",serif; font-size:34px; color:var(--accent-pink); letter-spacing:1px; margin-bottom:6px; }
+    .hero-sub{ color:var(--muted); font-size:13px; }
+    .hero-meta{ display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; }
+    .pill{ background: rgba(255,255,255,0.03); padding:8px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.02); color:var(--text); font-weight:600; font-size:13px; }
+
+    .hero-cta{ margin-top:12px; display:flex; gap:10px; }
+    .btn{ cursor:pointer; border:0; padding:10px 14px; border-radius:10px; font-weight:700; color:#081018; background: linear-gradient(90deg,var(--accent-pink),var(--accent-cyan)); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+
+    /* timeline area */
+    .timeline-wrap{ width:100%; max-width:var(--maxw); display:flex; gap:18px; align-items:flex-start; }
+
+    /* left nav dots */
+    .dots { position:sticky; top:120px; align-self:flex-start; display:flex; flex-direction:column; gap:10px; margin-right:8px; }
+    .dot{ width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.03); cursor:pointer; transition:transform .2s, box-shadow .2s; }
+    .dot.active{ transform:scale(1.18); background:linear-gradient(90deg,var(--accent-pink),var(--accent-cyan)); box-shadow:0 12px 30px rgba(123,223,246,0.12); }
+
+    /* timeline column with cards */
+    .timeline {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
+      border-radius:12px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      transition: transform .45s ease, opacity .45s ease, box-shadow .45s ease;
+      opacity:0; transform: translateY(18px) scale(.995);
+    }
+    .card.visible{ opacity:1; transform: translateY(0) scale(1); }
+
+    .card .year {
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      margin-bottom:8px;
+    }
+    .card .year .y { font-family:"Playfair Display",serif; font-size:18px; color:var(--accent-warm); font-weight:700; }
+    .card .year .badge { font-size:12px; color:var(--muted); }
+
+    .scene-text{
+      color:var(--text); line-height:1.6; text-align:left; white-space:pre-wrap; font-size:0.96rem; max-height:420px; overflow:auto; padding-right:6px;
+    }
+
+    .controls { display:flex; justify-content:center; gap:12px; margin-top:10px; }
+    .small-muted{ color:var(--muted); font-size:0.92rem; }
+
+    /* ending big card */
+    .ending{
+      margin-top:18px; width:100%; max-width:var(--maxw); padding:28px; border-radius:14px; text-align:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.22)); border:1px solid rgba(255,255,255,0.03); box-shadow: 0 24px 70px rgba(0,0,0,0.7);
+    }
+
+    /* canvas fireworks */
+    canvas#fw{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:1000; pointer-events:none; }
+
+    /* responsive */
+    @media (max-width:1000px){
+      .hero{ grid-template-columns: 1fr; }
+      .poster-frame{ height:360px; }
+      .timeline-wrap{ flex-direction:column; }
+      .dots{ display:none; position:relative; top:auto; left:auto; }
+    }
+    @media (max-width:560px){
+      .hero-title{ font-size:26px; }
+      .poster-frame{ height:300px; }
+      .card{ padding:14px; }
+    }
+
+    /* subtle film grain overlay */
+    body::after{ content:""; position:fixed; inset:0; pointer-events:none; background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode:overlay; opacity:0.08; }
+  </style>
 </head>
 <body>
-  <div class="site" id="siteRoot">
+  <div class="site">
+
+    <!-- HERO -->
     <div class="hero" role="banner" aria-label="FRIENDS Poster">
-      <div class="poster">
-        <div class="title">F.R.I.E.N.D.S.</div>
-        <div class="subtitle">A short web-series of school memories — Teacher's Day special</div>
-        <div class="meta">
-          <div class="pill">Classmates: 2016-2021</div>
-          <div class="pill">Hostel & School stories</div>
-        </div>
-        <div style="margin-top:8px;color:var(--muted);font-size:14px;">
-          This is your original content placed into a cinematic layout. Click scenes below to navigate.
-        </div>
-        <div class="cta">
-          <button class="btn" id="startBtn">PLAY SCENES ▶</button>
-          <button class="btn" id="skipBtn" style="background:linear-gradient(90deg,var(--accent-3),var(--accent-1));">JUMP TO END</button>
-        </div>
+      <div class="poster-frame" aria-hidden="false">
+        <!-- Put your image filename here (must be available in same folder or full URL) -->
+        <img src="0e0fc7_9b63abd1a89e450ab0a3b7a7892007bd~mv2.jpg" alt="Poster image">
+        <div class="poster-overlay"></div>
+        <div class="poster-badge">2018 — 2025</div>
       </div>
 
-      <div class="poster-art" aria-hidden="true">
-        <div class="film-frame">
-          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.06); font-size:18px; font-weight:700;">
-            SCHOOL LIFE
-          </div>
-          <div class="film-lights"></div>
+      <div class="hero-info" role="region" aria-label="Intro">
+        <div class="hero-title">F.R.I.E.N.D.S.</div>
+        <div class="hero-sub">A short web-series of school memories — Teacher's Day special</div>
+        <div class="hero-meta">
+          <div class="pill">Classmates: 2016–2025</div>
+          <div class="pill">Hostel & School stories</div>
+        </div>
+        <div style="color:var(--muted); margin-top:8px; font-size:14px;">
+          All your original text preserved exactly. Navigate scenes using left dots (or Next buttons). Final scene shows fireworks.
+        </div>
+        <div class="hero-cta">
+          <button class="btn" id="playBtn">PLAY SCENES ▶</button>
+          <button class="btn" id="endBtn" style="background:linear-gradient(90deg,var(--accent-warm),var(--accent-pink));">Jump to End</button>
         </div>
       </div>
     </div>
 
-    <!-- fixed dots -->
-    <div class="dots" id="dotsContainer" aria-hidden="false"></div>
+    <!-- TIMELINE & DOTS -->
+    <div class="timeline-wrap" role="main">
+      <div class="dots" id="dotsContainer" aria-hidden="false"></div>
 
-    <!-- Scenes (cards) -->
-    <div class="scenes" id="scenesWrap" role="main" aria-live="polite">
-      <!-- Scene 1: Success / Dosti Yaari Emotions -->
-      <article class="scene fullwidth" data-scene="0" id="scene-0">
-        <div class="scene-title">DOSTI YAARI EMOTIONS</div>
-        <div class="scene-text">
+      <div class="timeline" id="timeline">
+
+        <!-- Year 2018 : DOSTI YAARI EMOTIONS (exact) -->
+        <article class="card" data-year="2018" id="card-2018">
+          <div class="year"><div class="y">2018</div><div class="badge small-muted">DOSTI YAARI EMOTIONS</div></div>
+          <div class="scene-text">
 DOSTI YAARI EMOTIONS
 1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.
 2. Aise lagta hai jaise koi part of life missing ho.
@@ -169,35 +192,24 @@ DOSTI YAARI EMOTIONS
 9. Chal, koi ek plan banate hain — time, jagah fix karo!
 10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟
 You can close this tab now. Have a great day!
-        </div>
-        <div class="meta-row" style="margin-top:14px;">
-          <div style="color:var(--muted);font-size:13px;">Scene 1 of 5</div>
-          <div>
-            <button class="btn" data-goto="1">Next →</button>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Scene 2: Intro / Hello doston + teachers list header -->
-      <article class="scene" data-scene="1" id="scene-1">
-        <div class="scene-title">Hello doston! 👿🤘</div>
-        <div class="scene-text">
+        <!-- Year 2019: Intro + teachers header -->
+        <article class="card" data-year="2019" id="card-2019">
+          <div class="year"><div class="y">2019</div><div class="badge small-muted">Intro / Teachers</div></div>
+          <div class="scene-text">
+Hello doston! 👿🤘
 🔎
 Type to search teachers...
 School ke teachers aur unki yaadein:
-        </div>
-        <div class="meta-row">
-          <div style="color:var(--muted);font-size:13px;">Scene 2 of 5</div>
-          <div>
-            <button class="btn" data-goto="2">Next →</button>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Scene 3: Teachers long list (kept verbatim) -->
-      <article class="scene" data-scene="2" id="scene-2">
-        <div class="scene-title">Teachers & Memories</div>
-        <div class="scene-text" id="teachersText">
+        <!-- Year 2020: Teachers long list (verbatim) -->
+        <article class="card" data-year="2020" id="card-2020">
+          <div class="year"><div class="y">2020</div><div class="badge small-muted">Teachers & Memories</div></div>
+          <div class="scene-text" id="teachersBlock">
 Rishav Sir
 :
 Saatvi mein aaye, thoda style dikhane lage, Krish ke saath football ke kisse sunane lage. Maths ki trick se sabko gumaan mein daalne lage, Girls ke dil mein silently bas jaane lage. 💫
@@ -275,36 +287,32 @@ DK Jha Sir
 : "Ye log padne waale nahi lagte!"
 Archana Ma’am
 : Naam lete hi censored ho jaata hai. 🤐
-        </div>
-        <div class="meta-row" style="margin-top:12px;">
-          <div style="color:var(--muted);font-size:13px;">Scene 3 of 5</div>
-          <div>
-            <button class="btn" data-goto="3">Next →</button>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Scene 4: Warden -->
-      <article class="scene" data-scene="3" id="scene-3">
-        <div class="scene-title">Hamare Hostel ke Warden</div>
-        <div class="scene-text">
+        <!-- Year 2021: Short notes / misc -->
+        <article class="card" data-year="2021" id="card-2021">
+          <div class="year"><div class="y">2021</div><div class="badge small-muted">More memories</div></div>
+          <div class="scene-text">
+        </div>
+        </article>
+
+        <!-- Year 2022: Hostel wardens (verbatim) -->
+        <article class="card" data-year="2022" id="card-2022">
+          <div class="year"><div class="y">2022</div><div class="badge small-muted">Hamare Hostel ke Warden</div></div>
+          <div class="scene-text">
+Hamare Hostel ke Warden:
 Deepak Sir (3rd Floor):
 "Ek mukka denge na..." Admission number yaad rakhna!
 2nd Floor ka warden:
 (Yahan apna funny yaadgar moments add karo!)
-        </div>
-        <div class="meta-row">
-          <div style="color:var(--muted);font-size:13px;">Scene 4 of 5</div>
-          <div>
-            <button class="btn" data-goto="4">Next →</button>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Scene 5: Final -->
-      <article class="scene" data-scene="4" id="scene-4">
-        <div class="scene-title">Toh doston...</div>
-        <div class="scene-text">
+        <!-- Year 2023: More reflection -->
+        <article class="card" data-year="2023" id="card-2023">
+          <div class="year"><div class="y">2023</div><div class="badge small-muted">Reflections</div></div>
+          <div class="scene-text">
 Toh doston...
 
 Ye thi hamari school life ki original web series –
@@ -315,235 +323,168 @@ Aur ye yaadein... humesha yaad rahengi.
 
 Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.
 🤟 Jai school life, jai nostalgia!
-        </div>
-        <div class="meta-row">
-          <div style="color:var(--muted);font-size:13px;">Final Scene</div>
-          <div>
-            <button class="btn" id="replayBtn">REPLAY</button>
           </div>
-        </div>
-      </article>
-    </div>
+        </article>
+
+        <!-- Year 2024 / 2025 combined: final -->
+        <article class="card" data-year="2024-2025" id="card-2024-2025">
+          <div class="year"><div class="y">2024 — 2025</div><div class="badge small-muted">The End — But Friendship Forever</div></div>
+          <div class="scene-text">
+This timeline covers memories from 2018 through 2025 — friendship, teachers, hostel nights and the small moments that matter.
+          </div>
+        </article>
+
+      </div> <!-- .timeline -->
+    </div> <!-- .timeline-wrap -->
 
     <!-- controls -->
-    <div class="controls" role="navigation" aria-label="Scene controls">
-      <div style="color:var(--muted); font-size:13px;">CINEMA VIEW</div>
-      <div class="progress-bar" aria-hidden="true">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <div style="color:var(--muted); font-size:13px;">Enjoy ✨</div>
+    <div class="controls" aria-hidden="false">
+      <div class="small-muted">Use dots to navigate • Arrow keys work</div>
     </div>
 
-    <!-- ending area (large) -->
-    <div id="endingCard" class="ending" style="display:none;">
-      <div class="text">
-        <h2 style="margin:0 0 8px 0; font-family:'Playfair Display',serif; color:var(--accent-1)">FRIENDS — The Series</h2>
-        <p style="margin:0 0 8px 0; color:var(--muted);">A short film of memories dedicated to our teachers and friends.</p>
-        <p style="margin-top:12px; font-weight:700;">Happy Teacher's Day 🎉</p>
-      </div>
+    <!-- Ending big -->
+    <div class="ending" id="ending" style="display:none;">
+      <h2 style="margin:0 0 8px 0; font-family:'Playfair Display',serif; color:var(--accent-pink)">FRIENDS — The Series</h2>
+      <p style="margin:6px 0 8px 0; color:var(--muted)">A short film of memories dedicated to our teachers and friends — 2018–2025</p>
+      <p style="margin-top:8px; font-weight:700;">Happy Teacher's Day 🎉</p>
     </div>
 
-    <!-- fireworks canvas -->
-    <canvas id="fw"></canvas>
   </div>
 
-<script>
-  // Basic helpers
-  const $ = id => document.getElementById(id);
-  const qs = s => document.querySelector(s);
-  const qsa = s => document.querySelectorAll(s);
-  const rand = (a,b) => Math.random()*(b-a)+a;
+  <!-- fireworks canvas -->
+  <canvas id="fw"></canvas>
 
-  // Scenes & dots setup
-  const scenes = [...qsa('.scene')];
-  const dotsContainer = $('dotsContainer');
-  const progressFill = $('progressFill');
-  let current = 0;
+  <script>
+    /* Minimal interactive behavior:
+       - Dots navigation
+       - Fade-in cards on scroll / reveal on navigation
+       - Fireworks on final card
+    */
 
-  // build dots
-  scenes.forEach((s,i)=>{
-    const d = document.createElement('div'); d.className='dot'; d.dataset.idx = i;
-    if(i===0) d.classList.add('active');
-    d.addEventListener('click', ()=> gotoScene(i));
-    dotsContainer.appendChild(d);
-  });
+    const timeline = document.getElementById('timeline');
+    const cards = Array.from(timeline.querySelectorAll('.card'));
+    const dotsContainer = document.getElementById('dotsContainer');
+    const ending = document.getElementById('ending');
+    const fw = document.getElementById('fw');
+    let currentIndex = 0;
 
-  function updateUI(){
-    scenes.forEach((s,i)=> s.style.display = (i===current)?'block':'none');
-    const dots = qsa('.dot');
-    dots.forEach((d,i)=> d.classList.toggle('active', i===current));
-    const pct = Math.round(current/(scenes.length-1)*100);
-    progressFill.style.width = pct + '%';
-    // when final
-    if(current === scenes.length-1){
-      $('endingCard').style.display = 'flex';
-    } else {
-      $('endingCard').style.display = 'none';
+    // Build dots
+    cards.forEach((c,i)=>{
+      const d = document.createElement('div');
+      d.className = 'dot' + (i===0? ' active':'');
+      d.title = c.dataset.year || `Scene ${i+1}`;
+      d.addEventListener('click', ()=> goto(i));
+      dotsContainer.appendChild(d);
+    });
+
+    const dots = Array.from(dotsContainer.children);
+
+    function showCard(i){
+      cards.forEach((c,idx)=>{
+        c.classList.toggle('visible', idx===i);
+      });
+      dots.forEach((d,idx)=> d.classList.toggle('active', idx===i));
+      currentIndex = i;
+      // show ending when last
+      if(i === cards.length-1){
+        ending.style.display = 'block';
+        startFireworks();
+      } else {
+        ending.style.display = 'none';
+      }
     }
-  }
 
-  function gotoScene(i){
-    current = Math.max(0, Math.min(scenes.length-1, i));
-    updateUI();
-    // small scroll into view
-    scenes[current].scrollIntoView({behavior:'smooth', block:'center'});
-    if(current === scenes.length-1) startFireworks();
-  }
-
-  // wire next buttons
-  qsa('[data-goto]').forEach(btn=>{
-    btn.addEventListener('click', ()=> gotoScene(Number(btn.dataset.goto)));
-  });
-
-  // start & skip
-  $('startBtn').addEventListener('click', ()=> gotoScene(0));
-  $('skipBtn').addEventListener('click', ()=> gotoScene(scenes.length-1));
-  $('replayBtn').addEventListener('click', ()=> gotoScene(0));
-
-  // initialize
-  gotoScene(0);
-
-  // Teacher search highlight (scene 2 contains list — provide small live filter if user types)
-  // create a small floating search input (since layout is cinematic, create a quick keyboard shortcut '/')
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA'){
-      e.preventDefault();
-      // focus the search input inside scene-1 if exists
-      const search = document.querySelector('#teacherSearch');
-      if(search){ search.focus(); }
+    function goto(i){
+      i = Math.max(0, Math.min(cards.length-1, i));
+      showCard(i);
+      // smooth scroll card into view on small screens
+      cards[i].scrollIntoView({behavior:'smooth', block:'center'});
     }
-  });
 
-  // Optional: create small search input inside scene 1 (we kept literal display; add dynamic filter for teachers)
-  (function injectSearch(){
-    // inject under scene-1 text area
-    const scene1 = $('#scene-1');
-    if(!scene1) return;
-    const row = document.createElement('div');
-    row.style.marginTop='12px';
-    row.style.display='flex';
-    row.style.justifyContent='center';
-    const inp = document.createElement('input');
-    inp.id='teacherSearch';
-    inp.placeholder='Type to search teacher names... (press /)';
-    inp.style.width='80%';
-    inp.style.padding='8px 12px';
-    inp.style.borderRadius='8px';
-    inp.style.border='1px solid rgba(255,255,255,0.06)';
-    inp.style.background='rgba(255,255,255,0.02)';
-    inp.style.color='white';
-    row.appendChild(inp);
-    scene1.querySelector('.scene-text').after(row);
+    // keyboard nav
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight') goto(currentIndex+1);
+      if(e.key === 'ArrowLeft') goto(currentIndex-1);
+    });
 
-    // implement simple highlight for teachers list (scene-2 has teachersList id)
-    inp.addEventListener('input', function(){
-      const q = inp.value.trim().toLowerCase();
-      const teachersList = document.getElementById('teachersList');
-      if(!teachersList) return;
-      const items = teachersList.querySelectorAll('li');
-      items.forEach(li=>{
-        const text = li.textContent.toLowerCase();
-        if(!q) { li.style.display=''; // clear highlights
-          const b = li.querySelector('b'); if(b) b.innerHTML = b.textContent;
-          return;
+    // play / end buttons
+    document.getElementById('playBtn').addEventListener('click', ()=> goto(0));
+    document.getElementById('endBtn').addEventListener('click', ()=> goto(cards.length-1));
+
+    // initial reveal: show first card
+    showCard(0);
+
+    // Intersection observer to reveal on scroll (progressive)
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add('visible');
         }
-        if(text.includes(q)){
-          li.style.display='';
-          const b = li.querySelector('b');
-          if(b){
-            const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + ')','gi');
-            b.innerHTML = b.textContent.replace(re, "<mark style='background:rgba(123,223,246,0.12);color:var(--accent-1);padding:0 4px;border-radius:3px;'>$1</mark>");
-          }
-        } else li.style.display='none';
+      });
+    }, {threshold:0.12});
+    cards.forEach(c=> io.observe(c));
+
+    /* Fireworks - simple particle system */
+    (function(){
+      const canvas = fw;
+      const ctx = canvas.getContext('2d');
+      function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+      addEventListener('resize', resize); resize();
+
+      let particles = [];
+      function rand(a,b){ return Math.random()*(b-a)+a; }
+
+      function Particle(x,y,color){
+        this.x = x; this.y = y;
+        const angle = Math.random()*Math.PI*2;
+        const speed = rand(1.5,6);
+        this.vx = Math.cos(angle)*speed;
+        this.vy = Math.sin(angle)*speed;
+        this.alpha = 1;
+        this.size = rand(1.2,3.6);
+        this.color = color;
+      }
+      Particle.prototype.update = function(){
+        this.x += this.vx; this.y += this.vy; this.vy += 0.02; this.alpha -= 0.02;
+      };
+      Particle.prototype.draw = function(){
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha = 1;
+      };
+
+      function burst(x,y){
+        const cols = ['#ff6fb5','#7bdff6','#ffd58a','#fff0f5','#d7b2ff'];
+        for(let i=0;i<70;i++) particles.push(new Particle(x,y, cols[Math.floor(Math.random()*cols.length)]));
+      }
+
+      let running = false, intv = null;
+      function loop(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(let i=particles.length-1;i>=0;i--){
+          particles[i].update(); particles[i].draw();
+          if(particles[i].alpha <= 0) particles.splice(i,1);
+        }
+        if(running) requestAnimationFrame(loop);
+      }
+
+      window.startFireworks = function(){
+        if(running) return;
+        running = true; loop();
+        intv = setInterval(()=> burst(rand(100,canvas.width-100), rand(80,canvas.height-160)), 700);
+        setTimeout(()=>{ clearInterval(intv); setTimeout(()=> running=false,5200); }, 9000);
+      };
+    })();
+
+    // small helper: scroll nav on mobile: show next on tap of card body
+    cards.forEach((c, i)=>{
+      c.addEventListener('click', (e)=>{
+        // if click on scrollable text, ignore (let user select)
+        if(e.target.closest('.scene-text')) return;
+        goto(i+1);
       });
     });
-  })();
-
-  // small floating emoji background generator (mild)
-  (function emojiBG(){
-    const emojis = ["🤟","😈","🤘","😂","😅","👿","🤙","😎"];
-    const bg = document.getElementById('siteRoot');
-    function createOne(){ const el = document.createElement('div'); el.textContent = emojis[Math.floor(Math.random()*emojis.length)]; el.style.position='absolute'; el.style.left = rand(4,92)+'%'; el.style.top = rand(60,100)+'vh'; el.style.fontSize = rand(18,36)+'px'; el.style.opacity='0.12'; el.style.transform = 'translateY(0)'; el.style.transition='transform 12s linear, opacity 12s linear'; bg.appendChild(el); setTimeout(()=>{ el.style.transform = 'translateY(-120vh)'; el.style.opacity='0'; },20); setTimeout(()=> el.remove(), 12500);}
-    setInterval(()=> createOne(), 1400);
-  })();
-
-  // Fireworks (canvas)
-  (function fireworks(){
-    const canvas = document.getElementById('fw'); if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-    addEventListener('resize', resize); resize();
-
-    let parts = [];
-    function Part(x,y,col){
-      this.x=x; this.y=y; const a = Math.random()*Math.PI*2; const s = rand(1.5,6);
-      this.vx = Math.cos(a)*s; this.vy = Math.sin(a)*s;
-      this.alpha = 1; this.size = rand(1.4,3.6); this.color = col;
-    }
-    Part.prototype.update = function(){ this.x += this.vx; this.y += this.vy; this.vy += 0.03; this.alpha -= 0.016; }
-    Part.prototype.draw = function(){ ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); ctx.globalAlpha = 1; }
-
-    function burst(x,y){
-      const cols = ['#ff6fb5','#7bdff6','#ffd58a','#ffffff','#d7b2ff'];
-      for(let i=0;i<80;i++) parts.push(new Part(x,y,cols[Math.floor(Math.random()*cols.length)]));
-    }
-
-    let anim=false, timer=null;
-    function loop(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let i=parts.length-1;i>=0;i--){ parts[i].update(); parts[i].draw(); if(parts[i].alpha<=0) parts.splice(i,1); }
-      if(anim) requestAnimationFrame(loop);
-    }
-
-    window.startFireworks = function(){
-      if(anim) return;
-      anim=true; loop();
-      timer = setInterval(()=> burst(rand(100,canvas.width-100), rand(80,canvas.height-160)), 700);
-      setTimeout(()=>{ clearInterval(timer); setTimeout(()=> anim=false, 5200); }, 9000);
-    };
-  })();
-
-  // Small accessibility: allow left/right arrow to navigate scenes
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight'){ gotoScene(Math.min(current+1, scenes.length-1)); }
-    if(e.key === 'ArrowLeft'){ gotoScene(Math.max(current-1, 0)); }
-  });
-
-  // helper goto
-  function gotoScene(i){
-    current = Math.max(0, Math.min(scenes.length-1, i));
-    updateUI();
-  }
-  // updateUI uses closure above
-  function updateUI(){
-    scenes.forEach((el, idx)=> el.style.display = (idx===current)?'block':'none');
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach((d,i)=> d.classList.toggle('active', i===current));
-    progressFill.style.width = Math.round(current/(scenes.length-1)*100) + '%';
-    if(current === scenes.length-1) {
-      // reveal ending card and start fireworks
-      document.getElementById('endingCard').style.display = 'flex';
-      startFireworks();
-    } else {
-      document.getElementById('endingCard').style.display = 'none';
-    }
-    // scroll scene into center on small screens
-    const el = scenes[current];
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-  }
-
-  // expose goto for buttons with dataset
-  document.querySelectorAll('[data-goto]').forEach(btn=>{
-    btn.addEventListener('click', ()=> gotoScene(Number(btn.dataset.goto)));
-  });
-
-  // initial state
-  gotoScene(0);
-
-  // small UX: clicking poster PLAY jumps to scene 0 and focuses
-  document.getElementById('startBtn').addEventListener('click', ()=> gotoScene(0));
-  document.getElementById('skipBtn').addEventListener('click', ()=> gotoScene(scenes.length-1));
-  document.getElementById('replayBtn').addEventListener('click', ()=> gotoScene(0));
-</script>
+  </script>
 </body>
 </html>
