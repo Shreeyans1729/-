@@ -1,176 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>F.R.I.E.N.D.S. — Teacher's Day</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
-  /* ---------- Global ---------- */
   :root{
-    --bg1:#090D23;
-    --bg2:#2a0b31;
-    --accent-a:#00fff0;
-    --accent-b:#ff3c70;
-    --glass-bg: rgba(14,22,35,0.75);
-    --glass-border: rgba(255,255,255,0.06);
-    --card-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    --bg-deep:#080615;
+    --bg-mid:#1b0620;
+    --glass: rgba(255,255,255,0.04);
+    --glass-2: rgba(255,255,255,0.06);
+    --accent-cyan: #00fff0;
+    --accent-pink: #ff3c70;
+    --accent-yellow:#ffbc33;
+    --card-radius:20px;
+    --max-width:900px;
   }
-  html,body{height:100%;margin:0;font-family:'Montserrat',sans-serif;background:linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 55%, #001a1f 100%); color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
   *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(0,255,240,0.03), transparent 6%), radial-gradient(900px 500px at 90% 90%, rgba(255,60,112,0.03), transparent 6%), linear-gradient(135deg,var(--bg-deep) 0%, var(--bg-mid) 60%); color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; }
 
-  /* Aurora */
-  .aurora{
-    position:fixed; z-index:0; inset:0; pointer-events:none; mix-blend-mode:screen;
-    background: radial-gradient(600px 300px at 10% 20%, rgba(0,255,240,0.06), transparent 10%),
-                radial-gradient(500px 250px at 85% 70%, rgba(255,60,112,0.05), transparent 8%);
-    filter: blur(30px);
-    animation: auroraMove 18s ease-in-out infinite alternate;
+  /* ---------- Aurora & sparkles ---------- */
+  .aurora{ position:fixed; inset:-20%; z-index:0; pointer-events:none; mix-blend-mode:screen; filter:blur(30px);
+    background:
+      radial-gradient(600px 220px at 10% 18%, rgba(0,255,240,0.06), transparent 20%),
+      radial-gradient(420px 180px at 90% 78%, rgba(255,60,112,0.05), transparent 18%);
+    animation: aur 22s ease-in-out infinite alternate;
   }
-  @keyframes auroraMove{ from{transform:translate(0,0)} to{transform:translate(5%, -5%)} }
+  @keyframes aur{ from{transform:translate(0,0)} to{transform:translate(6%, -6%)} }
 
-  /* Sparkles layer */
   .sparkles{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-  .spark{ position:absolute; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.08); filter:blur(1px); animation: drift 8s linear infinite; }
-  @keyframes drift{ from{transform:translateY(100vh) scale(.5) ; opacity:0} 10%{opacity:0.9} 90%{opacity:0.9} to{transform:translateY(-20vh) scale(1.3); opacity:0} }
+  .spark{ position:absolute; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.06); filter:blur(1px); animation: drift linear infinite; }
+  @keyframes drift{ 0%{transform:translateY(100vh) scale(.6); opacity:0} 10%{opacity:0.95} 90%{opacity:0.95} 100%{transform:translateY(-20vh) scale(1.2); opacity:0} }
 
-  /* Floating emoji background */
-  .emoji-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; opacity:0.2; }
-  .emoji-float{ position:absolute; user-select:none; filter: drop-shadow(0 0 8px rgba(0,255,240,0.08)) drop-shadow(0 0 10px rgba(255,60,112,0.06)); transform-origin:center; animation-timing-function:linear; }
+  /* emoji background */
+  .emoji-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.24; overflow:hidden; }
+  .emoji-float{ position:absolute; user-select:none; filter: drop-shadow(0 6px 18px rgba(0,255,240,0.06)) drop-shadow(0 6px 24px rgba(255,60,112,0.04)); transform-origin:center; animation-timing-function:linear; }
 
-  /* Page container */
-  .wrap{ min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:28px; gap:18px; z-index:2; position:relative; }
-  .page-box{
-    width:100%; max-width:760px; border-radius:22px; background:var(--glass-bg); border:1px solid var(--glass-border);
-    padding:34px; box-shadow:var(--card-shadow); backdrop-filter: blur(8px) saturate(1.2); position:relative;
-  }
+  /* page wrapper */
+  .page-wrap{ min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:40px 20px 80px; gap:18px; position:relative; z-index:2; }
 
-  /* Progress bar */
-  .progress-bar-outer{ width:100%; max-width:900px; height:12px; background:#0e1320; border-radius:999px; margin:14px auto 26px; box-shadow:0 0 30px rgba(0,0,0,0.6); overflow:hidden; border:1px solid rgba(255,255,255,0.03); }
-  .progress-bar-inner{ height:100%; width:0%; border-radius:999px; background: linear-gradient(90deg,var(--accent-a) 0%, #7200ff 70%, var(--accent-b) 100%); box-shadow:0 0 24px rgba(0,255,240,0.12); transition:width 700ms cubic-bezier(.2,.8,.2,1); }
+  /* progress */
+  .progress-wrap{ width:100%; max-width:var(--max-width); margin:12px auto 8px; }
+  .progress-outer{ height:12px; background:rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; box-shadow:0 6px 30px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03); }
+  .progress-inner{ height:100%; width:0%; background: linear-gradient(90deg,var(--accent-cyan), #7200ff, var(--accent-pink)); box-shadow:0 0 30px rgba(0,255,240,0.12); transition:width 700ms cubic-bezier(.2,.9,.2,1); }
 
-  /* Titles */
-  .typewriter{ display:inline-block; font-family:'Orbitron',sans-serif; font-size:2.25rem; color:#fff; letter-spacing:2px; text-shadow:0 0 16px rgba(0,255,240,0.10), 0 0 6px rgba(255,60,112,0.06); border-right: .14em solid rgba(0,255,240,0.8); white-space:nowrap; overflow:hidden; animation: typing 2.2s steps(36,end), blink .8s step-end infinite; margin-bottom:8px; }
+  /* card */
+  .card{ width:100%; max-width:760px; margin:14px auto; border-radius:var(--card-radius); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); border:1px solid var(--glass-2); padding:28px; box-shadow: 0 12px 50px rgba(0,0,0,0.65); backdrop-filter: blur(10px) saturate(1.25); transition:transform 450ms cubic-bezier(.2,.9,.2,1), opacity 420ms; }
+
+  /* top title */
+  .title-line{ font-family:'Orbitron',sans-serif; font-weight:700; font-size:2rem; letter-spacing:2px; display:inline-block; color:#fff; text-shadow: 0 0 24px rgba(0,255,240,0.06), 0 0 6px rgba(255,60,112,0.04); border-right:.12em solid rgba(0,255,240,0.8); white-space:nowrap; overflow:hidden; animation: typing 2.1s steps(36,end), blink .8s step-end infinite; margin-bottom:8px; }
   @keyframes typing{ from{width:0} to{width:100%} } @keyframes blink{ 50%{border-color:transparent} }
 
   .friends-pastel{ color:#89cff0; text-shadow:0 0 18px #c1eaff, 0 0 2px #fff; font-weight:700; }
 
-  /* Inputs & buttons */
-  .input-group{ position:relative; margin-bottom:20px; }
-  .input{ width:100%; padding:14px 12px; border-radius:10px; border:none; background:#121220; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.6); outline:none; font-size:1rem; }
-  .label-floating{ position:absolute; left:14px; top:14px; color:rgba(0,255,240,0.6); pointer-events:none; transition:all .18s; }
-  .input:focus + .label-floating, .input:not(:placeholder-shown) + .label-floating{ transform:translateY(-28px); font-size:0.85rem; background:var(--glass-bg); padding:0 6px; border-radius:6px; color:var(--accent-a); }
+  /* headings */
+  h2.section-title{ font-size:1rem; margin:12px 0 8px; text-align:center; letter-spacing:1px; color:#fff; }
 
-  .btn-group{ display:flex; gap:16px; justify-content:center; margin:18px 0; }
-  .neon-btn{ padding:12px 18px; border-radius:999px; border:none; font-family:'Orbitron',sans-serif; cursor:pointer; letter-spacing:1px; background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.12)); color:#fff; box-shadow:0 0 18px rgba(0,255,240,0.08); transition:transform .15s, box-shadow .18s; }
-  .neon-btn:active{ transform:translateY(2px); }
-  .neon-submit{ min-width:140px; padding:12px 18px; font-weight:700; border-radius:14px; }
-  .neon-btn::before{ content:''; position:absolute; inset:0; border-radius:999px; z-index:-1; pointer-events:none; background:linear-gradient(90deg,var(--accent-a), #7200ff, var(--accent-b)); filter:blur(8px); opacity:.18; transition:opacity .2s; }
-  .neon-btn:hover{ box-shadow:0 0 36px rgba(0,255,240,0.12), 0 0 26px rgba(255,60,112,0.06); color:var(--accent-a); }
+  /* inputs */
+  .input-group{ position:relative; margin-bottom:18px; }
+  .field{ width:100%; padding:14px 12px; border-radius:12px; border:none; outline:none; background:#0f1220; color:#fff; font-size:1rem; box-shadow: inset 0 -2px 18px rgba(0,0,0,0.6); }
+  .label{ position:absolute; left:14px; top:14px; color:rgba(0,255,240,0.5); pointer-events:none; transition:all 160ms; }
+  .field:focus + .label, .field:not(:placeholder-shown) + .label{ transform:translateY(-28px); font-size:0.86rem; background:linear-gradient(180deg, rgba(11,10,18,0.7), rgba(11,10,18,0.9)); padding:0 6px; color:var(--accent-cyan); border-radius:6px; }
 
-  .active-btn{ color:#fff !important; box-shadow: 0 0 40px 6px rgba(255,60,112,0.18) !important; background: linear-gradient(90deg, rgba(255,60,112,0.12), rgba(0,255,240,0.06)) !important; }
+  textarea.field{ min-height:86px; resize:vertical; padding-top:18px; }
 
-  .jinda-error, .say-error{ display:none; color:#ff6f6f; margin-bottom:10px; text-align:center; }
+  /* buttons */
+  .btn-row{ display:flex; gap:14px; justify-content:center; margin:18px 0; flex-wrap:wrap; }
+  .btn{ position:relative; overflow:visible; padding:12px 20px; border-radius:999px; border:none; cursor:pointer; font-family:'Orbitron',sans-serif; letter-spacing:1px; font-weight:700; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08)); color:#fff; box-shadow:0 6px 30px rgba(0,0,0,0.6); transition: transform 150ms, box-shadow 200ms; }
+  .btn:active{ transform:translateY(2px); }
+  .btn::after{ content:''; position:absolute; inset:0; border-radius:999px; z-index:-1; background:linear-gradient(90deg, rgba(0,255,240,0.12), rgba(114,0,255,0.06), rgba(255,60,112,0.08)); filter:blur(10px); opacity:0; transition:opacity 180ms; }
+  .btn:hover::after{ opacity:1; }
+  .btn.neon{ min-width:140px; padding:12px 18px; }
+  .btn.ripple{ overflow:hidden; }
+  /* ripple effect */
+  .ripple-effect{ position:absolute; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; background:rgba(255,255,255,0.18); animation:rippleAnim 600ms ease-out; }
+  @keyframes rippleAnim{ from{opacity:0.9; transform:translate(-50%,-50%) scale(0.2)} to{opacity:0; transform:translate(-50%,-50%) scale(3.2)} }
 
-  .no-db-warning{ color:#ffb300; text-align:center; margin-top:12px; font-weight:600; text-shadow:0 0 6px rgba(0,0,0,0.6); }
+  .active-btn{ box-shadow:0 0 40px 8px rgba(255,60,112,0.18) !important; color:#fff !important; }
 
-  /* Success, story, warden, final pages — reuse page-box but hide */
-  .hidden{ display:none !important; }
-  .success-box h1{ font-family:'Orbitron',sans-serif; color:var(--accent-a); margin:0 0 16px 0; text-shadow:0 0 18px var(--accent-a); font-size:2rem; text-align:center; }
+  .error{ color:#ff6f6f; text-align:center; display:none; margin-top:8px; }
 
-  .success-list{ padding-left:18px; margin-top:12px; }
-  .success-list li{ margin-bottom:10px; font-size:1rem; line-height:1.4; }
+  .no-db{ color:var(--accent-yellow); text-align:center; margin-top:12px; font-weight:600; }
 
-  .footer-msg{ margin-top:18px; color:#ffb300; text-align:center; font-weight:600; }
+  /* success list */
+  .success-list{ padding-left:18px; margin-top:12px; color:#eaf6f4; }
+  .success-list li{ margin-bottom:10px; font-size:1rem; line-height:1.45; }
 
-  /* nicknames */
-  .nicknames-page{ max-width:700px; }
-  .nicknames-table{ width:100%; border-collapse:collapse; margin-bottom:14px; }
-  .nicknames-table th, .nicknames-table td{ border:1px solid var(--accent-a); padding:8px 10px; color:#fff; text-align:left; }
-  .nicknames-table th{ background:#2a0b31; font-family:'Orbitron',sans-serif; color:var(--accent-a) }
-  .nickname-note{ color:#fff799; font-size:1.06em; text-align:center; margin-top:8px; }
+  /* nicknames table */
+  .nicknames-table{ width:100%; border-collapse:collapse; margin-top:8px; }
+  .nicknames-table th, .nicknames-table td{ border:1px solid rgba(0,255,240,0.14); padding:8px 10px; color:#fff; text-align:left; }
+  .nicknames-table th{ background:#2a0b31; color:var(--accent-cyan); font-family:'Orbitron',sans-serif; }
 
-  /* story list */
-  .story-section{ line-height:1.7; color:#fff; text-align:left; margin-top:12px; }
+  /* story layout */
+  .story-section{ margin-top:12px; line-height:1.7; color:#fff; text-align:left; }
   .story-section b{ display:block; margin-bottom:8px; }
-  .story-section hr{ border:0; border-bottom:1px solid rgba(0,255,240,0.12); margin:16px 0; }
 
-  /* emoji reaction buttons */
-  .emoji-reactions{ display:flex; gap:16px; justify-content:center; margin:12px 0 18px; }
-  .emoji-reaction-btn{ background:transparent; border:none; font-size:1.6rem; cursor:pointer; user-select:none; position:relative; }
+  .emoji-reactions{ display:flex; gap:16px; justify-content:center; margin:12px 0; }
+  .emoji-reaction-btn{ background:transparent; border:none; font-size:1.5rem; cursor:pointer; user-select:none; position:relative; }
   .emoji-reaction-count{ display:block; font-size:0.78rem; color:#fff799; text-align:center; margin-top:-6px; }
 
   /* teacher search */
-  .teacher-search-section{ margin:8px 0 12px; display:flex; flex-direction:column; align-items:center; }
-  .teacher-search-inner{ position:relative; display:flex; align-items:center; width:100%; max-width:420px; background:#171224; border-radius:14px; padding:8px 10px; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
-  .teacher-search-inner:focus-within{ box-shadow:0 0 30px rgba(0,255,240,0.08); }
-  .search-emoji{ margin-right:8px; color:rgba(0,255,240,0.7); pointer-events:none; }
-  #teacherSearch{ flex:1; background:transparent; border:none; outline:none; color:#fff; font-size:1rem; }
-  .search-bar-glow{ position:absolute; inset:6px; border-radius:10px; pointer-events:none; background:linear-gradient(90deg, rgba(0,255,240,0.04), rgba(114,0,255,0.02), rgba(255,60,112,0.03)); filter:blur(8px); opacity:0.25; }
+  .teacher-search{ display:flex; justify-content:center; margin-top:10px; }
+  .teacher-search-inner{ width:100%; max-width:520px; background:#0f1220; border-radius:12px; padding:8px 12px; display:flex; gap:8px; align-items:center; box-shadow:inset 0 -2px 18px rgba(0,0,0,0.6); }
+  .search-input{ flex:1; border:none; background:transparent; outline:none; color:#fff; font-size:1rem; }
+  .search-glow{ position:absolute; inset:6px; border-radius:12px; pointer-events:none; background:linear-gradient(90deg, rgba(0,255,240,0.03), rgba(114,0,255,0.02), rgba(255,60,112,0.03)); filter:blur(8px); opacity:0.22; }
 
-  /* type small */
-  .small-note{ font-size:0.95rem; color:#ffb300; text-align:center; margin-top:8px; }
+  /* final page */
+  .final-note{ font-size:1rem; line-height:1.6; color:#fff; text-align:left; }
 
-  /* final fireworks canvas style set below */
+  /* canvas */
+  canvas#fw{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:6; pointer-events:none; }
 
   /* responsive */
   @media (max-width:720px){
-    .typewriter{ font-size:1.45rem; }
-    .page-box{ padding:18px; border-radius:16px; }
+    .card{ padding:18px; border-radius:14px; }
+    .title-line{ font-size:1.4rem; }
     .emoji-float{ font-size:28px !important; }
   }
 </style>
 </head>
 <body>
-  <!-- Aurora + sparkles + emoji layers -->
+  <!-- Aurora, sparkles, emojis -->
   <div class="aurora" aria-hidden="true"></div>
   <div class="sparkles" id="sparkles" aria-hidden="true"></div>
   <div class="emoji-bg" id="emojiBg" aria-hidden="true"></div>
 
   <!-- progress -->
-  <div style="width:100%; max-width:980px; margin:18px auto 6px;">
-    <div class="progress-bar-outer">
-      <div class="progress-bar-inner" id="progressBar"></div>
+  <div class="progress-wrap">
+    <div class="progress-outer">
+      <div class="progress-inner" id="progressBar"></div>
     </div>
   </div>
 
-  <div class="wrap">
-    <!-- LOGIN -->
-    <div id="loginContainer" class="page-box">
-      <div class="typewriter"><span class="friends-pastel">F.R.I.E.N.D.S.</span></div>
-      <h2 style="text-align:center; margin:18px 0 8px;">NAAM</h2>
+  <div class="page-wrap">
+    <!-- LOGIN CARD -->
+    <section id="loginContainer" class="card" aria-labelledby="loginTitle">
+      <div class="title-line" id="loginTitle"><span class="friends-pastel">F.R.I.E.N.D.S.</span></div>
+
+      <h2 class="section-title">NAAM</h2>
       <div class="input-group">
-        <input id="naam" class="input" type="text" placeholder=" " autocomplete="off" />
-        <label class="label-floating" for="naam">Naam likho (Enter your name)</label>
+        <input id="naam" class="field" type="text" placeholder=" " autocomplete="off" />
+        <label class="label" for="naam">Naam likho (Enter your name)</label>
       </div>
 
-      <h2 style="text-align:center; margin:6px 0 8px;">JINDA</h2>
-      <div class="btn-group" id="jindaGroup" role="group" aria-label="Jinda options">
-        <button type="button" class="neon-btn" id="haa" tabindex="0">HAA</button>
-        <button type="button" class="neon-btn" id="naa" tabindex="0">NAA</button>
+      <h2 class="section-title">JINDA</h2>
+      <div class="btn-row" id="jindaGroup" role="group" aria-label="Jinda options">
+        <button class="btn ripple" id="haa" type="button">HAA</button>
+        <button class="btn ripple" id="naa" type="button">NAA</button>
       </div>
       <input type="hidden" id="jinda" required>
-      <div class="jinda-error" id="jindaError">Select HAA or NAA</div>
+      <div class="error" id="jindaError">Select HAA or NAA</div>
 
-      <div class="input-group" style="margin-top:22px;">
-        <textarea id="say" rows="3" class="input" style="resize:vertical; min-height:86px; padding-top:14px;" placeholder=" " required></textarea>
-        <label class="label-floating" for="say" style="top:10px; left:12px; font-size:0.95rem;">Say something to me:</label>
+      <div class="input-group" style="margin-top:14px;">
+        <textarea id="say" class="field" placeholder=" "></textarea>
+        <label class="label" for="say" style="top:12px; left:14px; font-size:0.95rem;">Say something to me:</label>
       </div>
-      <div class="say-error" id="sayError">Please say something!</div>
+      <div class="error" id="sayError">Please say something!</div>
 
-      <div style="display:flex; justify-content:center; gap:18px; margin-top:10px;">
-        <button class="neon-btn neon-submit" id="submitBtn"><span style="position:relative;z-index:2;">THOKO</span></button>
+      <div style="display:flex; justify-content:center; gap:12px; margin-top:10px;">
+        <button id="submitBtn" class="btn neon ripple" type="button">THOKO</button>
       </div>
 
-      <div class="no-db-warning" style="margin-top:18px;">
-        <span>😆 No database here, so your data just vanishes like my motivation on Monday!</span>
-      </div>
-    </div>
+      <div class="no-db" aria-hidden="true">😆 No database here, so your data just vanishes like my motivation on Monday!</div>
+    </section>
 
-    <!-- SUCCESS -->
-    <div id="successBox" class="page-box hidden success-box" aria-hidden="true">
-      <span class="big-emoji" style="font-size:3.2rem; display:block; text-align:center;">😈</span>
-      <h1>DOSTI YAARI EMOTIONS</h1>
+    <!-- SUCCESS CARD -->
+    <section id="successBox" class="card" aria-hidden="true" style="display:none;">
+      <div style="font-size:3.2rem; text-align:center; margin-bottom:8px;">😈</div>
+      <h1 style="font-family:'Orbitron',sans-serif;color:var(--accent-cyan);text-align:center;margin:0 0 12px;">DOSTI YAARI EMOTIONS</h1>
+
       <ul class="success-list">
         <li>1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.</li>
         <li>2. Aise lagta hai jaise koi part of life missing ho.</li>
@@ -184,42 +183,34 @@
         <li>10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟</li>
       </ul>
 
-      <div class="footer-msg">
-        <span style="font-size:0.95em;">You can close this tab now. Have a great day!</span>
-      </div>
+      <div style="text-align:center; margin-top:14px; color:var(--accent-yellow);">You can close this tab now. Have a great day!</div>
 
-      <div class="next-btn-box" style="display:flex; justify-content:center; margin-top:18px;">
-        <button class="neon-btn neon-submit" id="toNicknamesBtn"><span>THOKO ALSO</span></button>
+      <div style="display:flex; justify-content:center; margin-top:16px;">
+        <button id="toNicknamesBtn" class="btn neon ripple">THOKO ALSO</button>
       </div>
-    </div>
+    </section>
 
-    <!-- Nicknames page (kept, but we'll show story next) -->
-    <div id="nicknamesPage" class="page-box hidden nicknames-page" aria-hidden="true" style="max-width:720px;">
-      <div style="text-align:center; margin-bottom:10px;">
-        <div class="glow-title" style="font-size:1.5rem;">Nicknames & Memories</div>
+    <!-- NICKNAMES (kept minimal, optional editable) -->
+    <section id="nicknamesPage" class="card" aria-hidden="true" style="display:none;">
+      <div style="text-align:center; margin-bottom:8px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:1.25rem; color:var(--accent-cyan)">Nicknames & Memories</div>
       </div>
-
-      <!-- If you have nicknames to add, they will appear here. Keeping table structure from original code -->
-      <table class="nicknames-table" aria-hidden="false">
-        <thead>
-          <tr><th>Original Name</th><th>Nickname / Note</th></tr>
-        </thead>
+      <table class="nicknames-table">
+        <thead><tr><th>Original Name</th><th>Nickname / Note</th></tr></thead>
         <tbody>
-          <!-- Placeholder rows — you can add your nicknames here -->
           <tr><td>Example</td><td>Example Nick</td></tr>
         </tbody>
       </table>
-
-      <div class="nickname-note">(Add your group nicknames here. This table is left editable in code.)</div>
-
-      <div class="next-btn-box" style="display:flex; justify-content:center; margin-top:18px;">
-        <button class="neon-btn neon-submit" id="toStoryFromNicknamesBtn"><span>TO STORY</span></button>
+      <div style="display:flex; justify-content:center; margin-top:14px;">
+        <button id="toStoryFromNicknamesBtn" class="btn neon ripple">TO STORY</button>
       </div>
-    </div>
+    </section>
 
-    <!-- STORY Page (original teacher content kept verbatim) -->
-    <div id="storyPage" class="page-box hidden story-page" aria-hidden="true">
-      <div class="story-title" style="font-size:1.6rem; margin-bottom:8px;">Hello doston! 👿🤘</div>
+    <!-- STORY -->
+    <section id="storyPage" class="card" aria-hidden="true" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:1.4rem;font-family:'Orbitron',sans-serif;">Hello doston! 👿🤘</div>
+      </div>
 
       <div class="emoji-reactions" id="emojiReactions1">
         <button class="emoji-reaction-btn" data-emoji="😂">😂<span class="emoji-reaction-count" id="emojiCount-😂">0</span></button>
@@ -228,20 +219,17 @@
         <button class="emoji-reaction-btn" data-emoji="🤘">🤘<span class="emoji-reaction-count" id="emojiCount-🤘">0</span></button>
       </div>
 
-      <!-- Enhanced Search box for teachers -->
-      <div class="teacher-search-section">
-        <div class="teacher-search-inner">
-          <span class="search-emoji" aria-hidden="true">🔎</span>
-          <input type="text" id="teacherSearch" placeholder="Type to search teachers..." autocomplete="off" />
-          <span class="search-bar-glow"></span>
+      <div class="teacher-search" aria-hidden="false">
+        <div class="teacher-search-inner" style="position:relative;">
+          <span style="color:rgba(0,255,240,0.7); margin-right:8px;">🔎</span>
+          <input id="teacherSearch" class="search-input" placeholder="Type to search teachers..." autocomplete="off" />
+          <div class="search-glow" aria-hidden="true"></div>
         </div>
-        <div class="search-tip small-note">Type a name or subject to filter teachers below</div>
       </div>
 
       <div class="story-section">
         <b>School ke teachers aur unki yaadein:</b><br>
         <ul id="teachersList">
-          <!-- All teacher text is inserted exactly as you gave it. -->
           <li><b>Rishav Sir</b>:<br>Saatvi mein aaye, thoda style dikhane lage,
 Krish ke saath football ke kisse sunane lage.
 Maths ki trick se sabko gumaan mein daalne lage,
@@ -331,7 +319,7 @@ Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄<br><
           <li><b>Neeraj Sir</b>: Jee-NEET wala gyaan.</li>
           <li><b>Ujjwal Sir</b>:<br>The pehle se school mein, par 2019 ke pehle chale gaye the door,
 Par jab zarurat padi maths ki, toh wapas aaye ban ke noor.
-Par unke aate hi bhaiya log bole – “Sir toh hai top class,”
+Unke aate hi bhaiya log bole – “Sir toh hai top class,”
 Unke naam se hi ho gaya, poori class ka blast! 🔥<br>
 
 Class 9th mein mila unse pehli baar, aur kya hi mila tha yaar,
@@ -359,13 +347,13 @@ Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br></li>
         </ul>
       </div>
 
-      <div class="next-btn-box" style="display:flex; justify-content:center; margin-top:18px;">
-        <button class="neon-btn neon-submit" id="toWardenBtnFromStory"><span>THOKO NA RE</span></button>
+      <div style="display:flex; justify-content:center; margin-top:16px;">
+        <button id="toWardenBtnFromStory" class="btn neon ripple">THOKO NA RE</button>
       </div>
-    </div>
+    </section>
 
     <!-- WARDEN -->
-    <div id="wardenPage" class="page-box hidden warden-page" aria-hidden="true">
+    <section id="wardenPage" class="card" aria-hidden="true" style="display:none;">
       <div class="emoji-reactions" id="emojiReactions2">
         <button class="emoji-reaction-btn" data-emoji="😎">😎<span class="emoji-reaction-count" id="emojiCount2-😎">0</span></button>
         <button class="emoji-reaction-btn" data-emoji="🖕">🖕<span class="emoji-reaction-count" id="emojiCount2-🖕">0</span></button>
@@ -380,13 +368,13 @@ Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br></li>
         </ul>
       </div>
 
-      <div class="next-btn-box" style="display:flex; justify-content:center; margin-top:18px;">
-        <button class="neon-btn neon-submit" id="toFinalBtnFromWarden"><span>THOKO</span></button>
+      <div style="display:flex; justify-content:center; margin-top:16px;">
+        <button id="toFinalBtnFromWarden" class="btn neon ripple">THOKO</button>
       </div>
-    </div>
+    </section>
 
     <!-- FINAL -->
-    <div id="finalPage" class="page-box hidden final-page" aria-hidden="true">
+    <section id="finalPage" class="card" aria-hidden="true" style="display:none;">
       <div class="story-section">
         <b>Toh doston...</b><br>
         Ye thi hamari school life ki original web series –<br>
@@ -397,258 +385,235 @@ Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️<br></li>
         <hr>
         <span class="emoji">🤟</span> Jai school life, jai nostalgia!
       </div>
-    </div>
-
+    </section>
   </div>
 
-  <!-- Fireworks canvas -->
-  <canvas id="fireworksCanvas" style="position:fixed;left:0;top:0;width:100%;height:100%;z-index:6;pointer-events:none;"></canvas>
+  <!-- fireworks canvas -->
+  <canvas id="fw"></canvas>
 
 <script>
-  /* ---------- Utilities ---------- */
-  function $(id){return document.getElementById(id)}
-  function rand(min,max){return Math.random()*(max-min)+min}
+/* Utilities */
+const $ = id => document.getElementById(id);
+const rand = (a,b) => Math.random()*(b-a)+a;
 
-  /* ---------- Sparkles generation ---------- */
-  (function makeSparkles(){
-    const container = $('sparkles');
-    if(!container) return;
-    for(let i=0;i<14;i++){
-      const s = document.createElement('div');
-      s.className = 'spark';
-      s.style.left = Math.random()*100 + 'vw';
-      s.style.top = Math.random()*100 + 'vh';
-      s.style.width = s.style.height = (Math.random()*6+3) + 'px';
-      s.style.opacity = 0.08 + Math.random()*0.3;
-      s.style.animationDuration = (8 + Math.random()*8) + 's';
-      container.appendChild(s);
-    }
-  })();
+/* Sparkles */
+(function createSparkles(){
+  const c = $('sparkles');
+  if(!c) return;
+  for(let i=0;i<18;i++){
+    const s = document.createElement('div');
+    s.className='spark';
+    s.style.left = rand(0,100)+'vw';
+    s.style.top = rand(0,100)+'vh';
+    s.style.width = s.style.height = (rand(3,8))+'px';
+    s.style.opacity = (rand(0.06,0.3)).toFixed(2);
+    s.style.animationDuration = (rand(8,18))+'s';
+    c.appendChild(s);
+  }
+})();
 
-  /* ---------- Floating emojis ---------- */
-  (function emojiBackground(){
-    const EMOJIS = ["💀","☠️","😎","😈","👿","🤟","🤘","🖕","🤙","🤝"];
-    const bg = $('emojiBg');
-    function create(i){
-      const el = document.createElement('span');
-      el.className='emoji-float';
-      el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
-      el.style.left = rand(-6, 96) + 'vw';
-      el.style.fontSize = rand(22, 64) + 'px';
-      const dur = rand(8,18);
-      el.style.animationDuration = dur + 's';
-      el.style.animationDelay = (-rand(0,12)) + 's';
-      bg.appendChild(el);
-      setTimeout(()=>{ if(el && el.parentNode) el.parentNode.removeChild(el); }, (dur+1)*1000);
-    }
-    for(let i=0;i<28;i++) create();
-    setInterval(()=>{ for(let i=0;i<3;i++) create(); while(bg.children.length>46) bg.removeChild(bg.children[0]); }, 2800);
-  })();
+/* Emoji background */
+(function emojiBG(){
+  const EMOJIS = ["💀","☠️","😎","😈","👿","🤟","🤘","🖕","🤙","🤝"];
+  const box = $('emojiBg');
+  if(!box) return;
+  function addOne(){
+    const el = document.createElement('span');
+    el.className='emoji-float';
+    el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    el.style.left = rand(-8,96) + 'vw';
+    el.style.fontSize = rand(20,64) + 'px';
+    const dur = rand(8,20);
+    el.style.animationDuration = dur + 's';
+    el.style.animationDelay = (-rand(0,12)) + 's';
+    box.appendChild(el);
+    setTimeout(()=> { if(el && el.parentNode) el.parentNode.removeChild(el); }, (dur+1)*1000);
+  }
+  for(let i=0;i<28;i++) addOne();
+  setInterval(()=>{ for(let i=0;i<3;i++) addOne(); while(box.children.length>60) box.removeChild(box.children[0]); }, 2600);
+})();
 
-  /* ---------- Page flow & Progress ---------- */
-  const pageOrder = ['loginContainer','successBox','nicknamesPage','storyPage','wardenPage','finalPage'];
-  function updateProgress(currentId){
-    let idx = pageOrder.indexOf(currentId);
-    if(idx<0) idx=0;
-    const perc = Math.round((idx)/(pageOrder.length-1)*100);
-    $('progressBar').style.width = perc + '%';
+/* Page flow */
+const order = ['loginContainer','successBox','nicknamesPage','storyPage','wardenPage','finalPage'];
+function progressTo(id){
+  let idx = order.indexOf(id);
+  if(idx<0) idx = 0;
+  const perc = Math.round((idx)/(order.length-1)*100);
+  $('progressBar').style.width = perc + '%';
+}
+
+/* Ripple helper */
+function rippleEffect(e){
+  const btn = e.currentTarget;
+  const rect = btn.getBoundingClientRect();
+  const circle = document.createElement('span');
+  circle.className = 'ripple-effect';
+  circle.style.left = (e.clientX - rect.left) + 'px';
+  circle.style.top = (e.clientY - rect.top) + 'px';
+  circle.style.width = circle.style.height = Math.max(rect.width, rect.height) * 1.2 + 'px';
+  btn.appendChild(circle);
+  setTimeout(()=> circle.remove(), 650);
+}
+
+/* Connect ripple to buttons with .ripple */
+document.querySelectorAll('.ripple').forEach(btn => {
+  btn.addEventListener('click', rippleEffect);
+});
+
+/* HAA / NAA */
+$('haa').addEventListener('click', ()=>{ $('haa').classList.add('active-btn'); $('naa').classList.remove('active-btn'); $('jinda').value='HAA'; $('jindaError').style.display='none'; });
+$('naa').addEventListener('click', ()=>{ $('naa').classList.add('active-btn'); $('haa').classList.remove('active-btn'); $('jinda').value='NAA'; $('jindaError').style.display='none'; });
+
+/* THOKO (submit) */
+$('submitBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  let valid = true;
+  if(!$('jinda').value){ $('jindaError').style.display='block'; valid=false; } else $('jindaError').style.display='none';
+  if(!$('say') || !$('say').value.trim()){ $('sayError').style.display='block'; valid=false; } else $('sayError').style.display='none';
+  if(!valid) return;
+  // show success
+  $('loginContainer').style.display='none';
+  $('successBox').style.display='block';
+  progressTo('successBox');
+
+  // small personalized note
+  const nameV = $('naam').value.trim() || 'Dost';
+  const note = document.createElement('div');
+  note.style.marginTop='12px'; note.style.textAlign='center'; note.style.color='#c7fff3'; note.style.fontWeight='600';
+  note.className='forNameNote';
+  note.innerText = `Hey ${nameV}, this is for you — Happy Teacher's Day!`;
+  const existing = $('successBox').querySelector('.forNameNote');
+  if(existing) existing.remove();
+  $('successBox').appendChild(note);
+});
+
+/* Navigation wiring (unique IDs) */
+$('toNicknamesBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  $('successBox').style.display='none';
+  $('nicknamesPage').style.display='block';
+  progressTo('nicknamesPage');
+});
+$('toStoryFromNicknamesBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  $('nicknamesPage').style.display='none';
+  $('storyPage').style.display='block';
+  progressTo('storyPage');
+});
+$('toWardenBtnFromStory').addEventListener('click', function(e){
+  e.preventDefault();
+  $('storyPage').style.display='none';
+  $('wardenPage').style.display='block';
+  progressTo('wardenPage');
+});
+$('toFinalBtnFromWarden').addEventListener('click', function(e){
+  e.preventDefault();
+  $('wardenPage').style.display='none';
+  $('finalPage').style.display='block';
+  progressTo('finalPage');
+  startFireworks(); // run fireworks
+});
+
+/* Emoji reactions */
+function setupReactions(containerId){
+  const el = $(containerId);
+  if(!el) return;
+  el.querySelectorAll('.emoji-reaction-btn').forEach(btn => {
+    btn.addEventListener('click', ()=>{
+      const span = btn.querySelector('.emoji-reaction-count');
+      let n = parseInt(span.textContent||'0',10);
+      n++; span.textContent = n;
+      btn.classList.add('active-btn');
+      setTimeout(()=> btn.classList.remove('active-btn'), 350);
+    });
+  });
+}
+setupReactions('emojiReactions1');
+setupReactions('emojiReactions2');
+
+/* Teacher search highlight */
+(function teacherSearch(){
+  const inp = $('teacherSearch'), list = $('teachersList');
+  if(!inp || !list) return;
+  inp.addEventListener('input', function(){
+    const filter = inp.value.trim().toLowerCase();
+    const items = list.querySelectorAll('li');
+    items.forEach(li => {
+      const b = li.querySelector('b');
+      const name = b ? b.textContent : li.textContent;
+      if(filter === '' || name.toLowerCase().includes(filter) || li.textContent.toLowerCase().includes(filter)){
+        li.style.display='';
+        if(filter && b){
+          const re = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','gi');
+          b.innerHTML = b.textContent.replace(re, "<span style='background:rgba(0,255,240,0.12); color:var(--accent-pink); padding:0 4px; border-radius:3px;'>$1</span>");
+        } else if(b){
+          b.innerHTML = b.textContent;
+        }
+      } else li.style.display='none';
+    });
+  });
+})();
+
+/* Canvas fireworks */
+(function fireworks(){
+  const canvas = $('fw');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+  addEventListener('resize', resize);
+  resize();
+  let particles = [];
+  function Particle(x,y,color){
+    this.x=x; this.y=y;
+    const ang = Math.random()*Math.PI*2;
+    const speed = rand(1,6);
+    this.vx = Math.cos(ang)*speed;
+    this.vy = Math.sin(ang)*speed;
+    this.alpha = 1;
+    this.size = rand(1.6,3.8);
+    this.color = color;
+  }
+  Particle.prototype.update = function(){
+    this.x += this.vx; this.y += this.vy; this.vy += 0.02; this.alpha -= 0.02;
+  }
+  Particle.prototype.draw = function(){
+    ctx.globalAlpha = Math.max(0,this.alpha);
+    ctx.fillStyle = this.color;
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha = 1;
   }
 
-  /* ---------- HAA / NAA logic ---------- */
-  const haaBtn = $('haa'), naaBtn = $('naa'), jindaInput = $('jinda'), jindaError = $('jindaError');
-  haaBtn.addEventListener('click', ()=>{ haaBtn.classList.add('active-btn'); naaBtn.classList.remove('active-btn'); jindaInput.value='HAA'; jindaError.style.display='none'; });
-  naaBtn.addEventListener('click', ()=>{ naaBtn.classList.add('active-btn'); haaBtn.classList.remove('active-btn'); jindaInput.value='NAA'; jindaError.style.display='none'; });
-
-  /* ---------- Form submit ---------- */
-  $('submitBtn').addEventListener('click', function(e){
-    e.preventDefault();
-    let valid = true;
-    if(!jindaInput.value){ jindaError.style.display='block'; valid=false; } else jindaError.style.display='none';
-    const sayEl = $('say');
-    if(!sayEl || !sayEl.value.trim()){ $('sayError').style.display = 'block'; valid=false; } else $('sayError').style.display='none';
-    const naam = $('naam').value;
-    if(!valid) return;
-    // show success
-    $('loginContainer').classList.add('hidden');
-    $('successBox').classList.remove('hidden');
-    // set progress
-    updateProgress('successBox');
-  });
-
-  /* ---------- Navigation buttons (IDs unique) ---------- */
-  // success -> nicknames
-  $('toNicknamesBtn').addEventListener('click', function(e){
-    e.preventDefault();
-    $('successBox').classList.add('hidden');
-    $('nicknamesPage').classList.remove('hidden');
-    updateProgress('nicknamesPage');
-  });
-  // nicknames -> story
-  $('toStoryFromNicknamesBtn').addEventListener('click', function(e){
-    e.preventDefault();
-    $('nicknamesPage').classList.add('hidden');
-    $('storyPage').classList.remove('hidden');
-    updateProgress('storyPage');
-  });
-
-  // story -> warden
-  $('toWardenBtnFromStory').addEventListener('click', function(e){
-    e.preventDefault();
-    $('storyPage').classList.add('hidden');
-    $('wardenPage').classList.remove('hidden');
-    updateProgress('wardenPage');
-  });
-
-  // warden -> final
-  $('toFinalBtnFromWarden').addEventListener('click', function(e){
-    e.preventDefault();
-    $('wardenPage').classList.add('hidden');
-    $('finalPage').classList.remove('hidden');
-    updateProgress('finalPage');
-    startFireworks(); // launch fireworks
-  });
-
-  // show page on initial load
-  updateProgress('loginContainer');
-
-  /* ---------- Emoji reactions setup ---------- */
-  function setupEmojiReactions(containerSelector, prefix = '') {
-    const container = document.getElementById(containerSelector);
-    if(!container) return;
-    container.querySelectorAll('.emoji-reaction-btn').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const emoji = btn.getAttribute('data-emoji');
-        // find count span carefully (different ids used in original code)
-        const countSpan = btn.querySelector('.emoji-reaction-count');
-        if(!countSpan) return;
-        let count = parseInt(countSpan.textContent||'0',10);
-        count++;
-        countSpan.textContent = count;
-        btn.classList.add('active-btn');
-        setTimeout(()=> btn.classList.remove('active-btn'), 350);
-      });
-    });
+  function burst(x,y){
+    const colors = ['#ff3c70','#00fff0','#ffe66d','#ff8c42','#9b5cff'];
+    for(let i=0;i<70;i++) particles.push(new Particle(x,y, colors[Math.floor(Math.random()*colors.length)]) );
   }
-  setupEmojiReactions('emojiReactions1');
-  setupEmojiReactions('emojiReactions2');
 
-  /* ---------- Teacher search + highlight (keeps original bold text) ---------- */
-  (function(){
-    const searchInput = $('teacherSearch');
-    const teachersList = $('teachersList');
-    if(!searchInput || !teachersList) return;
-    searchInput.addEventListener('input', function(){
-      const filter = searchInput.value.trim().toLowerCase();
-      const items = teachersList.querySelectorAll('li');
-      items.forEach(li => {
-        const bold = li.querySelector('b');
-        let name = bold ? bold.textContent : li.textContent;
-        const lowered = name.toLowerCase();
-        if(filter === '' || lowered.indexOf(filter) !== -1 || li.textContent.toLowerCase().indexOf(filter) !== -1){
-          li.style.display = '';
-          // Highlight match inside bold only
-          if(filter && bold){
-            const regex = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-            bold.innerHTML = bold.textContent.replace(regex, "<span style='background:rgba(0,255,240,0.14);color:var(--accent-b);padding:0 4px;border-radius:3px;'>$1</span>");
-          } else if(bold){
-            bold.innerHTML = bold.textContent;
-          }
-        } else {
-          li.style.display = 'none';
-        }
-      });
-    });
-  })();
-
-  /* ---------- Fireworks (simple particle system) ---------- */
-  (function(){
-    const canvas = $('fireworksCanvas');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-    addEventListener('resize', resize, {passive:true});
-    resize();
-
-    let particles = [];
-    function Particle(x,y,color){
-      this.x = x; this.y = y;
-      this.vx = rand(-4,4); this.vy = rand(-5,5);
-      this.alpha = 1; this.size = rand(1.2,3.6); this.color = color;
+  let running = false, burstTimer = null;
+  function loop(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i=particles.length-1;i>=0;i--){
+      const p = particles[i];
+      p.update(); p.draw();
+      if(p.alpha <= 0) particles.splice(i,1);
     }
-    Particle.prototype.update = function(){
-      this.x += this.vx; this.y += this.vy; this.vy += 0.06; this.alpha -= 0.016;
-    }
-    Particle.prototype.draw = function(){
-      ctx.globalAlpha = Math.max(0,this.alpha);
-      ctx.fillStyle = this.color; ctx.beginPath();
-      ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();
-      ctx.globalAlpha = 1;
-    }
+    if(running) requestAnimationFrame(loop);
+  }
 
-    function createBurst(x,y){
-      const colors = ['#ff3c70','#00fff0','#ffe66d','#ff8c42','#9b5cff'];
-      const count = 60;
-      for(let i=0;i<count;i++){
-        particles.push(new Particle(x,y, colors[Math.floor(Math.random()*colors.length)] ));
-      }
-    }
+  window.startFireworks = function(){
+    if(running) return;
+    running = true; loop();
+    burstTimer = setInterval(()=> burst(rand(100,canvas.width-100), rand(100,canvas.height-120)), 700);
+    setTimeout(()=>{ clearInterval(burstTimer); setTimeout(()=> running=false, 5200); }, 9000);
+  };
+})();
 
-    let running=false;
-    function animate(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let i=particles.length-1;i>=0;i--){
-        const p=particles[i];
-        p.update(); p.draw();
-        if(p.alpha<=0){ particles.splice(i,1); }
-      }
-      if(running) requestAnimationFrame(animate);
-    }
+/* Accessibility: Enter to submit from name */
+$('naam').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); $('submitBtn').click(); } });
+if($('say')) $('say').addEventListener('keydown', e => { if(e.key === 'Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); $('submitBtn').click(); } });
 
-    window.startFireworks = function(){
-      if(running) return;
-      running = true; animate();
-      // create bursts periodically for ~8s and then stop adding new ones
-      let int = setInterval(()=>{ createBurst(rand(100,canvas.width-100), rand(100, canvas.height-150)); }, 600);
-      setTimeout(()=>{ clearInterval(int); setTimeout(()=> running=false, 6000); }, 8000);
-    }
-  })();
+/* initialize progress */
+progressTo('loginContainer');
 
-  /* ---------- Set username in success box (if user typed name) ---------- */
-  (function(){
-    const nameInput = $('naam');
-    // update name on showing success box
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(m => {
-        if(m.attributeName === 'class'){
-          if(!$('successBox').classList.contains('hidden')){
-            const nameVal = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Dost';
-            // Find span userName if exists; original success box in your earlier code didn't have id userName,
-            // but you requested to keep content same, so we'll preserve success list and show name in footer message optionally.
-            // We add a small note dynamically:
-            let note = document.createElement('div');
-            note.style.marginTop='12px'; note.style.textAlign='center'; note.style.color='#c7fff3';
-            note.style.fontWeight='600'; note.innerText = `Hey ${nameVal}, this is for you — Happy Teacher's Day!`;
-            // Remove previous if exists
-            const prev = $('successBox').querySelector('.forNameNote');
-            if(prev) prev.remove();
-            note.className='forNameNote';
-            $('successBox').appendChild(note);
-          }
-        }
-      });
-    });
-    observer.observe($('successBox'), { attributes:true });
-  })();
-
-  /* ---------- Small accessibility / focus handling ---------- */
-  (function focusFix(){
-    // allow Enter to submit when typing in name or say
-    $('naam').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); $('submitBtn').click(); } });
-    $('say').addEventListener('keydown', e => { if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); $('submitBtn').click(); } });
-  })();
-
-  /* ---------- Keep original content exactly as provided — done ---------- */
-  // All your original teacher lines are untouched above inside teachersList <ul>.
 </script>
 </body>
 </html>
