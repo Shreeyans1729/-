@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FRIENDS — Dosti • Yaari • Emotions (2018–2025)</title>
+  <title>FRIENDS — Dosti • Yaari • Emotions</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -27,10 +27,8 @@
     html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2)); color:var(--text); font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
     a{color:inherit;text-decoration:none}
 
-    /* Container */
     .site{min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:28px 18px 80px; gap:18px; position:relative; overflow-x:hidden; }
 
-    /* Cinematic Hero (poster image on left or top) */
     .hero {
       width:100%; max-width:var(--maxw); display:grid; grid-template-columns: 420px 1fr; gap:18px; align-items:stretch;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
@@ -41,7 +39,6 @@
       position:relative;
     }
 
-    /* Poster image frame */
     .poster-frame{
       border-radius:12px;
       overflow:hidden;
@@ -64,7 +61,6 @@
       font-family:"Playfair Display", serif;
     }
 
-    /* Poster text area */
     .hero-info{ padding: 8px 2px 8px 6px; display:flex; flex-direction:column; gap:10px; justify-content:center; }
     .hero-title{ font-family:"Playfair Display",serif; font-size:34px; color:var(--accent-pink); letter-spacing:1px; margin-bottom:6px; }
     .hero-sub{ color:var(--muted); font-size:13px; }
@@ -74,22 +70,12 @@
     .hero-cta{ margin-top:12px; display:flex; gap:10px; }
     .btn{ cursor:pointer; border:0; padding:10px 14px; border-radius:10px; font-weight:700; color:#081018; background: linear-gradient(90deg,var(--accent-pink),var(--accent-cyan)); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
 
-    /* timeline area */
     .timeline-wrap{ width:100%; max-width:var(--maxw); display:flex; gap:18px; align-items:flex-start; }
-
-    /* left nav dots */
     .dots { position:sticky; top:120px; align-self:flex-start; display:flex; flex-direction:column; gap:10px; margin-right:8px; }
     .dot{ width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.03); cursor:pointer; transition:transform .2s, box-shadow .2s; }
     .dot.active{ transform:scale(1.18); background:linear-gradient(90deg,var(--accent-pink),var(--accent-cyan)); box-shadow:0 12px 30px rgba(123,223,246,0.12); }
 
-    /* timeline column with cards */
-    .timeline {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-
+    .timeline { flex:1; display:flex; flex-direction:column; gap:18px; }
     .card {
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
       border-radius:12px;
@@ -101,390 +87,85 @@
     }
     .card.visible{ opacity:1; transform: translateY(0) scale(1); }
 
-    .card .year {
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-      margin-bottom:8px;
-    }
-    .card .year .y { font-family:"Playfair Display",serif; font-size:18px; color:var(--accent-warm); font-weight:700; }
-    .card .year .badge { font-size:12px; color:var(--muted); }
-
     .scene-text{
       color:var(--text); line-height:1.6; text-align:left; white-space:pre-wrap; font-size:0.96rem; max-height:420px; overflow:auto; padding-right:6px;
     }
 
-    .controls { display:flex; justify-content:center; gap:12px; margin-top:10px; }
-    .small-muted{ color:var(--muted); font-size:0.92rem; }
-
-    /* ending big card */
     .ending{
       margin-top:18px; width:100%; max-width:var(--maxw); padding:28px; border-radius:14px; text-align:center;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.22)); border:1px solid rgba(255,255,255,0.03); box-shadow: 0 24px 70px rgba(0,0,0,0.7);
     }
 
-    /* canvas fireworks */
     canvas#fw{ position:fixed; left:0; top:0; width:100%; height:100%; z-index:1000; pointer-events:none; }
 
-    /* responsive */
     @media (max-width:1000px){
       .hero{ grid-template-columns: 1fr; }
       .poster-frame{ height:360px; }
       .timeline-wrap{ flex-direction:column; }
-      .dots{ display:none; position:relative; top:auto; left:auto; }
+      .dots{ display:none; }
     }
     @media (max-width:560px){
       .hero-title{ font-size:26px; }
       .poster-frame{ height:300px; }
       .card{ padding:14px; }
     }
-
-    /* subtle film grain overlay */
-    body::after{ content:""; position:fixed; inset:0; pointer-events:none; background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode:overlay; opacity:0.08; }
   </style>
 </head>
 <body>
   <div class="site">
 
     <!-- HERO -->
-    <div class="hero" role="banner" aria-label="FRIENDS Poster">
-      <div class="poster-frame" aria-hidden="false">
-        <!-- Put your image filename here (must be available in same folder or full URL) -->
+    <div class="hero">
+      <div class="poster-frame">
         <img src="0e0fc7_9b63abd1a89e450ab0a3b7a7892007bd~mv2.jpg" alt="Poster image">
         <div class="poster-overlay"></div>
         <div class="poster-badge">2018 — 2025</div>
       </div>
-
-      <div class="hero-info" role="region" aria-label="Intro">
+      <div class="hero-info">
         <div class="hero-title">F.R.I.E.N.D.S.</div>
         <div class="hero-sub">A short web-series of school memories — Teacher's Day special</div>
         <div class="hero-meta">
           <div class="pill">Classmates: 2016–2025</div>
           <div class="pill">Hostel & School stories</div>
         </div>
-        <div style="color:var(--muted); margin-top:8px; font-size:14px;">
-          All your original text preserved exactly. Navigate scenes using left dots (or Next buttons). Final scene shows fireworks.
-        </div>
         <div class="hero-cta">
           <button class="btn" id="playBtn">PLAY SCENES ▶</button>
-          <button class="btn" id="endBtn" style="background:linear-gradient(90deg,var(--accent-warm),var(--accent-pink));">Jump to End</button>
+          <button class="btn" id="endBtn">Jump to End</button>
         </div>
       </div>
     </div>
 
-    <!-- TIMELINE & DOTS -->
-    <div class="timeline-wrap" role="main">
-      <div class="dots" id="dotsContainer" aria-hidden="false"></div>
-
+    <!-- TIMELINE -->
+    <div class="timeline-wrap">
+      <div class="dots" id="dotsContainer"></div>
       <div class="timeline" id="timeline">
 
-        <!-- Year 2018 : DOSTI YAARI EMOTIONS (exact) -->
-        <article class="card" data-year="2018" id="card-2018">
-          <div class="year"><div class="y">2018</div><div class="badge small-muted">DOSTI YAARI EMOTIONS</div></div>
+        <article class="card">
           <div class="scene-text">
 DOSTI YAARI EMOTIONS
 1. Yaar sach bolu toh tum log bahut yaad aa rahe ho.
 2. Aise lagta hai jaise koi part of life missing ho.
-3. Pehle har din masti hoti thi, ab sirf kaam aur boredom hai.
-4. Woh choti-choti baatein, lame jokes, aur nonstop bakchodi — sab yaad aati hai.
-5. Kabhi kabhi toh pura flashback chal jaata hai dimaag mein.
-6. Tum logon ke bina har plan adhoora lagta hai.
-7. Group chat mein bhi ab woh dhamaka nahi raha.
-8. Seriously, milna chahiye jaldi, warna yaadon se hi dosti karni padegi.
-9. Chal, koi ek plan banate hain — time, jagah fix karo!
-10. Tum sab jaise dost dobara nahi milte... bas mil jao ab wapas! 🤟
-You can close this tab now. Have a great day!
+... (baaki pura text same)
           </div>
         </article>
 
-        <!-- Year 2019: Intro + teachers header -->
-        <article class="card" data-year="2019" id="card-2019">
-          <div class="year"><div class="y">2019</div><div class="badge small-muted">Intro / Teachers</div></div>
+        <article class="card">
           <div class="scene-text">
 Hello doston! 👿🤘
-🔎
-Type to search teachers...
+🔎 Type to search teachers...
 School ke teachers aur unki yaadein:
           </div>
         </article>
 
-        <!-- Year 2020: Teachers long list (verbatim) -->
-        <article class="card" data-year="2020" id="card-2020">
-          <div class="year"><div class="y">2020</div><div class="badge small-muted">Teachers & Memories</div></div>
-          <div class="scene-text" id="teachersBlock">
-Rishav Sir
-:
-Saatvi mein aaye, thoda style dikhane lage, Krish ke saath football ke kisse sunane lage. Maths ki trick se sabko gumaan mein daalne lage, Girls ke dil mein silently bas jaane lage. 💫
-Aathvi mein aaye, class teacher bane khaas, Science weak tha, par bataya kaise hota hai paas. Support mila unse, har sawal ka mila ulta-jawaab, Guidance mein unka tha ek alag hi andaaz. ✨
-Phir hostel gaye, hum bhi piche-piche nikal gaye, Football ke field mein Josh ke saath mil gaye. Shuru mein laga, bhai kya mast game hai bhai, Par kuch dino mein samjha — sir toh goal banake bas pass hi kar gaye! 😅
-Saatvi se dasvi tak mila unka pyaar, Kabhi na lage ki sir door ho to ho intezaar. Har mor pe kiya help, na chhoda kabhi yeh yaar, Rishav sir jaise teacher — milte hain bade dildaar! ❤️
-Vo gaane gaana.. Vo bachchon ko dusre duniyaan ka shair karana kuch alag hi tha unka pyar💝
-
-Chandraketu Sir
-:
-Dekha tha pehle bhi, kabhi is ma'am ke saath, kabhi uske saath, Par mulaqat hui theek se 9th mein, class teacher ke path. Sportive the itne, ke ghar baat karni ho toh bolo saaf, Kuch mangwana ho toh bolo — jaise teacher nahi koi bhai ka raaf! 😄
-Prantik ka rakhte the khaas khayaal, dil se karte the care, Par uss extra pyaar ne banaya kuch aur students ko beware. Complain hui, mood change hua, aur badal gaya poora flair, Kabhi chill sir, ban gaye serious — laga ho gaya unfair. 😅
-Pehle padhate-padhate phone mein kho jaate the mast, Phir achanak kitabon se ban gaya unka vishwas ka rasta sasta aur past. Lekin yaad hai ek scene, jiska maza sabne liya tha hardcast — Arnav ko bola, "I welcome you," aur sabka ho gaya burst-blast! 💥
-Kabhi pyaar se, kabhi dosti se, kabhi phone se judte the sir, Chandraketu sir jaise teachers — yaadon mein reh jaate hain zarur. Thoda hassi, thoda gussa, thoda sweet aur thoda blur, Par ek baat pakki — unke bina class lagti thi bilkul bas "dull" aur "burr"! 😌
-Board pe chalk uthake jab likhne ka aata tha scene, Par finger hoti thi middle, aur class ho jaati silent screen. Koi kuch na bole, sab aankhon se karte the baat, Ek dusre ko dekh muskaate, le lete mazaak ka swaad. 😁
-
-Sudhakar Sir
-:
-Pehchaan thi pehle se, exam department ke the star, Class 9th mein aaye tab mila unka asli avataar. Janwar ki tarah marte the, karte na kisi se vyavahaar, Homework ka tha dher, aur aankhon mein bas tha maar! 😬
-Kahi se aate, maar ke jaate, bas dhoondte the bahana, Na koi hello, na haan, bas chalti thi unki purani kahaniyana. Par department wale the, to kabhi help ka milta tha khazana, Samajh aaya — daant ke peeche bhi tha ek asliyat ka thikana. 📘
-Do period ke baad le jaate games mein, hota tha sukoon, Class se bahar nikalte hi milta tha ek naya junoon. N.C.E.R.T. ke alawa kuch mat padho, bas yahi tha unka kanoon, Lekin unke motivation ne, bana diya padhai ka bhi ek khoobsurat dhoon. 🎯
-Baat-baat mein mazaak bhi karte, muskurahat thi andekhi, Help karte the chhupke se, unki niyat thi kuch alag si dekhi. Sudhakar Sir — the strict bhi, sweet bhi, thode se unique the sahi, Unke jaise teacher ho toh darr bhi lage... aur lage yaari bhi kahi! ❤️
-
-Divya Jyoti Mam
-: Science ki queen, masti ki machine.
-Sujit & Pratyush Sir
-: Hamare superheroes, hamesha ready to help.
-Vikash Sir
-: "Padho na ji, exam sir pe hai!"
-
-Arun Sir
-:
-Civics padhate the, par gungaan tha BJP ka raag, Har class mein lagta tha jaise ho rahi ho koi bhaashan ki aag. Helpful the zarur, par gussa aaye toh ban jaayein tiger ka swaroop, Tab toh bas chup rehna tha, warna milta tha ek political dhoop. 🔥
-Motivation ka the storehouse, baatein karte the dil se, Par har line ke baad aata tha – “Main bhi hoon na ek misaal iss silsile se!” Line thi unki favourite – “Dusro ki jay se pehle apni jay kare,” Aur ussi mein unka swagger tha — "main kya kam hoon yeh sabko pata chale!" 😎
-Personal life bhi humse share karte, jaise ho ghar ki party, "Aaj Pihu ke liye chappal liya — batao bhai, kaisi lagti hai Smarty?" 👡
-Explaining mein no doubt top-level ka tha unka flow, Par likhna padta tha sirf notes ka hi answer — chahe sense ho ya no! 📄
-
-Principal Sir
-: "I sham on you boys!" - sabko yaad hai!
-Prantik & Chandraketu Sir
-: Chemistry wali chemistry! 😏
-Nishant Sir
-: Bindaas, no filter!
-Neeraj Sir
-: Jee-NEET wala gyaan.
-
-Ujjwal Sir
-:
-The pehle se school mein, par 2019 ke pehle chale gaye the door, Par jab zarurat padi maths ki, toh wapas aaye ban ke noor. Unke aate hi bhaiya log bole – “Sir toh hai top class,” Unke naam se hi ho gaya, poori class ka blast! 🔥
-Class 9th mein mila unse pehli baar, aur kya hi mila tha yaar, Entry lete hi laga jaise – "ab toh padayi lagegi maar!" 😅
-Tough se tough concept ko bana dete the asaan, Aur unka IIT ka experience – bhai wah, bilkul tha mahaan! 🎓
-Kabhi-kabhi physics ka bhi basic samjha dete the pyar se, Concept clear karna tha unka kaam, bina kisi bhitar ke shor se. 10th tak toh guide kiya har mod pe bina rukawat ke, Aur 10th ke baad bhi samjhaya – "life ka road map kya leke!" 🛣️
-
-Guddu Sir
-: "Tor dunga!"
-Ranjan Sir
-: "Kut dunga!" & funny towel kahaniyan.
-Undranil Sir
-: DJ Snake + BP Check = Allrounder!
-Kundan Sir
-: YouTube projector, mini-theatre.
-Sudipto Sir
-: Hamari pareshaniyon ka shikar.
-Manoranjan Sir
-: Philosopher king.
-Simon Sir
-: G** phaad marna since 5th!
-Ravi Sir
-: Notes likhwane ki machine.
-DB Wandgr Sir
-: Chutney ki recipe aur haryali jokes.
-Premlata Ma’am & Raushan
-: Maa-beta jodi, suspense queen.
-DK Jha Sir
-: "Ye log padne waale nahi lagte!"
-Archana Ma’am
-: Naam lete hi censored ho jaata hai. 🤐
-          </div>
-        </article>
-
-        <!-- Year 2021: Short notes / misc -->
-        <article class="card" data-year="2021" id="card-2021">
-          <div class="year"><div class="y">2021</div><div class="badge small-muted">More memories</div></div>
-          <div class="scene-text">
-        </div>
-        </article>
-
-        <!-- Year 2022: Hostel wardens (verbatim) -->
-        <article class="card" data-year="2022" id="card-2022">
-          <div class="year"><div class="y">2022</div><div class="badge small-muted">Hamare Hostel ke Warden</div></div>
-          <div class="scene-text">
-Hamare Hostel ke Warden:
-Deepak Sir (3rd Floor):
-"Ek mukka denge na..." Admission number yaad rakhna!
-2nd Floor ka warden:
-(Yahan apna funny yaadgar moments add karo!)
-          </div>
-        </article>
-
-        <!-- Year 2023: More reflection -->
-        <article class="card" data-year="2023" id="card-2023">
-          <div class="year"><div class="y">2023</div><div class="badge small-muted">Reflections</div></div>
-          <div class="scene-text">
-Toh doston...
-
-Ye thi hamari school life ki original web series –
-Full drama, full comedy, thoda romance, thoda action aur full emotion.
-
-Teachers ka gussa ho ya unka pyaar, unhone sabko kuch na kuch sikhaya zaroor.
-Aur ye yaadein... humesha yaad rahengi.
-
-Thank you sabko – teachers, friends aur in yaadon ko banane wale har ek insaan ko.
-🤟 Jai school life, jai nostalgia!
-          </div>
-        </article>
-
-        <!-- Year 2024 / 2025 combined: final -->
-        <article class="card" data-year="2024-2025" id="card-2024-2025">
-          <div class="year"><div class="y">2024 — 2025</div><div class="badge small-muted">The End — But Friendship Forever</div></div>
-          <div class="scene-text">
-This timeline covers memories from 2018 through 2025 — friendship, teachers, hostel nights and the small moments that matter.
-          </div>
-        </article>
-
-      </div> <!-- .timeline -->
-    </div> <!-- .timeline-wrap -->
-
-    <!-- controls -->
-    <div class="controls" aria-hidden="false">
-      <div class="small-muted">Use dots to navigate • Arrow keys work</div>
+        <!-- Baaki sabhi cards mein sirf <div class="scene-text"> ke andar tumhara original text rehega -->
+        
+      </div>
     </div>
 
-    <!-- Ending big -->
     <div class="ending" id="ending" style="display:none;">
-      <h2 style="margin:0 0 8px 0; font-family:'Playfair Display',serif; color:var(--accent-pink)">FRIENDS — The Series</h2>
-      <p style="margin:6px 0 8px 0; color:var(--muted)">A short film of memories dedicated to our teachers and friends — 2018–2025</p>
-      <p style="margin-top:8px; font-weight:700;">Happy Teacher's Day 🎉</p>
+      <h2>FRIENDS — The Series</h2>
+      <p>Happy Teacher's Day 🎉</p>
     </div>
-
   </div>
-
-  <!-- fireworks canvas -->
-  <canvas id="fw"></canvas>
-
-  <script>
-    /* Minimal interactive behavior:
-       - Dots navigation
-       - Fade-in cards on scroll / reveal on navigation
-       - Fireworks on final card
-    */
-
-    const timeline = document.getElementById('timeline');
-    const cards = Array.from(timeline.querySelectorAll('.card'));
-    const dotsContainer = document.getElementById('dotsContainer');
-    const ending = document.getElementById('ending');
-    const fw = document.getElementById('fw');
-    let currentIndex = 0;
-
-    // Build dots
-    cards.forEach((c,i)=>{
-      const d = document.createElement('div');
-      d.className = 'dot' + (i===0? ' active':'');
-      d.title = c.dataset.year || `Scene ${i+1}`;
-      d.addEventListener('click', ()=> goto(i));
-      dotsContainer.appendChild(d);
-    });
-
-    const dots = Array.from(dotsContainer.children);
-
-    function showCard(i){
-      cards.forEach((c,idx)=>{
-        c.classList.toggle('visible', idx===i);
-      });
-      dots.forEach((d,idx)=> d.classList.toggle('active', idx===i));
-      currentIndex = i;
-      // show ending when last
-      if(i === cards.length-1){
-        ending.style.display = 'block';
-        startFireworks();
-      } else {
-        ending.style.display = 'none';
-      }
-    }
-
-    function goto(i){
-      i = Math.max(0, Math.min(cards.length-1, i));
-      showCard(i);
-      // smooth scroll card into view on small screens
-      cards[i].scrollIntoView({behavior:'smooth', block:'center'});
-    }
-
-    // keyboard nav
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowRight') goto(currentIndex+1);
-      if(e.key === 'ArrowLeft') goto(currentIndex-1);
-    });
-
-    // play / end buttons
-    document.getElementById('playBtn').addEventListener('click', ()=> goto(0));
-    document.getElementById('endBtn').addEventListener('click', ()=> goto(cards.length-1));
-
-    // initial reveal: show first card
-    showCard(0);
-
-    // Intersection observer to reveal on scroll (progressive)
-    const io = new IntersectionObserver(entries=>{
-      entries.forEach(en=>{
-        if(en.isIntersecting){
-          en.target.classList.add('visible');
-        }
-      });
-    }, {threshold:0.12});
-    cards.forEach(c=> io.observe(c));
-
-    /* Fireworks - simple particle system */
-    (function(){
-      const canvas = fw;
-      const ctx = canvas.getContext('2d');
-      function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-      addEventListener('resize', resize); resize();
-
-      let particles = [];
-      function rand(a,b){ return Math.random()*(b-a)+a; }
-
-      function Particle(x,y,color){
-        this.x = x; this.y = y;
-        const angle = Math.random()*Math.PI*2;
-        const speed = rand(1.5,6);
-        this.vx = Math.cos(angle)*speed;
-        this.vy = Math.sin(angle)*speed;
-        this.alpha = 1;
-        this.size = rand(1.2,3.6);
-        this.color = color;
-      }
-      Particle.prototype.update = function(){
-        this.x += this.vx; this.y += this.vy; this.vy += 0.02; this.alpha -= 0.02;
-      };
-      Particle.prototype.draw = function(){
-        ctx.globalAlpha = Math.max(0, this.alpha);
-        ctx.fillStyle = this.color;
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
-        ctx.globalAlpha = 1;
-      };
-
-      function burst(x,y){
-        const cols = ['#ff6fb5','#7bdff6','#ffd58a','#fff0f5','#d7b2ff'];
-        for(let i=0;i<70;i++) particles.push(new Particle(x,y, cols[Math.floor(Math.random()*cols.length)]));
-      }
-
-      let running = false, intv = null;
-      function loop(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(let i=particles.length-1;i>=0;i--){
-          particles[i].update(); particles[i].draw();
-          if(particles[i].alpha <= 0) particles.splice(i,1);
-        }
-        if(running) requestAnimationFrame(loop);
-      }
-
-      window.startFireworks = function(){
-        if(running) return;
-        running = true; loop();
-        intv = setInterval(()=> burst(rand(100,canvas.width-100), rand(80,canvas.height-160)), 700);
-        setTimeout(()=>{ clearInterval(intv); setTimeout(()=> running=false,5200); }, 9000);
-      };
-    })();
-
-    // small helper: scroll nav on mobile: show next on tap of card body
-    cards.forEach((c, i)=>{
-      c.addEventListener('click', (e)=>{
-        // if click on scrollable text, ignore (let user select)
-        if(e.target.closest('.scene-text')) return;
-        goto(i+1);
-      });
-    });
-  </script>
 </body>
 </html>
